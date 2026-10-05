@@ -24,9 +24,9 @@ exports[`aurora theme > renders a post card with metrics, media and date 1`] = `
 <text class="body" x="28" y="102" font-size="17" fill="#ffffff">just setting up my twttr</text>
 <text x="28" y="126" font-size="12" fill="#ffffff" fill-opacity=".6">📎 2 photos · 1 video</text>
 <text x="28" y="162" font-size="13" fill="#ffffff" fill-opacity=".75">💬 18.1K</text>
-<text x="107" y="162" font-size="13" fill="#ffffff" fill-opacity=".75">🔁 124.7K</text>
-<text x="193" y="162" font-size="13" fill="#ffffff" fill-opacity=".75">♡ 309.4K</text>
-<text x="273" y="162" font-size="13" fill="#ffffff" fill-opacity=".75">👁 1.2M</text>
+<text x="109" y="162" font-size="13" fill="#ffffff" fill-opacity=".75">🔁 124.7K</text>
+<text x="197" y="162" font-size="13" fill="#ffffff" fill-opacity=".75">♡ 309.4K</text>
+<text x="279" y="162" font-size="13" fill="#ffffff" fill-opacity=".75">👁 1.2M</text>
 </svg>"
 `;
 

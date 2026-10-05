@@ -54,11 +54,14 @@ function renderProfile(p: Profile, avatarUri: string | null): string {
 
 function renderPost(post: Post, avatarUri: string | null): string {
   const name = oneLine(post.author.name, 200, 13);
-  const lines = wrapText(`"${post.text}"`, { maxWidth: W - 48, fontSize: 14, maxLines: 4, mono: true });
+  // Media-only posts have no text: skip the quoted line instead of rendering "".
+  const lines = post.text.trim()
+    ? wrapText(`"${post.text}"`, { maxWidth: W - 48, fontSize: 14, maxLines: 4, mono: true })
+    : [];
   const media = mediaSummary(post.media);
   const day = post.createdAt.slice(0, 10);
 
-  let y = 112 + (lines.length - 1) * 20;
+  let y = lines.length ? 112 + (lines.length - 1) * 20 : 88;
   const mediaY = media ? (y += 22) : 0;
   const statsY = y + 34;
   const height = statsY + 26;

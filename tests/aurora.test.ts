@@ -71,6 +71,13 @@ describe('aurora theme', () => {
     expect(svg).toMatch(/>A+…<\/text>/);
   });
 
+  it('cuts an all-caps name early enough to fit the card', () => {
+    const svg = aurora.renderProfile({ ...sampleLongNameProfile, name: 'W'.repeat(30) }, null);
+    expectValidSvg(svg);
+    // 280px budget at 20px: about 15 capital W's, not the 24 a lowercase-width estimate allows.
+    expect(svg).toMatch(/>W{10,15}…<\/text>/);
+  });
+
   it('falls back to an initial when there is no avatar', () => {
     const svg = aurora.renderProfile(sampleProfile, null);
     expectValidSvg(svg);

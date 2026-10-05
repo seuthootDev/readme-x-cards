@@ -46,6 +46,12 @@ describe('measure', () => {
     expect(measure('a', 10)).toBeCloseTo(5.6);
     expect(measure('a', 10, true)).toBeCloseTo(6);
   });
+  it('estimates capitals wider so all-caps names do not overflow', () => {
+    expect(measure('A', 10)).toBeCloseTo(7);
+    expect(measure('W', 10)).toBeCloseTo(9);
+    expect(measure('M', 10)).toBeCloseTo(9);
+    expect(measure('W', 10, true)).toBeCloseTo(6);
+  });
 });
 
 describe('wrapText', () => {

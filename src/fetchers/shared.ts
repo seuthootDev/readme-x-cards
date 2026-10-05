@@ -17,8 +17,9 @@ export async function getJson(url: string, notFoundMessage: string, timeoutMs = 
     throw new CardError('UPSTREAM', UPSTREAM_MESSAGE);
   }
 
-  if (res.status === 429 || res.status >= 500) throw new CardError('UPSTREAM', UPSTREAM_MESSAGE);
-  if (res.status < 200 || res.status >= 300) throw new CardError('NOT_FOUND', notFoundMessage);
+  // Only 404 and redirects mean "does not exist"; any other non-2xx (403 blocks, 429, 5xx) is an outage.
+  if (res.status === 404 || (res.status >= 300 && res.status < 400)) throw new CardError('NOT_FOUND', notFoundMessage);
+  if (res.status < 200 || res.status >= 300) throw new CardError('UPSTREAM', UPSTREAM_MESSAGE);
 
   try {
     return await res.json();

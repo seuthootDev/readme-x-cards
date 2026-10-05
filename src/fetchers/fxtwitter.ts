@@ -79,8 +79,8 @@ export async function fetchProfile(username: string): Promise<Profile> {
   return toProfile(data.user);
 }
 
-export async function fetchPost(id: string): Promise<Post> {
-  const data = (await getJson(`${BASE}/i/status/${id}`, 'Post not found')) as { code?: number; tweet?: FxStatus };
+export async function fetchPost(id: string, timeoutMs?: number): Promise<Post> {
+  const data = (await getJson(`${BASE}/i/status/${id}`, 'Post not found', timeoutMs)) as { code?: number; tweet?: FxStatus };
   if (data?.code !== 200 || !data.tweet) throw new CardError('NOT_FOUND', 'Post not found');
   return toPost(data.tweet);
 }

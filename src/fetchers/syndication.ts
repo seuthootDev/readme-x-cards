@@ -30,9 +30,9 @@ function decodeEntities(s: string): string {
   return s.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
 }
 
-export async function fetchPost(id: string): Promise<Post> {
+export async function fetchPost(id: string, timeoutMs?: number): Promise<Post> {
   const url = `${BASE}?id=${id}&lang=en&token=${syndicationToken(id)}`;
-  const tweet = (await getJson(url, 'Post not found')) as SynTweet;
+  const tweet = (await getJson(url, 'Post not found', timeoutMs)) as SynTweet;
   if (tweet?.__typename !== 'Tweet' || !tweet.id_str || !tweet.user || typeof tweet.text !== 'string') {
     throw new CardError('NOT_FOUND', 'Post not found');
   }

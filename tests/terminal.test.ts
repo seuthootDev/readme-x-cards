@@ -72,6 +72,14 @@ describe('terminal theme', () => {
     expect(svg).toContain('likes');
   });
 
+  it('omits the quoted body for media-only posts', () => {
+    const svg = terminal.renderPost({ ...samplePost, text: '' }, null);
+    expectValidSvg(svg);
+    expect(svg).not.toContain('class="body"');
+    expect(svg).not.toContain('&quot;&quot;');
+    expect(svg).toContain('[2 photos · 1 video]');
+  });
+
   it('escapes and wraps hostile text', () => {
     const svg = terminal.renderPost(sampleNastyPost, null);
     expectValidSvg(svg);

@@ -61,7 +61,7 @@ describe('fetchProfile', () => {
     await expect(fetchProfile('Seuthoot')).rejects.toMatchObject({ kind: 'NOT_FOUND', message: 'Account is private' });
   });
 
-  it.each([429, 500, 503])('treats HTTP %d as UPSTREAM', async (status) => {
+  it.each([400, 401, 403, 429, 500, 503])('treats HTTP %d as UPSTREAM', async (status) => {
     mockFetch(() => jsonResponse({}, status));
     await expect(fetchProfile('Seuthoot')).rejects.toMatchObject({
       kind: 'UPSTREAM',

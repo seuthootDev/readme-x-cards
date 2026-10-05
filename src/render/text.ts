@@ -53,12 +53,19 @@ function isWide(cp: number): boolean {
   );
 }
 
+function sansWidth(ch: string): number {
+  if (ch === 'W' || ch === 'M') return 0.9;
+  if (ch >= 'A' && ch <= 'Z') return 0.7;
+  return 0.56;
+}
+
 // No font metrics in a serverless SVG renderer, so widths are estimated:
-// full-width glyphs = fontSize, everything else = 0.56em (sans) / 0.6em (mono).
+// full-width glyphs = fontSize; sans capitals 0.7em (W/M 0.9em), other sans 0.56em; mono 0.6em.
 export function measure(text: string, fontSize: number, mono = false): number {
   let width = 0;
   for (const ch of text) {
-    width += isWide(ch.codePointAt(0)!) ? fontSize : fontSize * (mono ? 0.6 : 0.56);
+    if (isWide(ch.codePointAt(0)!)) width += fontSize;
+    else width += fontSize * (mono ? 0.6 : sansWidth(ch));
   }
   return width;
 }

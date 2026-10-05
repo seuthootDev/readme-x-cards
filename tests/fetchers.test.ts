@@ -27,6 +27,14 @@ describe('getPostById', () => {
     await expect(getPostById('1')).rejects.toMatchObject({ kind: 'NOT_FOUND', message: 'Post not found' });
   });
 
+  it('splits one 5s source budget across the fallback chain', async () => {
+    const timeout = vi.spyOn(AbortSignal, 'timeout');
+    mockFetch((url) => (isSyndication(url) ? jsonResponse({}, 503) : jsonResponse(fxPost)));
+    await getPostById('20');
+    expect(timeout.mock.calls.map(([ms]) => ms)).toEqual([2500, 2500]);
+    timeout.mockRestore();
+  });
+
   it('is UPSTREAM when both fail and at least one is an outage', async () => {
     mockFetch((url) => (isSyndication(url) ? htmlResponse(404) : jsonResponse({}, 500)));
     await expect(getPostById('20')).rejects.toMatchObject({ kind: 'UPSTREAM' });
