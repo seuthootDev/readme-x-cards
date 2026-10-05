@@ -1,0 +1,23 @@
+{
+  "code": 200,
+  "message": "OK",
+  "user": {
+    "screen_name": "Seuthoot",
+    "url": "https://x.com/Seuthoot",
+    "id": "1896512501552128000",
+    "followers": 0,
+    "following": 0,
+    "likes": 0,
+    "media_count": 0,
+    "tweets": 1,
+    "name": "Seunghoon Jung",
+    "description": "",
+    "location": "Seoul",
+    "banner_url": "",
+    "avatar_url": "https://pbs.twimg.com/profile_images/2094700677599825920/2O5dxII5_normal.jpg",
+    "joined": "Mon Mar 03 10:46:41 +0000 2025",
+    "protected": false,
+    "website": null,
+    "verification": { "verified": false, "verified_at": null, "type": null }
+  }
+}

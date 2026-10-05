@@ -1,0 +1,28 @@
+{
+  "code": 200,
+  "results": [
+    {
+      "type": "status",
+      "url": "https://x.com/Seuthoot/status/2094701798535885304",
+      "id": "2094701798535885304",
+      "text": "Hello! Starting today. 👋",
+      "author": {
+        "screen_name": "Seuthoot",
+        "name": "Seunghoon Jung",
+        "avatar_url": "https://pbs.twimg.com/profile_images/2094700677599825920/2O5dxII5_200x200.jpg",
+        "verification": { "verified": false, "verified_at": null, "type": null }
+      },
+      "replies": 0,
+      "reposts": 0,
+      "likes": 0,
+      "bookmarks": 0,
+      "quotes": 0,
+      "created_at": "Tue Sep 01 08:20:01 +0000 2026",
+      "created_timestamp": 1788250801,
+      "views": 7,
+      "media": {},
+      "reposted_by": null
+    }
+  ],
+  "cursor": { "top": null, "bottom": null }
+}
