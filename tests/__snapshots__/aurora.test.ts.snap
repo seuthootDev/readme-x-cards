@@ -1,0 +1,116 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`aurora theme > renders a post card with metrics, media and date 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" width="450" height="196" viewBox="0 0 450 196" role="img" aria-label="Post by @jack on X" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif">
+<title>Post by @jack on X</title>
+<defs>
+<clipPath id="card"><rect width="450" height="196" rx="18"/></clipPath>
+<radialGradient id="g1" cx="15%" cy="10%" r="70%"><stop offset="0" stop-color="#7c3aed"/><stop offset="1" stop-color="#7c3aed" stop-opacity="0"/></radialGradient>
+<radialGradient id="g2" cx="95%" cy="100%" r="70%"><stop offset="0" stop-color="#06b6d4"/><stop offset="1" stop-color="#06b6d4" stop-opacity="0"/></radialGradient>
+<radialGradient id="g3" cx="70%" cy="0%" r="50%"><stop offset="0" stop-color="#ec4899" stop-opacity=".8"/><stop offset="1" stop-color="#ec4899" stop-opacity="0"/></radialGradient>
+</defs>
+<g clip-path="url(#card)">
+<rect width="450" height="196" fill="#0b0b14"/>
+<rect width="450" height="196" fill="url(#g1)"/>
+<rect width="450" height="196" fill="url(#g2)"/>
+<rect width="450" height="196" fill="url(#g3)"/>
+<rect x="12" y="12" width="426" height="172" rx="14" fill="#ffffff" fill-opacity=".08" stroke="#ffffff" stroke-opacity=".18"/>
+</g>
+<clipPath id="avatar"><circle cx="46" cy="46" r="20"/></clipPath>
+<image href="data:image/jpeg;base64,AQID" x="26" y="26" width="40" height="40" clip-path="url(#avatar)"/>
+<text x="78" y="42" font-size="15" font-weight="700" fill="#ffffff">jack</text>
+<g transform="translate(124 37)"><circle r="8" fill="#1d9bf0"/><path d="M-3.5 0.2 L-1 2.7 L3.8 -2.4" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
+<text x="78" y="61" font-size="13" fill="#ffffff" fill-opacity=".6">@jack · Mar 21, 2006</text>
+<text class="body" x="28" y="102" font-size="17" fill="#ffffff">just setting up my twttr</text>
+<text x="28" y="126" font-size="12" fill="#ffffff" fill-opacity=".6">📎 2 photos · 1 video</text>
+<text x="28" y="162" font-size="13" fill="#ffffff" fill-opacity=".75">💬 18.1K</text>
+<text x="107" y="162" font-size="13" fill="#ffffff" fill-opacity=".75">🔁 124.7K</text>
+<text x="193" y="162" font-size="13" fill="#ffffff" fill-opacity=".75">♡ 309.4K</text>
+<text x="273" y="162" font-size="13" fill="#ffffff" fill-opacity=".75">👁 1.2M</text>
+</svg>"
+`;
+
+exports[`aurora theme > renders a profile card 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" width="450" height="170" viewBox="0 0 450 170" role="img" aria-label="Seunghoon Jung (@Seuthoot) on X" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif">
+<title>Seunghoon Jung (@Seuthoot) on X</title>
+<defs>
+<clipPath id="card"><rect width="450" height="170" rx="18"/></clipPath>
+<radialGradient id="g1" cx="15%" cy="10%" r="70%"><stop offset="0" stop-color="#7c3aed"/><stop offset="1" stop-color="#7c3aed" stop-opacity="0"/></radialGradient>
+<radialGradient id="g2" cx="95%" cy="100%" r="70%"><stop offset="0" stop-color="#06b6d4"/><stop offset="1" stop-color="#06b6d4" stop-opacity="0"/></radialGradient>
+<radialGradient id="g3" cx="70%" cy="0%" r="50%"><stop offset="0" stop-color="#ec4899" stop-opacity=".8"/><stop offset="1" stop-color="#ec4899" stop-opacity="0"/></radialGradient>
+</defs>
+<g clip-path="url(#card)">
+<rect width="450" height="170" fill="#0b0b14"/>
+<rect width="450" height="170" fill="url(#g1)"/>
+<rect width="450" height="170" fill="url(#g2)"/>
+<rect width="450" height="170" fill="url(#g3)"/>
+<rect x="12" y="12" width="426" height="146" rx="14" fill="#ffffff" fill-opacity=".08" stroke="#ffffff" stroke-opacity=".18"/>
+</g>
+<circle cx="58" cy="58" r="36" fill="none" stroke="#ffffff" stroke-opacity=".5" stroke-width="2"/>
+<clipPath id="avatar"><circle cx="58" cy="58" r="34"/></clipPath>
+<image href="data:image/jpeg;base64,AQID" x="24" y="24" width="68" height="68" clip-path="url(#avatar)"/>
+<text x="110" y="52" font-size="20" font-weight="700" fill="#ffffff">Seunghoon Jung</text>
+
+<text x="110" y="75" font-size="14" fill="#ffffff" fill-opacity=".65">@Seuthoot</text>
+<rect x="28" y="114" width="110" height="30" rx="15" fill="#ffffff" fill-opacity=".12"/>
+<text x="83" y="134" text-anchor="middle" font-size="13" fill="#ffffff"><tspan font-weight="700">1</tspan> <tspan fill-opacity=".7">Posts</tspan></text>
+<rect x="148" y="114" width="130" height="30" rx="15" fill="#ffffff" fill-opacity=".12"/>
+<text x="213" y="134" text-anchor="middle" font-size="13" fill="#ffffff"><tspan font-weight="700">0</tspan> <tspan fill-opacity=".7">Followers</tspan></text>
+<rect x="288" y="114" width="130" height="30" rx="15" fill="#ffffff" fill-opacity=".12"/>
+<text x="353" y="134" text-anchor="middle" font-size="13" fill="#ffffff"><tspan font-weight="700">0</tspan> <tspan fill-opacity=".7">Following</tspan></text>
+</svg>"
+`;
+
+exports[`aurora theme > renders an error card 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" width="450" height="110" viewBox="0 0 450 110" role="img" aria-label="User not found" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif">
+<title>User not found</title>
+<defs>
+<clipPath id="card"><rect width="450" height="110" rx="18"/></clipPath>
+<radialGradient id="g1" cx="15%" cy="10%" r="70%"><stop offset="0" stop-color="#7c3aed"/><stop offset="1" stop-color="#7c3aed" stop-opacity="0"/></radialGradient>
+<radialGradient id="g2" cx="95%" cy="100%" r="70%"><stop offset="0" stop-color="#06b6d4"/><stop offset="1" stop-color="#06b6d4" stop-opacity="0"/></radialGradient>
+<radialGradient id="g3" cx="70%" cy="0%" r="50%"><stop offset="0" stop-color="#ec4899" stop-opacity=".8"/><stop offset="1" stop-color="#ec4899" stop-opacity="0"/></radialGradient>
+</defs>
+<g clip-path="url(#card)">
+<rect width="450" height="110" fill="#0b0b14"/>
+<rect width="450" height="110" fill="url(#g1)"/>
+<rect width="450" height="110" fill="url(#g2)"/>
+<rect width="450" height="110" fill="url(#g3)"/>
+<rect x="12" y="12" width="426" height="86" rx="14" fill="#ffffff" fill-opacity=".08" stroke="#ffffff" stroke-opacity=".18"/>
+</g>
+<text x="225" y="58" text-anchor="middle" font-size="16" font-weight="600" fill="#ffffff">⚠ User not found</text>
+<text x="225" y="82" text-anchor="middle" font-size="12" fill="#ffffff" fill-opacity=".5">readme-x-cards</text>
+</svg>"
+`;
+
+exports[`aurora theme > renders bio (max 2 lines, escaped), verified badge and big numbers 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" width="450" height="206" viewBox="0 0 450 206" role="img" aria-label="jack (@jack) on X" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif">
+<title>jack (@jack) on X</title>
+<defs>
+<clipPath id="card"><rect width="450" height="206" rx="18"/></clipPath>
+<radialGradient id="g1" cx="15%" cy="10%" r="70%"><stop offset="0" stop-color="#7c3aed"/><stop offset="1" stop-color="#7c3aed" stop-opacity="0"/></radialGradient>
+<radialGradient id="g2" cx="95%" cy="100%" r="70%"><stop offset="0" stop-color="#06b6d4"/><stop offset="1" stop-color="#06b6d4" stop-opacity="0"/></radialGradient>
+<radialGradient id="g3" cx="70%" cy="0%" r="50%"><stop offset="0" stop-color="#ec4899" stop-opacity=".8"/><stop offset="1" stop-color="#ec4899" stop-opacity="0"/></radialGradient>
+</defs>
+<g clip-path="url(#card)">
+<rect width="450" height="206" fill="#0b0b14"/>
+<rect width="450" height="206" fill="url(#g1)"/>
+<rect width="450" height="206" fill="url(#g2)"/>
+<rect width="450" height="206" fill="url(#g3)"/>
+<rect x="12" y="12" width="426" height="182" rx="14" fill="#ffffff" fill-opacity=".08" stroke="#ffffff" stroke-opacity=".18"/>
+</g>
+<circle cx="58" cy="58" r="36" fill="none" stroke="#ffffff" stroke-opacity=".5" stroke-width="2"/>
+<clipPath id="avatar"><circle cx="58" cy="58" r="34"/></clipPath>
+<image href="data:image/jpeg;base64,AQID" x="24" y="24" width="68" height="68" clip-path="url(#avatar)"/>
+<text x="110" y="52" font-size="20" font-weight="700" fill="#ffffff">jack</text>
+<g transform="translate(169 45)"><circle r="8" fill="#1d9bf0"/><path d="M-3.5 0.2 L-1 2.7 L3.8 -2.4" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
+<text x="110" y="75" font-size="14" fill="#ffffff" fill-opacity=".65">@jack</text>
+<text x="28" y="116" font-size="13" fill="#ffffff" fill-opacity=".85">no state is the best state &amp; &lt;b&gt;tags&lt;/b&gt; &quot;quoted&quot; —</text>
+<text x="28" y="134" font-size="13" fill="#ffffff" fill-opacity=".85">그리고 아주 긴 한국어 소개글이 두 줄을 넘어가면 말줄임표로…</text>
+<rect x="28" y="150" width="110" height="30" rx="15" fill="#ffffff" fill-opacity=".12"/>
+<text x="83" y="170" text-anchor="middle" font-size="13" fill="#ffffff"><tspan font-weight="700">31K</tspan> <tspan fill-opacity=".7">Posts</tspan></text>
+<rect x="148" y="150" width="130" height="30" rx="15" fill="#ffffff" fill-opacity=".12"/>
+<text x="213" y="170" text-anchor="middle" font-size="13" fill="#ffffff"><tspan font-weight="700">12.5M</tspan> <tspan fill-opacity=".7">Followers</tspan></text>
+<rect x="288" y="150" width="130" height="30" rx="15" fill="#ffffff" fill-opacity=".12"/>
+<text x="353" y="170" text-anchor="middle" font-size="13" fill="#ffffff"><tspan font-weight="700">3</tspan> <tspan fill-opacity=".7">Following</tspan></text>
+</svg>"
+`;
