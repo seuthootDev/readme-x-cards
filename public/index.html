@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>readme-x-cards</title>
+  <meta name="description" content="X profile and post cards for your GitHub README. Free, no sign-up.">
+  <style>
+    :root { color-scheme: dark; --bg: #07070d; --panel: rgba(255,255,255,.06); --line: rgba(255,255,255,.14); --text: #f4f4f8; --muted: #a1a1b5; --accent: #8b5cf6; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; color: var(--text); background:
+      radial-gradient(60% 50% at 10% 0%, rgba(124,58,237,.35), transparent 70%),
+      radial-gradient(50% 50% at 100% 100%, rgba(6,182,212,.25), transparent 70%),
+      radial-gradient(40% 40% at 70% 0%, rgba(236,72,153,.2), transparent 70%), var(--bg); }
+    main { max-width: 720px; margin: 0 auto; padding: 56px 16px 80px; }
+    h1 { font-size: clamp(28px, 6vw, 40px); margin: 0 0 8px; letter-spacing: -.02em; }
+    .lead { color: var(--muted); margin: 0 0 32px; }
+    .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 20px; backdrop-filter: blur(12px); }
+    label.field { display: block; font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+    input[type=text] { width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid var(--line); background: rgba(0,0,0,.35); color: var(--text); font-size: 16px; }
+    input[type=text]:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+    .row { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 16px; align-items: center; }
+    .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
+    .seg input { position: absolute; opacity: 0; pointer-events: none; }
+    .seg label { padding: 7px 14px; font-size: 14px; cursor: pointer; color: var(--muted); }
+    .seg input:checked + label { background: rgba(255,255,255,.14); color: var(--text); }
+    .seg input:focus-visible + label { outline: 2px solid var(--accent); }
+    select { padding: 7px 10px; border-radius: 8px; background: rgba(0,0,0,.35); color: var(--text); border: 1px solid var(--line); }
+    .error { color: #ff8a8a; font-size: 14px; min-height: 20px; margin-top: 10px; }
+    .preview { margin: 24px 0; min-height: 170px; display: flex; align-items: center; justify-content: center; }
+    .preview img { max-width: 100%; height: auto; }
+    .snippet { position: relative; margin-top: 12px; }
+    .snippet pre { margin: 0; padding: 14px 84px 14px 14px; border-radius: 10px; background: rgba(0,0,0,.45); border: 1px solid var(--line); overflow-x: auto; font-size: 13px; white-space: pre-wrap; word-break: break-all; }
+    .snippet button { position: absolute; top: 8px; right: 8px; padding: 6px 12px; border-radius: 8px; border: 1px solid var(--line); background: rgba(255,255,255,.1); color: var(--text); cursor: pointer; }
+    .hidden { display: none; }
+    footer { margin-top: 40px; font-size: 13px; color: var(--muted); }
+    footer a { color: var(--text); }
+  </style>
+</head>
+<body>
+<main>
+  <h1>readme-x-cards</h1>
+  <p class="lead">Put your X profile or posts on your GitHub README. Free, no sign-up, auto-updating.</p>
+
+  <section class="panel">
+    <label class="field" for="input">X username, profile link, or post link</label>
+    <input id="input" type="text" placeholder="@Seuthoot or https://x.com/Seuthoot/status/…" autocomplete="off" spellcheck="false">
+    <div class="error" id="error" role="status"></div>
+
+    <div class="row" id="kind-row">
+      <div class="seg" role="radiogroup" aria-label="Card type">
+        <input type="radio" name="kind" id="kind-profile" value="profile" checked><label for="kind-profile">Profile</label>
+        <input type="radio" name="kind" id="kind-latest" value="latest"><label for="kind-latest">Latest post</label>
+      </div>
+      <label id="index-wrap" class="hidden">#
+        <select id="index">
+          <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="row">
+      <div class="seg" role="radiogroup" aria-label="Theme">
+        <input type="radio" name="theme" id="theme-aurora" value="aurora" checked><label for="theme-aurora">Aurora</label>
+        <input type="radio" name="theme" id="theme-terminal" value="terminal"><label for="theme-terminal">Terminal</label>
+      </div>
+    </div>
+  </section>
+
+  <div class="preview" id="preview"></div>
+
+  <section id="output" class="hidden">
+    <div class="snippet"><pre id="markdown"></pre><button type="button" data-copy="markdown">Copy</button></div>
+    <div class="snippet"><pre id="html"></pre><button type="button" data-copy="html">Copy</button></div>
+  </section>
+
+  <footer>
+    Open source (MIT) · <a href="https://github.com/">GitHub</a> · Data comes from unofficial public sources and may stop working at any time.
+  </footer>
+</main>
+
+<script type="module">
+  import { buildCardUrl, buildSnippets, linkFor, parseInput } from './parse-input.js';
+
+  const $ = (id) => document.getElementById(id);
+  const input = $('input');
+  let timer;
+
+  function selection() {
+    const parsed = parseInput(input.value);
+    if (!parsed) return null;
+    const theme = document.querySelector('input[name=theme]:checked').value;
+    if (parsed.type === 'post') return { kind: 'post', id: parsed.id, username: parsed.username, theme };
+    const kind = document.querySelector('input[name=kind]:checked').value;
+    return kind === 'latest'
+      ? { kind, username: parsed.username, index: Number($('index').value), theme }
+      : { kind: 'profile', username: parsed.username, theme };
+  }
+
+  function render() {
+    const raw = input.value.trim();
+    const sel = selection();
+    const isPost = sel?.kind === 'post';
+    $('kind-row').classList.toggle('hidden', isPost);
+    $('index-wrap').classList.toggle('hidden', sel?.kind !== 'latest');
+    $('error').textContent = raw && !sel ? 'Enter a valid X username or x.com link.' : '';
+
+    if (!sel) {
+      $('preview').replaceChildren();
+      $('output').classList.add('hidden');
+      return;
+    }
+
+    const cardUrl = buildCardUrl(location.origin, sel);
+    const alt = sel.kind === 'profile' ? 'X profile' : 'X post';
+    const img = new Image();
+    img.src = cardUrl;
+    img.alt = alt;
+    img.width = 450;
+    $('preview').replaceChildren(img);
+
+    const { markdown, html } = buildSnippets(cardUrl, linkFor(sel), alt);
+    $('markdown').textContent = markdown;
+    $('html').textContent = html;
+    $('output').classList.remove('hidden');
+  }
+
+  input.addEventListener('input', () => {
+    clearTimeout(timer);
+    timer = setTimeout(render, 400);
+  });
+  document.querySelectorAll('input[type=radio], select').forEach((el) => el.addEventListener('change', render));
+  document.querySelectorAll('[data-copy]').forEach((button) => {
+    button.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText($(button.dataset.copy).textContent);
+        button.textContent = 'Copied';
+      } catch {
+        button.textContent = 'Select & copy';
+      }
+      setTimeout(() => (button.textContent = 'Copy'), 1500);
+    });
+  });
+
+  const fromQuery = new URLSearchParams(location.search).get('user');
+  input.value = fromQuery ?? 'Seuthoot';
+  render();
+</script>
+</body>
+</html>
