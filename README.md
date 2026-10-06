@@ -7,20 +7,20 @@ X (Twitter) profile and post cards for your GitHub README. Free, no sign-up, no 
 | ![aurora profile](docs/previews/aurora-profile.svg) | ![terminal profile](docs/previews/terminal-profile.svg) |
 | ![aurora post](docs/previews/aurora-famous.svg) | ![terminal post](docs/previews/terminal-famous.svg) |
 
-**Try it:** https://YOUR-DEPLOYMENT/ — type your username, pick a theme, copy the snippet.
+**Try it:** https://readme-x-cards.vercel.app/ — type your username, pick a theme, copy the snippet.
 
 ## Usage
 
 ### Profile card
 
 ```md
-[![X profile](https://YOUR-DEPLOYMENT/api/profile?user=Seuthoot)](https://x.com/Seuthoot)
+[![X profile](https://readme-x-cards.vercel.app/api/profile?user=Seuthoot)](https://x.com/Seuthoot)
 ```
 
 ### Latest post (auto-updates)
 
 ```md
-[![X post](https://YOUR-DEPLOYMENT/api/post?user=Seuthoot)](https://x.com/Seuthoot)
+[![X post](https://readme-x-cards.vercel.app/api/post?user=Seuthoot)](https://x.com/Seuthoot)
 ```
 
 Want your three latest posts? Add three lines with `index=1`, `index=2`, `index=3`.
@@ -28,7 +28,7 @@ Want your three latest posts? Add three lines with `index=1`, `index=2`, `index=
 ### A specific post
 
 ```md
-[![X post](https://YOUR-DEPLOYMENT/api/post?id=20)](https://x.com/jack/status/20)
+[![X post](https://readme-x-cards.vercel.app/api/post?id=20)](https://x.com/jack/status/20)
 ```
 
 ## Options
