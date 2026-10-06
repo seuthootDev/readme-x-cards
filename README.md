@@ -49,7 +49,7 @@ Cards are cached: profiles for 6 hours, latest posts for 1 hour, specific posts 
 
 ## Deploy your own
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FOWNER%2Freadme-x-cards)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FseuthootDev%2Freadme-x-cards)
 
 No environment variables needed. Running your own instance keeps your cards working even if the public one is rate-limited.
 
