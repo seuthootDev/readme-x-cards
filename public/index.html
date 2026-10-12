@@ -25,6 +25,7 @@
     .seg label { padding: 7px 14px; font-size: 14px; cursor: pointer; color: var(--muted); }
     .seg input:checked + label { background: rgba(255,255,255,.14); color: var(--text); }
     .seg input:focus-visible + label { outline: 2px solid var(--accent); }
+    .seg.wrap { flex-wrap: wrap; border-radius: 18px; }
     select { padding: 7px 10px; border-radius: 8px; background: rgba(0,0,0,.35); color: var(--text); border: 1px solid var(--line); }
     .error { color: #ff8a8a; font-size: 14px; min-height: 20px; margin-top: 10px; }
     .preview { margin: 24px 0; min-height: 170px; display: flex; align-items: center; justify-content: center; }
@@ -60,9 +61,13 @@
     </div>
 
     <div class="row">
-      <div class="seg" role="radiogroup" aria-label="Theme">
+      <div class="seg wrap" role="radiogroup" aria-label="Theme">
         <input type="radio" name="theme" id="theme-aurora" value="aurora" checked><label for="theme-aurora">Aurora</label>
         <input type="radio" name="theme" id="theme-terminal" value="terminal"><label for="theme-terminal">Terminal</label>
+        <input type="radio" name="theme" id="theme-paper" value="paper"><label for="theme-paper">Paper</label>
+        <input type="radio" name="theme" id="theme-brutal" value="brutal"><label for="theme-brutal">Brutal</label>
+        <input type="radio" name="theme" id="theme-receipt" value="receipt"><label for="theme-receipt">Receipt</label>
+        <input type="radio" name="theme" id="theme-sunset" value="sunset"><label for="theme-sunset">Sunset</label>
       </div>
     </div>
   </section>

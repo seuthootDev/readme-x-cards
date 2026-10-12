@@ -1,0 +1,384 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`brutal theme > renders a post card with metrics and media 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" width="450" height="213" viewBox="0 0 450 213" role="img" aria-label="Post by @jack on X" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif">
+<title>Post by @jack on X</title>
+<rect x="8" y="8" width="438" height="201" fill="#111111"/>
+<rect x="2" y="2" width="438" height="201" fill="#ffe14d" stroke="#111111" stroke-width="3"/>
+<clipPath id="avatar"><rect x="22" y="22" width="44" height="44"/></clipPath>
+<image href="data:image/jpeg;base64,AQID" x="22" y="22" width="44" height="44" preserveAspectRatio="xMidYMid slice" clip-path="url(#avatar)"/>
+<rect x="22" y="22" width="44" height="44" fill="none" stroke="#111111" stroke-width="3"/>
+<text x="80" y="42" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="18" font-weight="900" fill="#111111">JACK</text>
+<g transform="translate(151 36)"><rect x="-8" y="-8" width="16" height="16" fill="#111111"/><path d="M-3.5 0.2 L-1 2.7 L3.8 -2.4" fill="none" stroke="#ffe14d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
+<text x="80" y="62" font-size="13" font-weight="700" fill="#111111">@jack</text>
+<rect x="318" y="24" width="102" height="24" fill="#111111"/>
+<text x="369" y="40" text-anchor="middle" font-size="11" font-weight="700" letter-spacing="1" fill="#ffe14d">MAR 21, 2006</text>
+<text class="body" x="22" y="102" font-size="16" font-weight="600" fill="#111111">just setting up my twttr</text>
+<text x="22" y="125" font-size="12" font-weight="700" letter-spacing="1" fill="#111111">+ 2 PHOTOS · 1 VIDEO</text>
+<rect x="23" y="150" width="94" height="40" fill="#111111"/>
+<rect x="20" y="147" width="94" height="40" fill="#ffffff" stroke="#111111" stroke-width="2.5"/>
+<text x="30" y="167" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="900" fill="#111111">18.1K</text>
+<text x="30" y="178" font-size="9" font-weight="700" letter-spacing="1" fill="#111111">REPLIES</text>
+<rect x="127" y="150" width="94" height="40" fill="#111111"/>
+<rect x="124" y="147" width="94" height="40" fill="#ffffff" stroke="#111111" stroke-width="2.5"/>
+<text x="134" y="167" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="900" fill="#111111">124.7K</text>
+<text x="134" y="178" font-size="9" font-weight="700" letter-spacing="1" fill="#111111">REPOSTS</text>
+<rect x="231" y="150" width="94" height="40" fill="#111111"/>
+<rect x="228" y="147" width="94" height="40" fill="#ff7ab6" stroke="#111111" stroke-width="2.5"/>
+<text x="238" y="167" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="900" fill="#111111">309.4K</text>
+<text x="238" y="178" font-size="9" font-weight="700" letter-spacing="1" fill="#111111">LIKES</text>
+<rect x="335" y="150" width="94" height="40" fill="#111111"/>
+<rect x="332" y="147" width="94" height="40" fill="#ffffff" stroke="#111111" stroke-width="2.5"/>
+<text x="342" y="167" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="900" fill="#111111">1.2M</text>
+<text x="342" y="178" font-size="9" font-weight="700" letter-spacing="1" fill="#111111">VIEWS</text>
+</svg>"
+`;
+
+exports[`brutal theme > renders a profile card 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" width="450" height="174" viewBox="0 0 450 174" role="img" aria-label="Seunghoon Jung (@Seuthoot) on X" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif">
+<title>Seunghoon Jung (@Seuthoot) on X</title>
+<rect x="8" y="8" width="438" height="162" fill="#111111"/>
+<rect x="2" y="2" width="438" height="162" fill="#ffe14d" stroke="#111111" stroke-width="3"/>
+<clipPath id="avatar"><rect x="22" y="22" width="64" height="64"/></clipPath>
+<image href="data:image/jpeg;base64,AQID" x="22" y="22" width="64" height="64" preserveAspectRatio="xMidYMid slice" clip-path="url(#avatar)"/>
+<rect x="22" y="22" width="64" height="64" fill="none" stroke="#111111" stroke-width="3"/>
+<text x="102" y="52" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="23" font-weight="900" fill="#111111">SEUNGHOON JUNG</text>
+
+<text x="102" y="76" font-size="15" font-weight="700" fill="#111111">@Seuthoot</text>
+<rect x="23" y="107" width="128" height="44" fill="#111111"/>
+<rect x="20" y="104" width="128" height="44" fill="#ffffff" stroke="#111111" stroke-width="2.5"/>
+<text x="30" y="126" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="16" font-weight="900" fill="#111111">1</text>
+<text x="30" y="139" font-size="9" font-weight="700" letter-spacing="1" fill="#111111">POSTS</text>
+<rect x="161" y="107" width="128" height="44" fill="#111111"/>
+<rect x="158" y="104" width="128" height="44" fill="#ff7ab6" stroke="#111111" stroke-width="2.5"/>
+<text x="168" y="126" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="16" font-weight="900" fill="#111111">0</text>
+<text x="168" y="139" font-size="9" font-weight="700" letter-spacing="1" fill="#111111">FOLLOWERS</text>
+<rect x="299" y="107" width="128" height="44" fill="#111111"/>
+<rect x="296" y="104" width="128" height="44" fill="#ffffff" stroke="#111111" stroke-width="2.5"/>
+<text x="306" y="126" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="16" font-weight="900" fill="#111111">0</text>
+<text x="306" y="139" font-size="9" font-weight="700" letter-spacing="1" fill="#111111">FOLLOWING</text>
+</svg>"
+`;
+
+exports[`brutal theme > renders an error card 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" width="450" height="124" viewBox="0 0 450 124" role="img" aria-label="User not found" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif">
+<title>User not found</title>
+<rect x="8" y="8" width="438" height="112" fill="#111111"/>
+<rect x="2" y="2" width="438" height="112" fill="#ffe14d" stroke="#111111" stroke-width="3"/>
+<rect x="22" y="22" width="64" height="22" fill="#111111"/>
+<text x="54" y="37" text-anchor="middle" font-size="11" font-weight="700" letter-spacing="1" fill="#ffe14d">ERROR</text>
+<text x="22" y="74" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="16" font-weight="900" fill="#111111">User not found</text>
+<text x="22" y="96" font-size="11" font-weight="700" fill="#111111">readme-x-cards</text>
+</svg>"
+`;
+
+exports[`brutal theme > renders an escaped two-line bio and grows taller for it 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" width="450" height="221" viewBox="0 0 450 221" role="img" aria-label="jack (@jack) on X" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif">
+<title>jack (@jack) on X</title>
+<rect x="8" y="8" width="438" height="209" fill="#111111"/>
+<rect x="2" y="2" width="438" height="209" fill="#ffe14d" stroke="#111111" stroke-width="3"/>
+<clipPath id="avatar"><rect x="22" y="22" width="64" height="64"/></clipPath>
+<image href="data:image/jpeg;base64,AQID" x="22" y="22" width="64" height="64" preserveAspectRatio="xMidYMid slice" clip-path="url(#avatar)"/>
+<rect x="22" y="22" width="64" height="64" fill="none" stroke="#111111" stroke-width="3"/>
+<text x="102" y="52" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="23" font-weight="900" fill="#111111">JACK</text>
+<g transform="translate(190 44)"><rect x="-8" y="-8" width="16" height="16" fill="#111111"/><path d="M-3.5 0.2 L-1 2.7 L3.8 -2.4" fill="none" stroke="#ffe14d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
+<text x="102" y="76" font-size="15" font-weight="700" fill="#111111">@jack</text>
+<text x="22" y="114" font-size="14" font-weight="500" fill="#111111">no state is the best state &amp; &lt;b&gt;tags&lt;/b&gt; &quot;quoted&quot;</text>
+<text x="22" y="133" font-size="14" font-weight="500" fill="#111111">— 그리고 아주 긴 한국어 소개글이 두 줄을 넘어가면…</text>
+<rect x="23" y="154" width="128" height="44" fill="#111111"/>
+<rect x="20" y="151" width="128" height="44" fill="#ffffff" stroke="#111111" stroke-width="2.5"/>
+<text x="30" y="173" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="16" font-weight="900" fill="#111111">31K</text>
+<text x="30" y="186" font-size="9" font-weight="700" letter-spacing="1" fill="#111111">POSTS</text>
+<rect x="161" y="154" width="128" height="44" fill="#111111"/>
+<rect x="158" y="151" width="128" height="44" fill="#ff7ab6" stroke="#111111" stroke-width="2.5"/>
+<text x="168" y="173" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="16" font-weight="900" fill="#111111">12.5M</text>
+<text x="168" y="186" font-size="9" font-weight="700" letter-spacing="1" fill="#111111">FOLLOWERS</text>
+<rect x="299" y="154" width="128" height="44" fill="#111111"/>
+<rect x="296" y="151" width="128" height="44" fill="#ffffff" stroke="#111111" stroke-width="2.5"/>
+<text x="306" y="173" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="16" font-weight="900" fill="#111111">3</text>
+<text x="306" y="186" font-size="9" font-weight="700" letter-spacing="1" fill="#111111">FOLLOWING</text>
+</svg>"
+`;
+
+exports[`paper theme > renders a post card with metrics and media 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" width="450" height="186" viewBox="0 0 450 186" role="img" aria-label="Post by @jack on X" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif">
+<title>Post by @jack on X</title>
+<rect x="0.5" y="0.5" width="449" height="185" rx="12" fill="#ffffff" stroke="#d0d7de"/>
+<clipPath id="avatar"><circle cx="44" cy="44" r="20"/></clipPath>
+<image href="data:image/jpeg;base64,AQID" x="24" y="24" width="40" height="40" clip-path="url(#avatar)"/>
+<circle cx="44" cy="44" r="19.5" fill="none" stroke="#1f2328" stroke-opacity=".1"/>
+<text x="74" y="40" font-size="15" font-weight="600" fill="#1f2328">jack</text>
+<g transform="translate(119 35)"><circle r="8" fill="#1d9bf0"/><path d="M-3.5 0.2 L-1 2.7 L3.8 -2.4" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
+<text x="74" y="59" font-size="13" fill="#59636e">@jack · Mar 21, 2006</text>
+<text class="body" x="24" y="100" font-size="16" fill="#1f2328">just setting up my twttr</text>
+<text x="24" y="124" font-size="13" fill="#59636e">2 photos · 1 video attached</text>
+<line x1="24" x2="426" y1="144.5" y2="144.5" stroke="#d8dee4"/>
+<text x="24" y="169" font-size="13" fill="#59636e"><tspan font-weight="600" fill="#1f2328">18.1K</tspan> replies</text>
+<text x="132" y="169" font-size="13" fill="#59636e"><tspan font-weight="600" fill="#1f2328">124.7K</tspan> reposts</text>
+<text x="248" y="169" font-size="13" fill="#59636e"><tspan font-weight="600" fill="#1f2328">309.4K</tspan> likes</text>
+<text x="349" y="169" font-size="13" fill="#59636e"><tspan font-weight="600" fill="#1f2328">1.2M</tspan> views</text>
+</svg>"
+`;
+
+exports[`paper theme > renders a profile card 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" width="450" height="142" viewBox="0 0 450 142" role="img" aria-label="Seunghoon Jung (@Seuthoot) on X" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif">
+<title>Seunghoon Jung (@Seuthoot) on X</title>
+<rect x="0.5" y="0.5" width="449" height="141" rx="12" fill="#ffffff" stroke="#d0d7de"/>
+<clipPath id="avatar"><circle cx="56" cy="56" r="30"/></clipPath>
+<image href="data:image/jpeg;base64,AQID" x="26" y="26" width="60" height="60" clip-path="url(#avatar)"/>
+<circle cx="56" cy="56" r="29.5" fill="none" stroke="#1f2328" stroke-opacity=".1"/>
+<text x="102" y="50" font-size="18" font-weight="600" fill="#1f2328">Seunghoon Jung</text>
+
+<text x="102" y="72" font-size="14" fill="#59636e">@Seuthoot</text>
+<line x1="24" x2="426" y1="100.5" y2="100.5" stroke="#d8dee4"/>
+<text x="24" y="125" font-size="13" fill="#59636e"><tspan font-weight="600" fill="#1f2328">1</tspan> posts</text>
+<text x="99" y="125" font-size="13" fill="#59636e"><tspan font-weight="600" fill="#1f2328">0</tspan> followers</text>
+<text x="203" y="125" font-size="13" fill="#59636e"><tspan font-weight="600" fill="#1f2328">0</tspan> following</text>
+</svg>"
+`;
+
+exports[`paper theme > renders an error card 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" width="450" height="110" viewBox="0 0 450 110" role="img" aria-label="User not found" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif">
+<title>User not found</title>
+<rect x="0.5" y="0.5" width="449" height="109" rx="12" fill="#ffffff" stroke="#d0d7de"/>
+<text x="225" y="54" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2328">User not found</text>
+<text x="225" y="78" text-anchor="middle" font-size="12" fill="#59636e">readme-x-cards</text>
+</svg>"
+`;
+
+exports[`paper theme > renders an escaped two-line bio and grows taller for it 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" width="450" height="197" viewBox="0 0 450 197" role="img" aria-label="jack (@jack) on X" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif">
+<title>jack (@jack) on X</title>
+<rect x="0.5" y="0.5" width="449" height="196" rx="12" fill="#ffffff" stroke="#d0d7de"/>
+<clipPath id="avatar"><circle cx="56" cy="56" r="30"/></clipPath>
+<image href="data:image/jpeg;base64,AQID" x="26" y="26" width="60" height="60" clip-path="url(#avatar)"/>
+<circle cx="56" cy="56" r="29.5" fill="none" stroke="#1f2328" stroke-opacity=".1"/>
+<text x="102" y="50" font-size="18" font-weight="600" fill="#1f2328">jack</text>
+<g transform="translate(154 44)"><circle r="8" fill="#1d9bf0"/><path d="M-3.5 0.2 L-1 2.7 L3.8 -2.4" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
+<text x="102" y="72" font-size="14" fill="#59636e">@jack</text>
+<text x="24" y="114" font-size="14" fill="#1f2328">no state is the best state &amp; &lt;b&gt;tags&lt;/b&gt; &quot;quoted&quot; —</text>
+<text x="24" y="133" font-size="14" fill="#1f2328">그리고 아주 긴 한국어 소개글이 두 줄을 넘어가면…</text>
+<line x1="24" x2="426" y1="155.5" y2="155.5" stroke="#d8dee4"/>
+<text x="24" y="180" font-size="13" fill="#59636e"><tspan font-weight="600" fill="#1f2328">31K</tspan> posts</text>
+<text x="115" y="180" font-size="13" fill="#59636e"><tspan font-weight="600" fill="#1f2328">12.5M</tspan> followers</text>
+<text x="253" y="180" font-size="13" fill="#59636e"><tspan font-weight="600" fill="#1f2328">3</tspan> following</text>
+</svg>"
+`;
+
+exports[`receipt theme > renders a post card with metrics and media 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" width="450" height="388" viewBox="0 0 450 388" role="img" aria-label="Post by @jack on X" font-family="ui-monospace,SFMono-Regular,Consolas,'Liberation Mono','Courier New',monospace">
+<title>Post by @jack on X</title>
+<path d="M0 0 H450 V380 L445 388 L440 380 L435 388 L430 380 L425 388 L420 380 L415 388 L410 380 L405 388 L400 380 L395 388 L390 380 L385 388 L380 380 L375 388 L370 380 L365 388 L360 380 L355 388 L350 380 L345 388 L340 380 L335 388 L330 380 L325 388 L320 380 L315 388 L310 380 L305 388 L300 380 L295 388 L290 380 L285 388 L280 380 L275 388 L270 380 L265 388 L260 380 L255 388 L250 380 L245 388 L240 380 L235 388 L230 380 L225 388 L220 380 L215 388 L210 380 L205 388 L200 380 L195 388 L190 380 L185 388 L180 380 L175 388 L170 380 L165 388 L160 380 L155 388 L150 380 L145 388 L140 380 L135 388 L130 380 L125 388 L120 380 L115 388 L110 380 L105 388 L100 380 L95 388 L90 380 L85 388 L80 380 L75 388 L70 380 L65 388 L60 380 L55 388 L50 380 L45 388 L40 380 L35 388 L30 380 L25 388 L20 380 L15 388 L10 380 L5 388 L0 380 Z" fill="#fbf8f0"/>
+<text x="225" y="40" text-anchor="middle" font-size="14" font-weight="700" letter-spacing="2" fill="#222222">X POST RECEIPT</text>
+<text x="225" y="60" text-anchor="middle" font-size="11" fill="#6b6b6b">ORDER #20 · Mar 21, 2006</text>
+<line x1="28" x2="422" y1="78" y2="78" stroke="#222222" stroke-dasharray="4 4"/>
+<text x="32" y="104" font-size="13" font-weight="400" fill="#222222">AUTHOR</text>
+<text x="418" y="104" text-anchor="end" font-size="13" font-weight="400" fill="#222222">@jack [✓]</text>
+<line x1="87" x2="340" y1="104" y2="104" stroke="#6b6b6b" stroke-dasharray="1 4"/>
+<text class="body" x="32" y="134" font-size="13" fill="#222222">just setting up my twttr</text>
+<text x="32" y="156" font-size="12" fill="#6b6b6b">+ 2 photos · 1 video</text>
+<line x1="28" x2="422" y1="176" y2="176" stroke="#222222" stroke-dasharray="4 4"/>
+<text x="32" y="200" font-size="13" font-weight="400" fill="#222222">REPLIES</text>
+<text x="418" y="200" text-anchor="end" font-size="13" font-weight="400" fill="#222222">18,072</text>
+<line x1="95" x2="363" y1="200" y2="200" stroke="#6b6b6b" stroke-dasharray="1 4"/>
+<text x="32" y="220" font-size="13" font-weight="400" fill="#222222">REPOSTS</text>
+<text x="418" y="220" text-anchor="end" font-size="13" font-weight="400" fill="#222222">124,685</text>
+<line x1="95" x2="355" y1="220" y2="220" stroke="#6b6b6b" stroke-dasharray="1 4"/>
+<text x="32" y="240" font-size="13" font-weight="400" fill="#222222">LIKES</text>
+<text x="418" y="240" text-anchor="end" font-size="13" font-weight="400" fill="#222222">309,357</text>
+<line x1="79" x2="355" y1="240" y2="240" stroke="#6b6b6b" stroke-dasharray="1 4"/>
+<line x1="28" x2="422" y1="258" y2="258" stroke="#222222" stroke-dasharray="4 4"/>
+<text x="32" y="284" font-size="15" font-weight="700" fill="#222222">TOTAL VIEWS</text>
+<text x="418" y="284" text-anchor="end" font-size="15" font-weight="700" fill="#222222">1,234,567</text>
+<line x1="139" x2="329" y1="284" y2="284" stroke="#6b6b6b" stroke-dasharray="1 4"/>
+<line x1="28" x2="422" y1="300" y2="300" stroke="#222222" stroke-dasharray="4 4"/>
+<line x1="28" x2="422" y1="304" y2="304" stroke="#222222" stroke-dasharray="4 4"/>
+<rect x="125" y="318" width="3" height="34" fill="#222222"/><rect x="129" y="318" width="2" height="34" fill="#222222"/><rect x="134" y="318" width="4" height="34" fill="#222222"/><rect x="140" y="318" width="1" height="34" fill="#222222"/><rect x="144" y="318" width="2" height="34" fill="#222222"/><rect x="149" y="318" width="4" height="34" fill="#222222"/><rect x="155" y="318" width="1" height="34" fill="#222222"/><rect x="159" y="318" width="1" height="34" fill="#222222"/><rect x="161" y="318" width="3" height="34" fill="#222222"/><rect x="167" y="318" width="3" height="34" fill="#222222"/><rect x="172" y="318" width="2" height="34" fill="#222222"/><rect x="176" y="318" width="3" height="34" fill="#222222"/><rect x="180" y="318" width="4" height="34" fill="#222222"/><rect x="185" y="318" width="4" height="34" fill="#222222"/><rect x="192" y="318" width="4" height="34" fill="#222222"/><rect x="198" y="318" width="1" height="34" fill="#222222"/><rect x="202" y="318" width="4" height="34" fill="#222222"/><rect x="207" y="318" width="1" height="34" fill="#222222"/><rect x="209" y="318" width="1" height="34" fill="#222222"/><rect x="211" y="318" width="4" height="34" fill="#222222"/><rect x="217" y="318" width="2" height="34" fill="#222222"/><rect x="220" y="318" width="3" height="34" fill="#222222"/><rect x="225" y="318" width="3" height="34" fill="#222222"/><rect x="231" y="318" width="1" height="34" fill="#222222"/><rect x="235" y="318" width="3" height="34" fill="#222222"/><rect x="240" y="318" width="4" height="34" fill="#222222"/><rect x="247" y="318" width="1" height="34" fill="#222222"/><rect x="250" y="318" width="3" height="34" fill="#222222"/><rect x="256" y="318" width="4" height="34" fill="#222222"/><rect x="262" y="318" width="3" height="34" fill="#222222"/><rect x="267" y="318" width="4" height="34" fill="#222222"/><rect x="272" y="318" width="2" height="34" fill="#222222"/><rect x="276" y="318" width="1" height="34" fill="#222222"/><rect x="278" y="318" width="3" height="34" fill="#222222"/><rect x="284" y="318" width="3" height="34" fill="#222222"/><rect x="288" y="318" width="1" height="34" fill="#222222"/><rect x="292" y="318" width="4" height="34" fill="#222222"/><rect x="297" y="318" width="4" height="34" fill="#222222"/><rect x="303" y="318" width="2" height="34" fill="#222222"/><rect x="307" y="318" width="4" height="34" fill="#222222"/><rect x="312" y="318" width="1" height="34" fill="#222222"/><rect x="315" y="318" width="1" height="34" fill="#222222"/><rect x="317" y="318" width="2" height="34" fill="#222222"/><rect x="320" y="318" width="3" height="34" fill="#222222"/>
+<text x="225" y="370" text-anchor="middle" font-size="11" letter-spacing="2" fill="#222222">PLEASE COME AGAIN</text>
+</svg>"
+`;
+
+exports[`receipt theme > renders a profile card 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" width="450" height="334" viewBox="0 0 450 334" role="img" aria-label="Seunghoon Jung (@Seuthoot) on X" font-family="ui-monospace,SFMono-Regular,Consolas,'Liberation Mono','Courier New',monospace">
+<title>Seunghoon Jung (@Seuthoot) on X</title>
+<path d="M0 0 H450 V326 L445 334 L440 326 L435 334 L430 326 L425 334 L420 326 L415 334 L410 326 L405 334 L400 326 L395 334 L390 326 L385 334 L380 326 L375 334 L370 326 L365 334 L360 326 L355 334 L350 326 L345 334 L340 326 L335 334 L330 326 L325 334 L320 326 L315 334 L310 326 L305 334 L300 326 L295 334 L290 326 L285 334 L280 326 L275 334 L270 326 L265 334 L260 326 L255 334 L250 326 L245 334 L240 326 L235 334 L230 326 L225 334 L220 326 L215 334 L210 326 L205 334 L200 326 L195 334 L190 326 L185 334 L180 326 L175 334 L170 326 L165 334 L160 326 L155 334 L150 326 L145 334 L140 326 L135 334 L130 326 L125 334 L120 326 L115 334 L110 326 L105 334 L100 326 L95 334 L90 326 L85 334 L80 326 L75 334 L70 326 L65 334 L60 326 L55 334 L50 326 L45 334 L40 326 L35 334 L30 326 L25 334 L20 326 L15 334 L10 326 L5 334 L0 326 Z" fill="#fbf8f0"/>
+<text x="225" y="40" text-anchor="middle" font-size="14" font-weight="700" letter-spacing="2" fill="#222222">X PROFILE RECEIPT</text>
+<text x="225" y="60" text-anchor="middle" font-size="11" fill="#6b6b6b">x.com/Seuthoot</text>
+<line x1="28" x2="422" y1="78" y2="78" stroke="#222222" stroke-dasharray="4 4"/>
+<text x="32" y="104" font-size="13" font-weight="400" fill="#222222">CUSTOMER</text>
+<text x="418" y="104" text-anchor="end" font-size="13" font-weight="400" fill="#222222">@Seuthoot</text>
+<line x1="102" x2="340" y1="104" y2="104" stroke="#6b6b6b" stroke-dasharray="1 4"/>
+<text x="32" y="124" font-size="13" font-weight="400" fill="#222222">NAME</text>
+<text x="418" y="124" text-anchor="end" font-size="13" font-weight="400" fill="#222222">Seunghoon Jung</text>
+<line x1="71" x2="301" y1="124" y2="124" stroke="#6b6b6b" stroke-dasharray="1 4"/>
+<line x1="28" x2="422" y1="142" y2="142" stroke="#222222" stroke-dasharray="4 4"/>
+<text x="32" y="166" font-size="13" font-weight="400" fill="#222222">POSTS</text>
+<text x="418" y="166" text-anchor="end" font-size="13" font-weight="400" fill="#222222">1</text>
+<line x1="79" x2="402" y1="166" y2="166" stroke="#6b6b6b" stroke-dasharray="1 4"/>
+<text x="32" y="186" font-size="13" font-weight="400" fill="#222222">FOLLOWING</text>
+<text x="418" y="186" text-anchor="end" font-size="13" font-weight="400" fill="#222222">0</text>
+<line x1="110" x2="402" y1="186" y2="186" stroke="#6b6b6b" stroke-dasharray="1 4"/>
+<line x1="28" x2="422" y1="204" y2="204" stroke="#222222" stroke-dasharray="4 4"/>
+<text x="32" y="230" font-size="15" font-weight="700" fill="#222222">TOTAL FOLLOWERS</text>
+<text x="418" y="230" text-anchor="end" font-size="15" font-weight="700" fill="#222222">0</text>
+<line x1="175" x2="401" y1="230" y2="230" stroke="#6b6b6b" stroke-dasharray="1 4"/>
+<line x1="28" x2="422" y1="246" y2="246" stroke="#222222" stroke-dasharray="4 4"/>
+<line x1="28" x2="422" y1="250" y2="250" stroke="#222222" stroke-dasharray="4 4"/>
+<rect x="125" y="264" width="4" height="34" fill="#222222"/><rect x="132" y="264" width="3" height="34" fill="#222222"/><rect x="137" y="264" width="2" height="34" fill="#222222"/><rect x="141" y="264" width="1" height="34" fill="#222222"/><rect x="143" y="264" width="3" height="34" fill="#222222"/><rect x="147" y="264" width="4" height="34" fill="#222222"/><rect x="153" y="264" width="1" height="34" fill="#222222"/><rect x="156" y="264" width="1" height="34" fill="#222222"/><rect x="159" y="264" width="3" height="34" fill="#222222"/><rect x="163" y="264" width="2" height="34" fill="#222222"/><rect x="167" y="264" width="1" height="34" fill="#222222"/><rect x="170" y="264" width="3" height="34" fill="#222222"/><rect x="176" y="264" width="4" height="34" fill="#222222"/><rect x="181" y="264" width="1" height="34" fill="#222222"/><rect x="185" y="264" width="1" height="34" fill="#222222"/><rect x="188" y="264" width="4" height="34" fill="#222222"/><rect x="195" y="264" width="3" height="34" fill="#222222"/><rect x="200" y="264" width="3" height="34" fill="#222222"/><rect x="205" y="264" width="3" height="34" fill="#222222"/><rect x="211" y="264" width="4" height="34" fill="#222222"/><rect x="217" y="264" width="1" height="34" fill="#222222"/><rect x="219" y="264" width="3" height="34" fill="#222222"/><rect x="225" y="264" width="3" height="34" fill="#222222"/><rect x="230" y="264" width="4" height="34" fill="#222222"/><rect x="235" y="264" width="1" height="34" fill="#222222"/><rect x="239" y="264" width="1" height="34" fill="#222222"/><rect x="241" y="264" width="1" height="34" fill="#222222"/><rect x="244" y="264" width="3" height="34" fill="#222222"/><rect x="250" y="264" width="3" height="34" fill="#222222"/><rect x="255" y="264" width="2" height="34" fill="#222222"/><rect x="260" y="264" width="3" height="34" fill="#222222"/><rect x="266" y="264" width="1" height="34" fill="#222222"/><rect x="268" y="264" width="2" height="34" fill="#222222"/><rect x="273" y="264" width="4" height="34" fill="#222222"/><rect x="280" y="264" width="2" height="34" fill="#222222"/><rect x="285" y="264" width="3" height="34" fill="#222222"/><rect x="290" y="264" width="3" height="34" fill="#222222"/><rect x="294" y="264" width="1" height="34" fill="#222222"/><rect x="297" y="264" width="2" height="34" fill="#222222"/><rect x="300" y="264" width="4" height="34" fill="#222222"/><rect x="305" y="264" width="3" height="34" fill="#222222"/><rect x="310" y="264" width="1" height="34" fill="#222222"/><rect x="313" y="264" width="3" height="34" fill="#222222"/><rect x="317" y="264" width="2" height="34" fill="#222222"/><rect x="320" y="264" width="3" height="34" fill="#222222"/><rect x="324" y="264" width="1" height="34" fill="#222222"/>
+<text x="225" y="316" text-anchor="middle" font-size="11" letter-spacing="2" fill="#222222">THANK YOU FOR FOLLOWING</text>
+</svg>"
+`;
+
+exports[`receipt theme > renders an error card 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" width="450" height="132" viewBox="0 0 450 132" role="img" aria-label="User not found" font-family="ui-monospace,SFMono-Regular,Consolas,'Liberation Mono','Courier New',monospace">
+<title>User not found</title>
+<path d="M0 0 H450 V124 L445 132 L440 124 L435 132 L430 124 L425 132 L420 124 L415 132 L410 124 L405 132 L400 124 L395 132 L390 124 L385 132 L380 124 L375 132 L370 124 L365 132 L360 124 L355 132 L350 124 L345 132 L340 124 L335 132 L330 124 L325 132 L320 124 L315 132 L310 124 L305 132 L300 124 L295 132 L290 124 L285 132 L280 124 L275 132 L270 124 L265 132 L260 124 L255 132 L250 124 L245 132 L240 124 L235 132 L230 124 L225 132 L220 124 L215 132 L210 124 L205 132 L200 124 L195 132 L190 124 L185 132 L180 124 L175 132 L170 124 L165 132 L160 124 L155 132 L150 124 L145 132 L140 124 L135 132 L130 124 L125 132 L120 124 L115 132 L110 124 L105 132 L100 124 L95 132 L90 124 L85 132 L80 124 L75 132 L70 124 L65 132 L60 124 L55 132 L50 124 L45 132 L40 124 L35 132 L30 124 L25 132 L20 124 L15 132 L10 124 L5 132 L0 124 Z" fill="#fbf8f0"/>
+<text x="225" y="40" text-anchor="middle" font-size="14" font-weight="700" letter-spacing="2" fill="#222222">TRANSACTION DECLINED</text>
+<text x="225" y="60" text-anchor="middle" font-size="11" fill="#6b6b6b">readme-x-cards</text>
+<line x1="28" x2="422" y1="78" y2="78" stroke="#222222" stroke-dasharray="4 4"/>
+<text x="225" y="106" text-anchor="middle" font-size="13" fill="#222222">USER NOT FOUND</text>
+</svg>"
+`;
+
+exports[`receipt theme > renders an escaped two-line bio and grows taller for it 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" width="450" height="380" viewBox="0 0 450 380" role="img" aria-label="jack (@jack) on X" font-family="ui-monospace,SFMono-Regular,Consolas,'Liberation Mono','Courier New',monospace">
+<title>jack (@jack) on X</title>
+<path d="M0 0 H450 V372 L445 380 L440 372 L435 380 L430 372 L425 380 L420 372 L415 380 L410 372 L405 380 L400 372 L395 380 L390 372 L385 380 L380 372 L375 380 L370 372 L365 380 L360 372 L355 380 L350 372 L345 380 L340 372 L335 380 L330 372 L325 380 L320 372 L315 380 L310 372 L305 380 L300 372 L295 380 L290 372 L285 380 L280 372 L275 380 L270 372 L265 380 L260 372 L255 380 L250 372 L245 380 L240 372 L235 380 L230 372 L225 380 L220 372 L215 380 L210 372 L205 380 L200 372 L195 380 L190 372 L185 380 L180 372 L175 380 L170 372 L165 380 L160 372 L155 380 L150 372 L145 380 L140 372 L135 380 L130 372 L125 380 L120 372 L115 380 L110 372 L105 380 L100 372 L95 380 L90 372 L85 380 L80 372 L75 380 L70 372 L65 380 L60 372 L55 380 L50 372 L45 380 L40 372 L35 380 L30 372 L25 380 L20 372 L15 380 L10 372 L5 380 L0 372 Z" fill="#fbf8f0"/>
+<text x="225" y="40" text-anchor="middle" font-size="14" font-weight="700" letter-spacing="2" fill="#222222">X PROFILE RECEIPT</text>
+<text x="225" y="60" text-anchor="middle" font-size="11" fill="#6b6b6b">x.com/jack</text>
+<line x1="28" x2="422" y1="78" y2="78" stroke="#222222" stroke-dasharray="4 4"/>
+<text x="32" y="104" font-size="13" font-weight="400" fill="#222222">CUSTOMER</text>
+<text x="418" y="104" text-anchor="end" font-size="13" font-weight="400" fill="#222222">@jack</text>
+<line x1="102" x2="371" y1="104" y2="104" stroke="#6b6b6b" stroke-dasharray="1 4"/>
+<text x="32" y="124" font-size="13" font-weight="400" fill="#222222">NAME</text>
+<text x="418" y="124" text-anchor="end" font-size="13" font-weight="400" fill="#222222">jack [✓]</text>
+<line x1="71" x2="348" y1="124" y2="124" stroke="#6b6b6b" stroke-dasharray="1 4"/>
+<text x="32" y="152" font-size="12" fill="#6b6b6b">&quot;no state is the best state &amp; &lt;b&gt;tags&lt;/b&gt; &quot;quoted&quot; —</text>
+<text x="32" y="170" font-size="12" fill="#6b6b6b">그리고 아주 긴 한국어 소개글이 두 줄을 넘어가면 말줄임표로…</text>
+<line x1="28" x2="422" y1="188" y2="188" stroke="#222222" stroke-dasharray="4 4"/>
+<text x="32" y="212" font-size="13" font-weight="400" fill="#222222">POSTS</text>
+<text x="418" y="212" text-anchor="end" font-size="13" font-weight="400" fill="#222222">31,008</text>
+<line x1="79" x2="363" y1="212" y2="212" stroke="#6b6b6b" stroke-dasharray="1 4"/>
+<text x="32" y="232" font-size="13" font-weight="400" fill="#222222">FOLLOWING</text>
+<text x="418" y="232" text-anchor="end" font-size="13" font-weight="400" fill="#222222">3</text>
+<line x1="110" x2="402" y1="232" y2="232" stroke="#6b6b6b" stroke-dasharray="1 4"/>
+<line x1="28" x2="422" y1="250" y2="250" stroke="#222222" stroke-dasharray="4 4"/>
+<text x="32" y="276" font-size="15" font-weight="700" fill="#222222">TOTAL FOLLOWERS</text>
+<text x="418" y="276" text-anchor="end" font-size="15" font-weight="700" fill="#222222">12,467,573</text>
+<line x1="175" x2="320" y1="276" y2="276" stroke="#6b6b6b" stroke-dasharray="1 4"/>
+<line x1="28" x2="422" y1="292" y2="292" stroke="#222222" stroke-dasharray="4 4"/>
+<line x1="28" x2="422" y1="296" y2="296" stroke="#222222" stroke-dasharray="4 4"/>
+<rect x="125" y="310" width="4" height="34" fill="#222222"/><rect x="132" y="310" width="3" height="34" fill="#222222"/><rect x="137" y="310" width="2" height="34" fill="#222222"/><rect x="140" y="310" width="1" height="34" fill="#222222"/><rect x="144" y="310" width="1" height="34" fill="#222222"/><rect x="147" y="310" width="3" height="34" fill="#222222"/><rect x="153" y="310" width="4" height="34" fill="#222222"/><rect x="160" y="310" width="1" height="34" fill="#222222"/><rect x="163" y="310" width="3" height="34" fill="#222222"/><rect x="168" y="310" width="4" height="34" fill="#222222"/><rect x="175" y="310" width="1" height="34" fill="#222222"/><rect x="179" y="310" width="1" height="34" fill="#222222"/><rect x="183" y="310" width="2" height="34" fill="#222222"/><rect x="186" y="310" width="1" height="34" fill="#222222"/><rect x="188" y="310" width="4" height="34" fill="#222222"/><rect x="193" y="310" width="3" height="34" fill="#222222"/><rect x="198" y="310" width="1" height="34" fill="#222222"/><rect x="202" y="310" width="3" height="34" fill="#222222"/><rect x="206" y="310" width="2" height="34" fill="#222222"/><rect x="209" y="310" width="3" height="34" fill="#222222"/><rect x="215" y="310" width="3" height="34" fill="#222222"/><rect x="221" y="310" width="4" height="34" fill="#222222"/><rect x="227" y="310" width="1" height="34" fill="#222222"/><rect x="230" y="310" width="4" height="34" fill="#222222"/><rect x="236" y="310" width="1" height="34" fill="#222222"/><rect x="239" y="310" width="3" height="34" fill="#222222"/><rect x="243" y="310" width="3" height="34" fill="#222222"/><rect x="247" y="310" width="4" height="34" fill="#222222"/><rect x="253" y="310" width="2" height="34" fill="#222222"/><rect x="257" y="310" width="2" height="34" fill="#222222"/><rect x="260" y="310" width="2" height="34" fill="#222222"/><rect x="263" y="310" width="3" height="34" fill="#222222"/><rect x="267" y="310" width="4" height="34" fill="#222222"/><rect x="272" y="310" width="2" height="34" fill="#222222"/><rect x="277" y="310" width="2" height="34" fill="#222222"/><rect x="281" y="310" width="4" height="34" fill="#222222"/><rect x="287" y="310" width="3" height="34" fill="#222222"/><rect x="293" y="310" width="4" height="34" fill="#222222"/><rect x="299" y="310" width="1" height="34" fill="#222222"/><rect x="302" y="310" width="1" height="34" fill="#222222"/><rect x="304" y="310" width="3" height="34" fill="#222222"/><rect x="309" y="310" width="1" height="34" fill="#222222"/><rect x="311" y="310" width="3" height="34" fill="#222222"/><rect x="315" y="310" width="4" height="34" fill="#222222"/><rect x="322" y="310" width="1" height="34" fill="#222222"/>
+<text x="225" y="362" text-anchor="middle" font-size="11" letter-spacing="2" fill="#222222">THANK YOU FOR FOLLOWING</text>
+</svg>"
+`;
+
+exports[`sunset theme > renders a post card with metrics and media 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" width="450" height="204" viewBox="0 0 450 204" role="img" aria-label="Post by @jack on X" font-family="'Trebuchet MS','Segoe UI',Helvetica,Arial,sans-serif">
+<title>Post by @jack on X</title>
+<defs>
+<clipPath id="card"><rect width="450" height="204" rx="16"/></clipPath>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#140a2e"/><stop offset="1" stop-color="#4b1260"/></linearGradient>
+<linearGradient id="sun" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd36e"/><stop offset="1" stop-color="#ff4f8b"/></linearGradient>
+<mask id="stripes"><rect width="450" height="204" fill="#ffffff"/><rect x="0" y="128.7" width="450" height="1.5" fill="#000000"/><rect x="0" y="134.5" width="450" height="2.6" fill="#000000"/><rect x="0" y="142.7" width="450" height="3.7" fill="#000000"/><rect x="0" y="153.3" width="450" height="4.8" fill="#000000"/><rect x="0" y="166.3" width="450" height="5.9" fill="#000000"/><rect x="0" y="181.7" width="450" height="7.0" fill="#000000"/></mask>
+</defs>
+<g clip-path="url(#card)">
+<rect width="450" height="204" fill="url(#sky)"/>
+<circle cx="392" cy="154" r="46" fill="url(#sun)" mask="url(#stripes)"/>
+<rect y="154" width="450" height="50" fill="#12061f"/>
+<g stroke="#ff4f8b" stroke-opacity=".4" stroke-width="1"><line x1="0" x2="450" y1="158.0" y2="158.0"/><line x1="0" x2="450" y1="167.0" y2="167.0"/><line x1="0" x2="450" y1="179.9" y2="179.9"/><line x1="0" x2="450" y1="196.2" y2="196.2"/><line x1="27" y1="154" x2="-765" y2="204"/><line x1="49" y1="154" x2="-655" y2="204"/><line x1="71" y1="154" x2="-545" y2="204"/><line x1="93" y1="154" x2="-435" y2="204"/><line x1="115" y1="154" x2="-325" y2="204"/><line x1="137" y1="154" x2="-215" y2="204"/><line x1="159" y1="154" x2="-105" y2="204"/><line x1="181" y1="154" x2="5" y2="204"/><line x1="203" y1="154" x2="115" y2="204"/><line x1="225" y1="154" x2="225" y2="204"/><line x1="247" y1="154" x2="335" y2="204"/><line x1="269" y1="154" x2="445" y2="204"/><line x1="291" y1="154" x2="555" y2="204"/><line x1="313" y1="154" x2="665" y2="204"/><line x1="335" y1="154" x2="775" y2="204"/><line x1="357" y1="154" x2="885" y2="204"/><line x1="379" y1="154" x2="995" y2="204"/><line x1="401" y1="154" x2="1105" y2="204"/><line x1="423" y1="154" x2="1215" y2="204"/></g>
+<line x1="0" x2="450" y1="154" y2="154" stroke="#ff8fb8" stroke-width="1.5"/>
+</g>
+<circle cx="44" cy="44" r="21" fill="none" stroke="#5ef2ff" stroke-width="2"/>
+<clipPath id="avatar"><circle cx="44" cy="44" r="18"/></clipPath>
+<image href="data:image/jpeg;base64,AQID" x="26" y="26" width="36" height="36" clip-path="url(#avatar)"/>
+<text x="74" y="40" font-size="15" font-weight="700" font-style="italic" fill="#ffffff">jack</text>
+<g transform="translate(119 35)"><circle r="8" fill="#5ef2ff"/><path d="M-3.5 0.2 L-1 2.7 L3.8 -2.4" fill="none" stroke="#140a2e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
+<text x="74" y="59" font-size="13" fill="#ffb3d1">@jack · Mar 21, 2006</text>
+<text class="body" x="24" y="100" font-size="16" fill="#ffffff">just setting up my twttr</text>
+<text x="24" y="122" font-size="12" fill="#ffb3d1">+ 2 photos · 1 video</text>
+<text x="24" y="186" font-size="10" letter-spacing="1" fill="#ffb3d1"><tspan font-size="14" font-weight="700" letter-spacing="0" fill="#5ef2ff">18.1K</tspan> REPLIES</text>
+<text x="136" y="186" font-size="10" letter-spacing="1" fill="#ffb3d1"><tspan font-size="14" font-weight="700" letter-spacing="0" fill="#5ef2ff">124.7K</tspan> REPOSTS</text>
+<text x="256" y="186" font-size="10" letter-spacing="1" fill="#ffb3d1"><tspan font-size="14" font-weight="700" letter-spacing="0" fill="#5ef2ff">309.4K</tspan> LIKES</text>
+<text x="360" y="186" font-size="10" letter-spacing="1" fill="#ffb3d1"><tspan font-size="14" font-weight="700" letter-spacing="0" fill="#5ef2ff">1.2M</tspan> VIEWS</text>
+</svg>"
+`;
+
+exports[`sunset theme > renders a profile card 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" width="450" height="149" viewBox="0 0 450 149" role="img" aria-label="Seunghoon Jung (@Seuthoot) on X" font-family="'Trebuchet MS','Segoe UI',Helvetica,Arial,sans-serif">
+<title>Seunghoon Jung (@Seuthoot) on X</title>
+<defs>
+<clipPath id="card"><rect width="450" height="149" rx="16"/></clipPath>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#140a2e"/><stop offset="1" stop-color="#4b1260"/></linearGradient>
+<linearGradient id="sun" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd36e"/><stop offset="1" stop-color="#ff4f8b"/></linearGradient>
+<mask id="stripes"><rect width="450" height="149" fill="#ffffff"/><rect x="0" y="60.7" width="450" height="1.5" fill="#000000"/><rect x="0" y="68.5" width="450" height="2.6" fill="#000000"/><rect x="0" y="78.7" width="450" height="3.7" fill="#000000"/><rect x="0" y="91.3" width="450" height="4.8" fill="#000000"/><rect x="0" y="106.3" width="450" height="5.9" fill="#000000"/><rect x="0" y="123.7" width="450" height="7.0" fill="#000000"/></mask>
+</defs>
+<g clip-path="url(#card)">
+<rect width="450" height="149" fill="url(#sky)"/>
+<circle cx="358" cy="97" r="66" fill="url(#sun)" mask="url(#stripes)"/>
+<rect y="97" width="450" height="52" fill="#12061f"/>
+<g stroke="#ff4f8b" stroke-opacity=".4" stroke-width="1"><line x1="0" x2="450" y1="101.0" y2="101.0"/><line x1="0" x2="450" y1="110.0" y2="110.0"/><line x1="0" x2="450" y1="122.9" y2="122.9"/><line x1="0" x2="450" y1="139.2" y2="139.2"/><line x1="27" y1="97" x2="-765" y2="149"/><line x1="49" y1="97" x2="-655" y2="149"/><line x1="71" y1="97" x2="-545" y2="149"/><line x1="93" y1="97" x2="-435" y2="149"/><line x1="115" y1="97" x2="-325" y2="149"/><line x1="137" y1="97" x2="-215" y2="149"/><line x1="159" y1="97" x2="-105" y2="149"/><line x1="181" y1="97" x2="5" y2="149"/><line x1="203" y1="97" x2="115" y2="149"/><line x1="225" y1="97" x2="225" y2="149"/><line x1="247" y1="97" x2="335" y2="149"/><line x1="269" y1="97" x2="445" y2="149"/><line x1="291" y1="97" x2="555" y2="149"/><line x1="313" y1="97" x2="665" y2="149"/><line x1="335" y1="97" x2="775" y2="149"/><line x1="357" y1="97" x2="885" y2="149"/><line x1="379" y1="97" x2="995" y2="149"/><line x1="401" y1="97" x2="1105" y2="149"/><line x1="423" y1="97" x2="1215" y2="149"/></g>
+<line x1="0" x2="450" y1="97" y2="97" stroke="#ff8fb8" stroke-width="1.5"/>
+</g>
+<circle cx="54" cy="54" r="32" fill="none" stroke="#5ef2ff" stroke-width="2"/>
+<clipPath id="avatar"><circle cx="54" cy="54" r="29"/></clipPath>
+<image href="data:image/jpeg;base64,AQID" x="25" y="25" width="58" height="58" clip-path="url(#avatar)"/>
+<text x="100" y="50" font-size="21" font-weight="700" font-style="italic" fill="#ffffff">Seunghoon Jung</text>
+
+<text x="100" y="73" font-size="14" fill="#ffb3d1">@Seuthoot</text>
+<text x="24" y="131" font-size="11" letter-spacing="1" fill="#ffb3d1"><tspan font-size="15" font-weight="700" letter-spacing="0" fill="#5ef2ff">1</tspan> POSTS</text>
+<text x="107" y="131" font-size="11" letter-spacing="1" fill="#ffb3d1"><tspan font-size="15" font-weight="700" letter-spacing="0" fill="#5ef2ff">0</tspan> FOLLOWERS</text>
+<text x="227" y="131" font-size="11" letter-spacing="1" fill="#ffb3d1"><tspan font-size="15" font-weight="700" letter-spacing="0" fill="#5ef2ff">0</tspan> FOLLOWING</text>
+</svg>"
+`;
+
+exports[`sunset theme > renders an error card 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" width="450" height="120" viewBox="0 0 450 120" role="img" aria-label="User not found" font-family="'Trebuchet MS','Segoe UI',Helvetica,Arial,sans-serif">
+<title>User not found</title>
+<defs>
+<clipPath id="card"><rect width="450" height="120" rx="16"/></clipPath>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#140a2e"/><stop offset="1" stop-color="#4b1260"/></linearGradient>
+<linearGradient id="sun" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd36e"/><stop offset="1" stop-color="#ff4f8b"/></linearGradient>
+<mask id="stripes"><rect width="450" height="120" fill="#ffffff"/><rect x="0" y="64.0" width="450" height="1.5" fill="#000000"/><rect x="0" y="69.2" width="450" height="2.6" fill="#000000"/><rect x="0" y="76.8" width="450" height="3.7" fill="#000000"/><rect x="0" y="86.8" width="450" height="4.8" fill="#000000"/><rect x="0" y="99.2" width="450" height="5.9" fill="#000000"/><rect x="0" y="114.0" width="450" height="7.0" fill="#000000"/></mask>
+</defs>
+<g clip-path="url(#card)">
+<rect width="450" height="120" fill="url(#sky)"/>
+<circle cx="380" cy="86" r="40" fill="url(#sun)" mask="url(#stripes)"/>
+<rect y="86" width="450" height="34" fill="#12061f"/>
+<g stroke="#ff4f8b" stroke-opacity=".4" stroke-width="1"><line x1="0" x2="450" y1="90.0" y2="90.0"/><line x1="0" x2="450" y1="99.0" y2="99.0"/><line x1="0" x2="450" y1="111.9" y2="111.9"/><line x1="27" y1="86" x2="-765" y2="120"/><line x1="49" y1="86" x2="-655" y2="120"/><line x1="71" y1="86" x2="-545" y2="120"/><line x1="93" y1="86" x2="-435" y2="120"/><line x1="115" y1="86" x2="-325" y2="120"/><line x1="137" y1="86" x2="-215" y2="120"/><line x1="159" y1="86" x2="-105" y2="120"/><line x1="181" y1="86" x2="5" y2="120"/><line x1="203" y1="86" x2="115" y2="120"/><line x1="225" y1="86" x2="225" y2="120"/><line x1="247" y1="86" x2="335" y2="120"/><line x1="269" y1="86" x2="445" y2="120"/><line x1="291" y1="86" x2="555" y2="120"/><line x1="313" y1="86" x2="665" y2="120"/><line x1="335" y1="86" x2="775" y2="120"/><line x1="357" y1="86" x2="885" y2="120"/><line x1="379" y1="86" x2="995" y2="120"/><line x1="401" y1="86" x2="1105" y2="120"/><line x1="423" y1="86" x2="1215" y2="120"/></g>
+<line x1="0" x2="450" y1="86" y2="86" stroke="#ff8fb8" stroke-width="1.5"/>
+</g>
+<text x="24" y="42" font-size="15" font-weight="700" font-style="italic" fill="#ffffff">User not found</text>
+<text x="24" y="64" font-size="12" fill="#ffb3d1">readme-x-cards</text>
+</svg>"
+`;
+
+exports[`sunset theme > renders an escaped two-line bio and grows taller for it 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" width="450" height="204" viewBox="0 0 450 204" role="img" aria-label="jack (@jack) on X" font-family="'Trebuchet MS','Segoe UI',Helvetica,Arial,sans-serif">
+<title>jack (@jack) on X</title>
+<defs>
+<clipPath id="card"><rect width="450" height="204" rx="16"/></clipPath>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#140a2e"/><stop offset="1" stop-color="#4b1260"/></linearGradient>
+<linearGradient id="sun" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd36e"/><stop offset="1" stop-color="#ff4f8b"/></linearGradient>
+<mask id="stripes"><rect width="450" height="204" fill="#ffffff"/><rect x="0" y="115.7" width="450" height="1.5" fill="#000000"/><rect x="0" y="123.5" width="450" height="2.6" fill="#000000"/><rect x="0" y="133.7" width="450" height="3.7" fill="#000000"/><rect x="0" y="146.3" width="450" height="4.8" fill="#000000"/><rect x="0" y="161.3" width="450" height="5.9" fill="#000000"/><rect x="0" y="178.7" width="450" height="7.0" fill="#000000"/></mask>
+</defs>
+<g clip-path="url(#card)">
+<rect width="450" height="204" fill="url(#sky)"/>
+<circle cx="358" cy="152" r="66" fill="url(#sun)" mask="url(#stripes)"/>
+<rect y="152" width="450" height="52" fill="#12061f"/>
+<g stroke="#ff4f8b" stroke-opacity=".4" stroke-width="1"><line x1="0" x2="450" y1="156.0" y2="156.0"/><line x1="0" x2="450" y1="165.0" y2="165.0"/><line x1="0" x2="450" y1="177.9" y2="177.9"/><line x1="0" x2="450" y1="194.2" y2="194.2"/><line x1="27" y1="152" x2="-765" y2="204"/><line x1="49" y1="152" x2="-655" y2="204"/><line x1="71" y1="152" x2="-545" y2="204"/><line x1="93" y1="152" x2="-435" y2="204"/><line x1="115" y1="152" x2="-325" y2="204"/><line x1="137" y1="152" x2="-215" y2="204"/><line x1="159" y1="152" x2="-105" y2="204"/><line x1="181" y1="152" x2="5" y2="204"/><line x1="203" y1="152" x2="115" y2="204"/><line x1="225" y1="152" x2="225" y2="204"/><line x1="247" y1="152" x2="335" y2="204"/><line x1="269" y1="152" x2="445" y2="204"/><line x1="291" y1="152" x2="555" y2="204"/><line x1="313" y1="152" x2="665" y2="204"/><line x1="335" y1="152" x2="775" y2="204"/><line x1="357" y1="152" x2="885" y2="204"/><line x1="379" y1="152" x2="995" y2="204"/><line x1="401" y1="152" x2="1105" y2="204"/><line x1="423" y1="152" x2="1215" y2="204"/></g>
+<line x1="0" x2="450" y1="152" y2="152" stroke="#ff8fb8" stroke-width="1.5"/>
+</g>
+<circle cx="54" cy="54" r="32" fill="none" stroke="#5ef2ff" stroke-width="2"/>
+<clipPath id="avatar"><circle cx="54" cy="54" r="29"/></clipPath>
+<image href="data:image/jpeg;base64,AQID" x="25" y="25" width="58" height="58" clip-path="url(#avatar)"/>
+<text x="100" y="50" font-size="21" font-weight="700" font-style="italic" fill="#ffffff">jack</text>
+<g transform="translate(161 43)"><circle r="8" fill="#5ef2ff"/><path d="M-3.5 0.2 L-1 2.7 L3.8 -2.4" fill="none" stroke="#140a2e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
+<text x="100" y="73" font-size="14" fill="#ffb3d1">@jack</text>
+<text x="24" y="110" font-size="13" fill="#f3e8ff" fill-opacity=".88">no state is the best state &amp;</text>
+<text x="24" y="128" font-size="13" fill="#f3e8ff" fill-opacity=".88">&lt;b&gt;tags&lt;/b&gt; &quot;quoted&quot; — 그리고 아주…</text>
+<text x="24" y="186" font-size="11" letter-spacing="1" fill="#ffb3d1"><tspan font-size="15" font-weight="700" letter-spacing="0" fill="#5ef2ff">31K</tspan> POSTS</text>
+<text x="126" y="186" font-size="11" letter-spacing="1" fill="#ffb3d1"><tspan font-size="15" font-weight="700" letter-spacing="0" fill="#5ef2ff">12.5M</tspan> FOLLOWERS</text>
+<text x="284" y="186" font-size="11" letter-spacing="1" fill="#ffb3d1"><tspan font-size="15" font-weight="700" letter-spacing="0" fill="#5ef2ff">3</tspan> FOLLOWING</text>
+</svg>"
+`;

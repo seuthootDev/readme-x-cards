@@ -1,4 +1,8 @@
 import { aurora } from './aurora.js';
+import { brutal } from './brutal.js';
+import { paper } from './paper.js';
+import { receipt } from './receipt.js';
+import { sunset } from './sunset.js';
 import { terminal } from './terminal.js';
 import type { Theme } from './types.js';
 
@@ -8,6 +12,10 @@ export type { Theme } from './types.js';
 const THEMES = new Map<string, Theme>([
   [aurora.name, aurora],
   [terminal.name, terminal],
+  [paper.name, paper],
+  [brutal.name, brutal],
+  [receipt.name, receipt],
+  [sunset.name, sunset],
 ]);
 
 export const DEFAULT_THEME = 'aurora';

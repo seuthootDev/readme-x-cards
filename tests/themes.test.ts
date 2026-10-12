@@ -3,7 +3,7 @@ import { DEFAULT_THEME, getTheme, themeNames } from '../src/themes/index.js';
 
 describe('theme registry', () => {
   it('lists the built-in themes', () => {
-    expect(themeNames).toEqual(['aurora', 'terminal']);
+    expect(themeNames).toEqual(['aurora', 'terminal', 'paper', 'brutal', 'receipt', 'sunset']);
     expect(DEFAULT_THEME).toBe('aurora');
   });
 

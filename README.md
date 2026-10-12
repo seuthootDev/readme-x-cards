@@ -7,6 +7,16 @@ X (Twitter) profile and post cards for your GitHub README. Free, no sign-up, no 
 | ![aurora profile](docs/previews/aurora-profile.svg) | ![terminal profile](docs/previews/terminal-profile.svg) |
 | ![aurora post](docs/previews/aurora-famous.svg) | ![terminal post](docs/previews/terminal-famous.svg) |
 
+| Paper | Brutal |
+|---|---|
+| ![paper profile](docs/previews/paper-profile.svg) | ![brutal profile](docs/previews/brutal-profile.svg) |
+| ![paper post](docs/previews/paper-famous.svg) | ![brutal post](docs/previews/brutal-famous.svg) |
+
+| Receipt | Sunset |
+|---|---|
+| ![receipt profile](docs/previews/receipt-profile.svg) | ![sunset profile](docs/previews/sunset-profile.svg) |
+| ![receipt post](docs/previews/receipt-famous.svg) | ![sunset post](docs/previews/sunset-famous.svg) |
+
 **Try it:** https://readme-x-cards.vercel.app/ — type your username, pick a theme, copy the snippet.
 
 ## Usage
@@ -39,7 +49,7 @@ Want your three latest posts? Add three lines with `index=1`, `index=2`, `index=
 | `/api/post` | `id` | Post ID (the number in the post URL) | — |
 | `/api/post` | `user` | X username — shows their latest post | — |
 | `/api/post` | `index` | `1`–`10`, n-th latest post (with `user`) | `1` |
-| both | `theme` | `aurora`, `terminal` | `aurora` |
+| both | `theme` | `aurora`, `terminal`, `paper`, `brutal`, `receipt`, `sunset` | `aurora` |
 
 `/api/post` needs either `id` or `user`; `id` wins if both are given.
 
@@ -57,7 +67,7 @@ No environment variables needed. Running your own instance keeps your cards work
 
 1. Create `src/themes/<name>.ts` exporting an object that implements `Theme` (`src/themes/types.ts`): `renderProfile`, `renderPost`, `renderError`, each returning a complete SVG string.
 2. Register it in `src/themes/index.ts`.
-3. Add tests next to `tests/aurora.test.ts` and run `npm test`, then `npm run smoke` to render previews.
+3. Add it to the `describe.each` list in `tests/theme-contract.test.ts` (plus any theme-specific checks) and run `npm test`, then `npm run smoke` to render previews.
 
 Rules: card width 450px, escape every external string with `escapeXml`, never reference external URLs (GitHub blocks them inside SVG images — avatars arrive as data URIs).
 
