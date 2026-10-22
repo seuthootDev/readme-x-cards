@@ -1,8 +1,9 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { getPostById, getProfile } from '../src/fetchers/index.js';
+import { getLatestPost, getPostById, getProfile } from '../src/fetchers/index.js';
 import synPost from './fixtures/syn-post.json' with { type: 'json' };
 import fxPost from './fixtures/fx-post.json' with { type: 'json' };
 import fxProfile from './fixtures/fx-profile.json' with { type: 'json' };
+import fxStatuses from './fixtures/fx-statuses.json' with { type: 'json' };
 import { htmlResponse, jsonResponse, mockFetch } from './helpers.js';
 
 afterEach(() => {
@@ -43,22 +44,39 @@ describe('getPostById', () => {
 });
 
 describe('getProfile', () => {
-  it('retries once when fxtwitter spuriously says not found', async () => {
+  it('retries when fxtwitter spuriously says not found', async () => {
     let calls = 0;
-    const fetchMock = mockFetch(() => (calls++ === 0 ? jsonResponse({ code: 404 }, 404) : jsonResponse(fxProfile)));
+    const fetchMock = mockFetch(() => (calls++ < 2 ? jsonResponse({ code: 404 }, 404) : jsonResponse(fxProfile)));
     await expect(getProfile('Seuthoot')).resolves.toMatchObject({ username: 'Seuthoot' });
-    expect(fetchMock).toHaveBeenCalledTimes(2);
+    expect(fetchMock).toHaveBeenCalledTimes(3);
   });
 
-  it('is NOT_FOUND when both attempts say not found', async () => {
+  it('is NOT_FOUND when all three attempts say not found', async () => {
     const fetchMock = mockFetch(() => htmlResponse(302));
     await expect(getProfile('nobody_here')).rejects.toMatchObject({ kind: 'NOT_FOUND', message: 'User not found' });
-    expect(fetchMock).toHaveBeenCalledTimes(2);
+    expect(fetchMock).toHaveBeenCalledTimes(3);
+  });
+
+  it('splits one 5s source budget across the attempts', async () => {
+    const timeout = vi.spyOn(AbortSignal, 'timeout');
+    mockFetch(() => htmlResponse(302));
+    await getProfile('nobody_here').catch(() => {});
+    expect(timeout.mock.calls.map(([ms]) => ms)).toEqual([1666, 1666, 1666]);
+    timeout.mockRestore();
   });
 
   it('does not retry an outage', async () => {
     const fetchMock = mockFetch(() => jsonResponse({}, 503));
     await expect(getProfile('Seuthoot')).rejects.toMatchObject({ kind: 'UPSTREAM' });
     expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('getLatestPost', () => {
+  it('retries when fxtwitter spuriously says not found', async () => {
+    let calls = 0;
+    const fetchMock = mockFetch(() => (calls++ === 0 ? jsonResponse({ code: 404 }, 404) : jsonResponse(fxStatuses)));
+    await expect(getLatestPost('Seuthoot', 1)).resolves.toMatchObject({ id: '2094701798535885304' });
+    expect(fetchMock).toHaveBeenCalledTimes(2);
   });
 });

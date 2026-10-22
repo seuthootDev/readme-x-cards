@@ -85,8 +85,9 @@ export async function fetchPost(id: string, timeoutMs?: number): Promise<Post> {
   return toPost(data.tweet);
 }
 
-export async function fetchLatestPost(username: string, index: number): Promise<Post> {
-  const data = (await getJson(`${BASE}/2/profile/${encodeURIComponent(username)}/statuses`, 'Post not found')) as {
+export async function fetchLatestPost(username: string, index: number, timeoutMs?: number): Promise<Post> {
+  const url = `${BASE}/2/profile/${encodeURIComponent(username)}/statuses`;
+  const data = (await getJson(url, 'Post not found', timeoutMs)) as {
     code?: number;
     results?: (FxStatus & { type?: string })[];
   };

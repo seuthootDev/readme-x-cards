@@ -8,14 +8,23 @@ const isNotFound = (err: unknown) => err instanceof CardError && err.kind === 'N
 // The fallback chain shares one source budget so a double outage still answers within SOURCE_TIMEOUT_MS.
 const FALLBACK_STEP_MS = SOURCE_TIMEOUT_MS / 2;
 
-export async function getProfile(username: string): Promise<Profile> {
-  try {
-    return await fxtwitter.fetchProfile(username, FALLBACK_STEP_MS);
-  } catch (err) {
-    // From Vercel, fxtwitter intermittently reports existing users as missing; ask once more.
-    if (!isNotFound(err)) throw err;
-    return fxtwitter.fetchProfile(username, FALLBACK_STEP_MS);
+// From Vercel, fxtwitter intermittently reports existing users as missing, so a "not found" is asked
+// again; all attempts share one source budget.
+const NOT_FOUND_ATTEMPTS = 3;
+const RETRY_STEP_MS = Math.floor(SOURCE_TIMEOUT_MS / NOT_FOUND_ATTEMPTS);
+
+async function retryNotFound<T>(fetchOnce: (timeoutMs: number) => Promise<T>): Promise<T> {
+  for (let attempt = 1; ; attempt++) {
+    try {
+      return await fetchOnce(RETRY_STEP_MS);
+    } catch (err) {
+      if (!isNotFound(err) || attempt === NOT_FOUND_ATTEMPTS) throw err;
+    }
   }
+}
+
+export function getProfile(username: string): Promise<Profile> {
+  return retryNotFound((timeoutMs) => fxtwitter.fetchProfile(username, timeoutMs));
 }
 
 export async function getPostById(id: string): Promise<Post> {
@@ -32,5 +41,5 @@ export async function getPostById(id: string): Promise<Post> {
 }
 
 export function getLatestPost(username: string, index: number): Promise<Post> {
-  return fxtwitter.fetchLatestPost(username, index);
+  return retryNotFound((timeoutMs) => fxtwitter.fetchLatestPost(username, index, timeoutMs));
 }
