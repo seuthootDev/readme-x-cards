@@ -56,7 +56,7 @@ describe('profileCard', () => {
     mockFetch(() => htmlResponse(302));
     const card = await profileCard(q('user=nobody_here'));
     expect(card.svg).toContain('User not found');
-    expect(card.cacheControl).toBe(CACHE.clientError);
+    expect(card.cacheControl).toBe(CACHE.notFound);
   });
 
   it('returns an upstream card with a short cache', async () => {
@@ -101,7 +101,7 @@ describe('postCard', () => {
     mockFetch(happyRoutes);
     const card = await postCard(q('user=Seuthoot&index=5'));
     expect(card.svg).toContain('Post not found');
-    expect(card.cacheControl).toBe(CACHE.clientError);
+    expect(card.cacheControl).toBe(CACHE.notFound);
   });
 
   it('returns an invalid-input card', async () => {

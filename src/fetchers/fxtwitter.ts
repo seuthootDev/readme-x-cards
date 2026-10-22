@@ -69,8 +69,8 @@ function toPost(status: FxStatus): Post {
   };
 }
 
-export async function fetchProfile(username: string): Promise<Profile> {
-  const data = (await getJson(`${BASE}/${encodeURIComponent(username)}`, 'User not found')) as {
+export async function fetchProfile(username: string, timeoutMs?: number): Promise<Profile> {
+  const data = (await getJson(`${BASE}/${encodeURIComponent(username)}`, 'User not found', timeoutMs)) as {
     code?: number;
     user?: FxUser;
   };

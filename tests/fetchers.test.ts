@@ -1,7 +1,8 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { getPostById } from '../src/fetchers/index.js';
+import { getPostById, getProfile } from '../src/fetchers/index.js';
 import synPost from './fixtures/syn-post.json' with { type: 'json' };
 import fxPost from './fixtures/fx-post.json' with { type: 'json' };
+import fxProfile from './fixtures/fx-profile.json' with { type: 'json' };
 import { htmlResponse, jsonResponse, mockFetch } from './helpers.js';
 
 afterEach(() => {
@@ -38,5 +39,26 @@ describe('getPostById', () => {
   it('is UPSTREAM when both fail and at least one is an outage', async () => {
     mockFetch((url) => (isSyndication(url) ? htmlResponse(404) : jsonResponse({}, 500)));
     await expect(getPostById('20')).rejects.toMatchObject({ kind: 'UPSTREAM' });
+  });
+});
+
+describe('getProfile', () => {
+  it('retries once when fxtwitter spuriously says not found', async () => {
+    let calls = 0;
+    const fetchMock = mockFetch(() => (calls++ === 0 ? jsonResponse({ code: 404 }, 404) : jsonResponse(fxProfile)));
+    await expect(getProfile('Seuthoot')).resolves.toMatchObject({ username: 'Seuthoot' });
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+  });
+
+  it('is NOT_FOUND when both attempts say not found', async () => {
+    const fetchMock = mockFetch(() => htmlResponse(302));
+    await expect(getProfile('nobody_here')).rejects.toMatchObject({ kind: 'NOT_FOUND', message: 'User not found' });
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+  });
+
+  it('does not retry an outage', async () => {
+    const fetchMock = mockFetch(() => jsonResponse({}, 503));
+    await expect(getProfile('Seuthoot')).rejects.toMatchObject({ kind: 'UPSTREAM' });
+    expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 });

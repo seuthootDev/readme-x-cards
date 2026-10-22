@@ -8,8 +8,14 @@ const isNotFound = (err: unknown) => err instanceof CardError && err.kind === 'N
 // The fallback chain shares one source budget so a double outage still answers within SOURCE_TIMEOUT_MS.
 const FALLBACK_STEP_MS = SOURCE_TIMEOUT_MS / 2;
 
-export function getProfile(username: string): Promise<Profile> {
-  return fxtwitter.fetchProfile(username);
+export async function getProfile(username: string): Promise<Profile> {
+  try {
+    return await fxtwitter.fetchProfile(username, FALLBACK_STEP_MS);
+  } catch (err) {
+    // From Vercel, fxtwitter intermittently reports existing users as missing; ask once more.
+    if (!isNotFound(err)) throw err;
+    return fxtwitter.fetchProfile(username, FALLBACK_STEP_MS);
+  }
 }
 
 export async function getPostById(id: string): Promise<Post> {

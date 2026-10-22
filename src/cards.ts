@@ -9,6 +9,8 @@ export const CACHE = {
   postById: 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=86400',
   latestPost: 'public, max-age=1800, s-maxage=3600, stale-while-revalidate=86400',
   clientError: 'public, max-age=3600, s-maxage=3600',
+  // Short, because upstream sometimes reports existing accounts as missing.
+  notFound: 'public, max-age=300, s-maxage=300',
   upstreamError: 'public, max-age=600, s-maxage=600',
 } as const;
 
@@ -20,7 +22,8 @@ export interface CardResponse {
 function errorCard(err: unknown, themeName: string | null): CardResponse {
   const theme = getTheme(themeName);
   if (err instanceof CardError && err.kind !== 'UPSTREAM') {
-    return { svg: theme.renderError(err.message), cacheControl: CACHE.clientError };
+    const cacheControl = err.kind === 'NOT_FOUND' ? CACHE.notFound : CACHE.clientError;
+    return { svg: theme.renderError(err.message), cacheControl };
   }
   if (!(err instanceof CardError)) console.error('[readme-x-cards] unexpected error', err);
   return { svg: theme.renderError('X data temporarily unavailable'), cacheControl: CACHE.upstreamError };

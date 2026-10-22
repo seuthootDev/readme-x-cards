@@ -19,7 +19,8 @@ for (const theme of themeNames) {
   for (const [kind, card] of Object.entries(cards)) {
     const file = `${OUT}/${theme}-${kind}.svg`;
     await writeFile(file, card.svg);
-    const isError = card.cacheControl === CACHE.clientError || card.cacheControl === CACHE.upstreamError;
+    const errorCaches: string[] = [CACHE.clientError, CACHE.notFound, CACHE.upstreamError];
+    const isError = errorCaches.includes(card.cacheControl);
     if (isError) failed = true;
     console.log(`${isError ? 'FAIL' : 'ok  '} ${file}`);
   }
