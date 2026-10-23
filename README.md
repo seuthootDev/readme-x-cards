@@ -63,6 +63,8 @@ Cards are cached: profiles for 6 hours, latest posts for 1 hour, specific posts 
 
 No environment variables needed. Running your own instance keeps your cards working even if the public one is rate-limited.
 
+Optional: connect an [Upstash Redis](https://vercel.com/marketplace/upstash) database to the project (it sets `KV_REST_API_URL` / `KV_REST_API_TOKEN` or `UPSTASH_REDIS_REST_URL` / `UPSTASH_REDIS_REST_TOKEN`). Each card then remembers its last successful data for 7 days, and when X data is briefly unavailable it shows that instead of an error card.
+
 ## Adding a theme
 
 1. Create `src/themes/<name>.ts` exporting an object that implements `Theme` (`src/themes/types.ts`): `renderProfile`, `renderPost`, `renderError`, each returning a complete SVG string.
