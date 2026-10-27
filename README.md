@@ -6,16 +6,19 @@ X (Twitter) profile and post cards for your GitHub README. Free, no sign-up, no 
 |---|---|
 | ![aurora profile](docs/previews/aurora-profile.svg) | ![terminal profile](docs/previews/terminal-profile.svg) |
 | ![aurora post](docs/previews/aurora-famous.svg) | ![terminal post](docs/previews/terminal-famous.svg) |
+| ![aurora posts](docs/previews/aurora-feed.svg) | ![terminal posts](docs/previews/terminal-feed.svg) |
 
 | Paper | Brutal |
 |---|---|
 | ![paper profile](docs/previews/paper-profile.svg) | ![brutal profile](docs/previews/brutal-profile.svg) |
 | ![paper post](docs/previews/paper-famous.svg) | ![brutal post](docs/previews/brutal-famous.svg) |
+| ![paper posts](docs/previews/paper-feed.svg) | ![brutal posts](docs/previews/brutal-feed.svg) |
 
 | Receipt | Sunset |
 |---|---|
 | ![receipt profile](docs/previews/receipt-profile.svg) | ![sunset profile](docs/previews/sunset-profile.svg) |
 | ![receipt post](docs/previews/receipt-famous.svg) | ![sunset post](docs/previews/sunset-famous.svg) |
+| ![receipt posts](docs/previews/receipt-feed.svg) | ![sunset posts](docs/previews/sunset-feed.svg) |
 
 **Try it:** https://readme-x-cards.vercel.app/ — type your username, pick a theme, copy the snippet.
 

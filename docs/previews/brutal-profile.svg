@@ -10,7 +10,7 @@
 <text x="102" y="76" font-size="15" font-weight="700" fill="#111111">@Seuthoot</text>
 <rect x="23" y="107" width="128" height="44" fill="#111111"/>
 <rect x="20" y="104" width="128" height="44" fill="#ffffff" stroke="#111111" stroke-width="2.5"/>
-<text x="30" y="126" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="16" font-weight="900" fill="#111111">1</text>
+<text x="30" y="126" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="16" font-weight="900" fill="#111111">2</text>
 <text x="30" y="139" font-size="9" font-weight="700" letter-spacing="1" fill="#111111">POSTS</text>
 <rect x="161" y="107" width="128" height="44" fill="#111111"/>
 <rect x="158" y="104" width="128" height="44" fill="#ff7ab6" stroke="#111111" stroke-width="2.5"/>
