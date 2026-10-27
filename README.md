@@ -47,6 +47,8 @@ One image with your `count` latest posts (1–5). For separate cards instead, us
 [![X post](https://readme-x-cards.vercel.app/api/post?id=20)](https://x.com/jack/status/20)
 ```
 
+Want to show your pinned post? Use this with the pinned post's ID (paste its link on the [landing page](https://readme-x-cards.vercel.app/)). The data sources don't say which post is pinned, so if you pin a different one later, update the ID.
+
 ### Match GitHub light and dark mode
 
 GitHub picks the `<source>` that matches each viewer's theme. Here Aurora shows in dark mode and Paper in light mode:
