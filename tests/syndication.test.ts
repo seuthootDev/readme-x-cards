@@ -54,6 +54,29 @@ describe('syndication fetchPost', () => {
     });
   });
 
+  it('swaps t.co links for their display form and maps preview, quote and reply', async () => {
+    mockFetch(() =>
+      jsonResponse({
+        ...synPost,
+        text: 'read @vercel docs https://t.co/abc https://t.co/pic',
+        display_text_range: [0, 34],
+        entities: {
+          urls: [{ url: 'https://t.co/abc', display_url: 'vercel.com/docs' }],
+          media: [{ url: 'https://t.co/pic' }],
+        },
+        in_reply_to_screen_name: 'vercel',
+        mediaDetails: [{ type: 'photo', media_url_https: 'https://pbs.twimg.com/media/Abc.jpg', original_info: { width: 800, height: 600 } }],
+        quoted_tweet: { text: 'Tom &amp; Jerry', user: { ...synPost.user, screen_name: 'tj', name: 'TJ' } },
+      }),
+    );
+    await expect(fetchPost('20')).resolves.toMatchObject({
+      text: 'read @vercel docs vercel.com/docs',
+      replyTo: 'vercel',
+      thumbnail: { url: 'https://pbs.twimg.com/media/Abc?format=jpg&name=small', width: 800, height: 600, video: false },
+      quote: { author: { username: 'tj', name: 'TJ' }, text: 'Tom & Jerry' },
+    });
+  });
+
   it('treats tombstones as NOT_FOUND', async () => {
     mockFetch(() => jsonResponse({ __typename: 'TweetTombstone' }));
     await expect(fetchPost('20')).rejects.toMatchObject({ kind: 'NOT_FOUND', message: 'Post not found' });

@@ -1,6 +1,17 @@
 import type { Post, Profile } from '../model.js';
 import { escapeXml, formatCount, formatDate, measure, wrapText } from '../render/text.js';
-import { checkBadge, initialOf, mediaSummary, metricItems } from './shared.js';
+import {
+  checkBadge,
+  initialOf,
+  mediaLine,
+  mediaSummary,
+  metricItems,
+  previewHeight,
+  previewImage,
+  quoteBox,
+  replyLine,
+  richText,
+} from './shared.js';
 import type { RenderOptions, Theme } from './types.js';
 
 const W = 450;
@@ -9,6 +20,7 @@ const HEAVY = "'Arial Black','Helvetica Neue',Arial,sans-serif";
 const INK = '#111111';
 const YELLOW = '#ffe14d';
 const PINK = '#ff7ab6';
+const LINK = '#1b3bff';
 // Arial Black runs about 15% wider than the sans widths measure() assumes.
 const HEAVY_SCALE = 1.15;
 
@@ -95,16 +107,41 @@ function tag(text: string, y: number): { svg: string; x: number } {
   };
 }
 
-function renderPost(post: Post, avatarUri: string | null, opts: RenderOptions = {}): string {
+function renderPost(post: Post, avatarUri: string | null, opts: RenderOptions = {}, thumbnailUri: string | null = null): string {
   const date = formatDate(post.createdAt, opts.locale).toUpperCase();
   const dateTag = date ? tag(date, 24) : null;
   const name = heavyLine(post.author.name, dateTag ? nameRoom(dateTag.x, post.author.verified) : 320, 18);
   const lines = wrapText(post.text, { maxWidth: 396, fontSize: 16, maxLines: 4 });
-  const media = mediaSummary(post.media);
+  const preview = thumbnailUri ? post.thumbnail : undefined;
+  const media = mediaLine(post, Boolean(preview));
   const metrics = metricItems(post);
 
-  let y = lines.length ? 102 + (lines.length - 1) * 23 : 66;
+  const textY = post.replyTo ? 124 : 102;
+  let y = lines.length ? textY + (lines.length - 1) * 23 : textY - 36;
   const mediaY = media ? (y += 23) : 0;
+  const blocks: string[] = [];
+  if (preview) {
+    const box = { x: 22, y: y + 16, width: 396, height: previewHeight(preview, 396), rx: 0 };
+    blocks.push(
+      `<rect x="${box.x + 4}" y="${box.y + 4}" width="${box.width}" height="${box.height}" fill="${INK}"/>`,
+      previewImage(thumbnailUri!, preview, box, `stroke="${INK}" stroke-width="3"`),
+    );
+    y = box.y + box.height + 4;
+  }
+  if (post.quote) {
+    const top = y + 14;
+    const quote = quoteBox(post.quote, top, {
+      x: 22,
+      width: 396,
+      fontSize: 13,
+      ink: INK,
+      muted: INK,
+      link: LINK,
+      box: `fill="#ffffff" stroke="${INK}" stroke-width="2.5"`,
+    });
+    blocks.push(`<rect x="25" y="${top + 3}" width="396" height="${quote.bottom - top}" fill="${INK}"/>`, quote.svg);
+    y = quote.bottom + 3;
+  }
   const boxesY = y + 22;
   const height = metrics.length ? boxesY + 40 + 26 : y + 30;
 
@@ -114,11 +151,13 @@ function renderPost(post: Post, avatarUri: string | null, opts: RenderOptions = 
     post.author.verified ? checkBadge(80 + measure(name, 18) * HEAVY_SCALE + 13, 36, INK, YELLOW, true) : '',
     `<text x="80" y="62" font-size="13" font-weight="700" fill="${INK}">@${escapeXml(post.author.username)}</text>`,
     dateTag?.svg ?? '',
+    ...(post.replyTo ? [replyLine(post.replyTo, 22, 94, 12, INK, LINK, 'REPLYING TO')] : []),
     ...lines.map(
       (line, i) =>
-        `<text class="body" x="22" y="${102 + i * 23}" font-size="16" font-weight="600" fill="${INK}">${escapeXml(line)}</text>`,
+        `<text class="body" x="22" y="${textY + i * 23}" font-size="16" font-weight="600" fill="${INK}">${richText(line, LINK)}</text>`,
     ),
     media ? `<text x="22" y="${mediaY}" font-size="12" font-weight="700" letter-spacing="1" fill="${INK}">+ ${media.toUpperCase()}</text>` : '',
+    ...blocks,
     boxes(
       metrics.map(({ key, value }) => ({ value, label: key.toUpperCase() })),
       boxesY,
@@ -156,7 +195,7 @@ function renderFeed(posts: Post[], avatarUri: string | null, opts: RenderOptions
     const lines = wrapText(post.text, { maxWidth: 368, fontSize: 15, maxLines: 3 });
     lines.forEach((line, i) => {
       y += i === 0 ? (date ? 22 : 26) : 21;
-      content.push(`<text class="body" x="36" y="${y}" font-size="15" font-weight="600" fill="${INK}">${escapeXml(line)}</text>`);
+      content.push(`<text class="body" x="36" y="${y}" font-size="15" font-weight="600" fill="${INK}">${richText(line, LINK)}</text>`);
     });
     const media = mediaSummary(post.media);
     if (media) {

@@ -1,0 +1,221 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`aurora rich post > stays a valid, self-contained SVG 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" width="450" height="525" viewBox="0 0 450 525" role="img" aria-label="Post by @jack on X" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif">
+<title>Post by @jack on X</title>
+<defs>
+<clipPath id="card"><rect width="450" height="525" rx="18"/></clipPath>
+<radialGradient id="g1" cx="15%" cy="10%" r="70%"><stop offset="0" stop-color="#7c3aed"/><stop offset="1" stop-color="#7c3aed" stop-opacity="0"/></radialGradient>
+<radialGradient id="g2" cx="95%" cy="100%" r="70%"><stop offset="0" stop-color="#06b6d4"/><stop offset="1" stop-color="#06b6d4" stop-opacity="0"/></radialGradient>
+<radialGradient id="g3" cx="70%" cy="0%" r="50%"><stop offset="0" stop-color="#ec4899" stop-opacity=".8"/><stop offset="1" stop-color="#ec4899" stop-opacity="0"/></radialGradient>
+</defs>
+<g clip-path="url(#card)">
+<rect width="450" height="525" fill="#0b0b14"/>
+<rect width="450" height="525" fill="url(#g1)"/>
+<rect width="450" height="525" fill="url(#g2)"/>
+<rect width="450" height="525" fill="url(#g3)"/>
+<rect x="12" y="12" width="426" height="501" rx="14" fill="#ffffff" fill-opacity=".08" stroke="#ffffff" stroke-opacity=".18"/>
+</g>
+<clipPath id="avatar"><circle cx="46" cy="46" r="20"/></clipPath>
+<image href="data:image/jpeg;base64,AQID" x="26" y="26" width="40" height="40" clip-path="url(#avatar)"/>
+<text x="78" y="42" font-size="15" font-weight="700" fill="#ffffff">jack</text>
+<g transform="translate(124 37)"><circle r="8" fill="#1d9bf0"/><path d="M-3.5 0.2 L-1 2.7 L3.8 -2.4" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
+<text x="78" y="61" font-size="13" fill="#ffffff" fill-opacity=".6">@jack · Mar 21, 2006</text>
+<text x="28" y="92" font-size="13" fill="#b8b8c8">Replying to <tspan fill="#8fd8ff">@someone</tspan></text>
+<text class="body" x="28" y="126" font-size="17" fill="#ffffff">Shipping with <tspan fill="#8fd8ff">@vercel</tspan> today</text>
+<text class="body" x="28" y="150" font-size="17" fill="#ffffff"><tspan fill="#8fd8ff">#buildinpublic</tspan> <tspan fill="#8fd8ff">vercel.com/docs</tspan></text>
+
+<clipPath id="preview"><rect x="28" y="166" width="394" height="220" rx="10"/></clipPath>
+<image href="data:image/jpeg;base64,BBBB" x="28" y="166" width="394" height="220" preserveAspectRatio="xMidYMid slice" clip-path="url(#preview)"/>
+<rect x="28" y="166" width="394" height="220" rx="10" fill="none" stroke="#ffffff" stroke-opacity=".2"/>
+<circle cx="225" cy="276" r="22" fill="#000000" fill-opacity=".6"/><path d="M218 265 L236 276 L218 287 Z" fill="#ffffff"/>
+<rect x="28" y="400" width="394" height="59" rx="10" fill="#000000" fill-opacity=".18" stroke="#ffffff" stroke-opacity=".22"/>
+<text x="42" y="430" font-size="13" font-weight="700" fill="#ffffff">TJ &lt;Holo&gt; <tspan font-weight="400" fill="#c9c9d9">@tj</tspan></text>
+<text class="quote" x="42" y="448" font-size="13" fill="#ffffff">quoted &amp; &quot;escaped&quot; <tspan fill="#8fd8ff">@mention</tspan></text>
+<text x="28" y="491" font-size="13" fill="#ffffff" fill-opacity=".75">💬 18.1K</text>
+<text x="109" y="491" font-size="13" fill="#ffffff" fill-opacity=".75">🔁 124.7K</text>
+<text x="197" y="491" font-size="13" fill="#ffffff" fill-opacity=".75">♡ 309.4K</text>
+<text x="279" y="491" font-size="13" fill="#ffffff" fill-opacity=".75">👁 1.2M</text>
+</svg>"
+`;
+
+exports[`brutal rich post > stays a valid, self-contained SVG 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" width="450" height="551" viewBox="0 0 450 551" role="img" aria-label="Post by @jack on X" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif">
+<title>Post by @jack on X</title>
+<rect x="8" y="8" width="438" height="539" fill="#111111"/>
+<rect x="2" y="2" width="438" height="539" fill="#ffe14d" stroke="#111111" stroke-width="3"/>
+<clipPath id="avatar"><rect x="22" y="22" width="44" height="44"/></clipPath>
+<image href="data:image/jpeg;base64,AQID" x="22" y="22" width="44" height="44" preserveAspectRatio="xMidYMid slice" clip-path="url(#avatar)"/>
+<rect x="22" y="22" width="44" height="44" fill="none" stroke="#111111" stroke-width="3"/>
+<text x="80" y="42" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="18" font-weight="900" fill="#111111">JACK</text>
+<g transform="translate(151 36)"><rect x="-8" y="-8" width="16" height="16" fill="#111111"/><path d="M-3.5 0.2 L-1 2.7 L3.8 -2.4" fill="none" stroke="#ffe14d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
+<text x="80" y="62" font-size="13" font-weight="700" fill="#111111">@jack</text>
+<rect x="318" y="24" width="102" height="24" fill="#111111"/>
+<text x="369" y="40" text-anchor="middle" font-size="11" font-weight="700" letter-spacing="1" fill="#ffe14d">MAR 21, 2006</text>
+<text x="22" y="94" font-size="12" fill="#111111">REPLYING TO <tspan fill="#1b3bff">@someone</tspan></text>
+<text class="body" x="22" y="124" font-size="16" font-weight="600" fill="#111111">Shipping with <tspan fill="#1b3bff">@vercel</tspan> today <tspan fill="#1b3bff">#buildinpublic</tspan></text>
+<text class="body" x="22" y="147" font-size="16" font-weight="600" fill="#111111"><tspan fill="#1b3bff">vercel.com/docs</tspan></text>
+
+<rect x="26" y="167" width="396" height="220" fill="#111111"/>
+<clipPath id="preview"><rect x="22" y="163" width="396" height="220" rx="0"/></clipPath>
+<image href="data:image/jpeg;base64,BBBB" x="22" y="163" width="396" height="220" preserveAspectRatio="xMidYMid slice" clip-path="url(#preview)"/>
+<rect x="22" y="163" width="396" height="220" rx="0" fill="none" stroke="#111111" stroke-width="3"/>
+<circle cx="220" cy="273" r="22" fill="#000000" fill-opacity=".6"/><path d="M213 262 L231 273 L213 284 Z" fill="#ffffff"/>
+<rect x="25" y="404" width="396" height="59" fill="#111111"/>
+<rect x="22" y="401" width="396" height="59" fill="#ffffff" stroke="#111111" stroke-width="2.5"/>
+<text x="36" y="431" font-size="13" font-weight="700" fill="#111111">TJ &lt;Holo&gt; <tspan font-weight="400" fill="#111111">@tj</tspan></text>
+<text class="quote" x="36" y="449" font-size="13" fill="#111111">quoted &amp; &quot;escaped&quot; <tspan fill="#1b3bff">@mention</tspan></text>
+<rect x="23" y="488" width="94" height="40" fill="#111111"/>
+<rect x="20" y="485" width="94" height="40" fill="#ffffff" stroke="#111111" stroke-width="2.5"/>
+<text x="30" y="505" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="900" fill="#111111">18.1K</text>
+<text x="30" y="516" font-size="9" font-weight="700" letter-spacing="1" fill="#111111">REPLIES</text>
+<rect x="127" y="488" width="94" height="40" fill="#111111"/>
+<rect x="124" y="485" width="94" height="40" fill="#ffffff" stroke="#111111" stroke-width="2.5"/>
+<text x="134" y="505" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="900" fill="#111111">124.7K</text>
+<text x="134" y="516" font-size="9" font-weight="700" letter-spacing="1" fill="#111111">REPOSTS</text>
+<rect x="231" y="488" width="94" height="40" fill="#111111"/>
+<rect x="228" y="485" width="94" height="40" fill="#ff7ab6" stroke="#111111" stroke-width="2.5"/>
+<text x="238" y="505" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="900" fill="#111111">309.4K</text>
+<text x="238" y="516" font-size="9" font-weight="700" letter-spacing="1" fill="#111111">LIKES</text>
+<rect x="335" y="488" width="94" height="40" fill="#111111"/>
+<rect x="332" y="485" width="94" height="40" fill="#ffffff" stroke="#111111" stroke-width="2.5"/>
+<text x="342" y="505" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="900" fill="#111111">1.2M</text>
+<text x="342" y="516" font-size="9" font-weight="700" letter-spacing="1" fill="#111111">VIEWS</text>
+</svg>"
+`;
+
+exports[`paper rich post > stays a valid, self-contained SVG 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" width="450" height="507" viewBox="0 0 450 507" role="img" aria-label="Post by @jack on X" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif">
+<title>Post by @jack on X</title>
+<rect x="0.5" y="0.5" width="449" height="506" rx="12" fill="#ffffff" stroke="#d0d7de"/>
+<clipPath id="avatar"><circle cx="44" cy="44" r="20"/></clipPath>
+<image href="data:image/jpeg;base64,AQID" x="24" y="24" width="40" height="40" clip-path="url(#avatar)"/>
+<circle cx="44" cy="44" r="19.5" fill="none" stroke="#1f2328" stroke-opacity=".1"/>
+<text x="74" y="40" font-size="15" font-weight="600" fill="#1f2328">jack</text>
+<g transform="translate(119 35)"><circle r="8" fill="#1d9bf0"/><path d="M-3.5 0.2 L-1 2.7 L3.8 -2.4" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
+<text x="74" y="59" font-size="13" fill="#59636e">@jack · Mar 21, 2006</text>
+<text x="24" y="92" font-size="13" fill="#59636e">Replying to <tspan fill="#0969da">@someone</tspan></text>
+<text class="body" x="24" y="122" font-size="16" fill="#1f2328">Shipping with <tspan fill="#0969da">@vercel</tspan> today <tspan fill="#0969da">#buildinpublic</tspan></text>
+<text class="body" x="24" y="146" font-size="16" fill="#1f2328"><tspan fill="#0969da">vercel.com/docs</tspan></text>
+
+<clipPath id="preview"><rect x="24" y="160" width="402" height="220" rx="12"/></clipPath>
+<image href="data:image/jpeg;base64,BBBB" x="24" y="160" width="402" height="220" preserveAspectRatio="xMidYMid slice" clip-path="url(#preview)"/>
+<rect x="24" y="160" width="402" height="220" rx="12" fill="none" stroke="#d0d7de"/>
+<circle cx="225" cy="270" r="22" fill="#000000" fill-opacity=".6"/><path d="M218 259 L236 270 L218 281 Z" fill="#ffffff"/>
+<rect x="24" y="390" width="402" height="59" rx="12" fill="none" stroke="#d0d7de"/>
+<text x="38" y="420" font-size="13" font-weight="700" fill="#1f2328">TJ &lt;Holo&gt; <tspan font-weight="400" fill="#59636e">@tj</tspan></text>
+<text class="quote" x="38" y="438" font-size="13" fill="#1f2328">quoted &amp; &quot;escaped&quot; <tspan fill="#0969da">@mention</tspan></text>
+<line x1="24" x2="426" y1="465.5" y2="465.5" stroke="#d8dee4"/>
+<text x="24" y="490" font-size="13" fill="#59636e"><tspan font-weight="600" fill="#1f2328">18.1K</tspan> replies</text>
+<text x="132" y="490" font-size="13" fill="#59636e"><tspan font-weight="600" fill="#1f2328">124.7K</tspan> reposts</text>
+<text x="248" y="490" font-size="13" fill="#59636e"><tspan font-weight="600" fill="#1f2328">309.4K</tspan> likes</text>
+<text x="349" y="490" font-size="13" fill="#59636e"><tspan font-weight="600" fill="#1f2328">1.2M</tspan> views</text>
+</svg>"
+`;
+
+exports[`receipt rich post > stays a valid, self-contained SVG 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" width="450" height="494" viewBox="0 0 450 494" role="img" aria-label="Post by @jack on X" font-family="ui-monospace,SFMono-Regular,Consolas,'Liberation Mono','Courier New',monospace">
+<title>Post by @jack on X</title>
+<path d="M0 0 H450 V486 L445 494 L440 486 L435 494 L430 486 L425 494 L420 486 L415 494 L410 486 L405 494 L400 486 L395 494 L390 486 L385 494 L380 486 L375 494 L370 486 L365 494 L360 486 L355 494 L350 486 L345 494 L340 486 L335 494 L330 486 L325 494 L320 486 L315 494 L310 486 L305 494 L300 486 L295 494 L290 486 L285 494 L280 486 L275 494 L270 486 L265 494 L260 486 L255 494 L250 486 L245 494 L240 486 L235 494 L230 486 L225 494 L220 486 L215 494 L210 486 L205 494 L200 486 L195 494 L190 486 L185 494 L180 486 L175 494 L170 486 L165 494 L160 486 L155 494 L150 486 L145 494 L140 486 L135 494 L130 486 L125 494 L120 486 L115 494 L110 486 L105 494 L100 486 L95 494 L90 486 L85 494 L80 486 L75 494 L70 486 L65 494 L60 486 L55 494 L50 486 L45 494 L40 486 L35 494 L30 486 L25 494 L20 486 L15 494 L10 486 L5 494 L0 486 Z" fill="#fbf8f0"/>
+<text x="225" y="40" text-anchor="middle" font-size="14" font-weight="700" letter-spacing="2" fill="#222222">X POST RECEIPT</text>
+<text x="225" y="60" text-anchor="middle" font-size="11" fill="#6b6b6b">ORDER #20 · Mar 21, 2006</text>
+<line x1="28" x2="422" y1="78" y2="78" stroke="#222222" stroke-dasharray="4 4"/>
+<text x="32" y="104" font-size="13" font-weight="400" fill="#222222">AUTHOR</text>
+<text x="418" y="104" text-anchor="end" font-size="13" font-weight="400" fill="#222222">@jack [✓]</text>
+<line x1="87" x2="340" y1="104" y2="104" stroke="#6b6b6b" stroke-dasharray="1 4"/>
+<text x="32" y="124" font-size="13" font-weight="400" fill="#222222">REPLY TO</text>
+<text x="418" y="124" text-anchor="end" font-size="13" font-weight="400" fill="#222222">@someone</text>
+<line x1="102" x2="348" y1="124" y2="124" stroke="#6b6b6b" stroke-dasharray="1 4"/>
+<text class="body" x="32" y="154" font-size="13" fill="#222222">Shipping with <tspan fill="#222222" text-decoration="underline">@vercel</tspan> today <tspan fill="#222222" text-decoration="underline">#buildinpublic</tspan></text>
+<text class="body" x="32" y="174" font-size="13" fill="#222222"><tspan fill="#222222" text-decoration="underline">vercel.com/docs</tspan></text>
+<text x="32" y="196" font-size="12" fill="#6b6b6b">+ 1 video</text>
+<rect x="28" y="210" width="394" height="56" fill="none" stroke="#222222" stroke-dasharray="4 4"/>
+<text x="42" y="239" font-size="12" font-weight="700" fill="#222222">TJ &lt;Holo&gt; <tspan font-weight="400" fill="#6b6b6b">@tj</tspan></text>
+<text class="quote" x="42" y="256" font-size="12" fill="#222222">quoted &amp; &quot;escaped&quot; <tspan fill="#222222">@mention</tspan></text>
+<line x1="28" x2="422" y1="282" y2="282" stroke="#222222" stroke-dasharray="4 4"/>
+<text x="32" y="306" font-size="13" font-weight="400" fill="#222222">REPLIES</text>
+<text x="418" y="306" text-anchor="end" font-size="13" font-weight="400" fill="#222222">18,072</text>
+<line x1="95" x2="363" y1="306" y2="306" stroke="#6b6b6b" stroke-dasharray="1 4"/>
+<text x="32" y="326" font-size="13" font-weight="400" fill="#222222">REPOSTS</text>
+<text x="418" y="326" text-anchor="end" font-size="13" font-weight="400" fill="#222222">124,685</text>
+<line x1="95" x2="355" y1="326" y2="326" stroke="#6b6b6b" stroke-dasharray="1 4"/>
+<text x="32" y="346" font-size="13" font-weight="400" fill="#222222">LIKES</text>
+<text x="418" y="346" text-anchor="end" font-size="13" font-weight="400" fill="#222222">309,357</text>
+<line x1="79" x2="355" y1="346" y2="346" stroke="#6b6b6b" stroke-dasharray="1 4"/>
+<line x1="28" x2="422" y1="364" y2="364" stroke="#222222" stroke-dasharray="4 4"/>
+<text x="32" y="390" font-size="15" font-weight="700" fill="#222222">TOTAL VIEWS</text>
+<text x="418" y="390" text-anchor="end" font-size="15" font-weight="700" fill="#222222">1,234,567</text>
+<line x1="139" x2="329" y1="390" y2="390" stroke="#6b6b6b" stroke-dasharray="1 4"/>
+<line x1="28" x2="422" y1="406" y2="406" stroke="#222222" stroke-dasharray="4 4"/>
+<line x1="28" x2="422" y1="410" y2="410" stroke="#222222" stroke-dasharray="4 4"/>
+<rect x="125" y="424" width="3" height="34" fill="#222222"/><rect x="129" y="424" width="2" height="34" fill="#222222"/><rect x="134" y="424" width="4" height="34" fill="#222222"/><rect x="140" y="424" width="1" height="34" fill="#222222"/><rect x="144" y="424" width="2" height="34" fill="#222222"/><rect x="149" y="424" width="4" height="34" fill="#222222"/><rect x="155" y="424" width="1" height="34" fill="#222222"/><rect x="159" y="424" width="1" height="34" fill="#222222"/><rect x="161" y="424" width="3" height="34" fill="#222222"/><rect x="167" y="424" width="3" height="34" fill="#222222"/><rect x="172" y="424" width="2" height="34" fill="#222222"/><rect x="176" y="424" width="3" height="34" fill="#222222"/><rect x="180" y="424" width="4" height="34" fill="#222222"/><rect x="185" y="424" width="4" height="34" fill="#222222"/><rect x="192" y="424" width="4" height="34" fill="#222222"/><rect x="198" y="424" width="1" height="34" fill="#222222"/><rect x="202" y="424" width="4" height="34" fill="#222222"/><rect x="207" y="424" width="1" height="34" fill="#222222"/><rect x="209" y="424" width="1" height="34" fill="#222222"/><rect x="211" y="424" width="4" height="34" fill="#222222"/><rect x="217" y="424" width="2" height="34" fill="#222222"/><rect x="220" y="424" width="3" height="34" fill="#222222"/><rect x="225" y="424" width="3" height="34" fill="#222222"/><rect x="231" y="424" width="1" height="34" fill="#222222"/><rect x="235" y="424" width="3" height="34" fill="#222222"/><rect x="240" y="424" width="4" height="34" fill="#222222"/><rect x="247" y="424" width="1" height="34" fill="#222222"/><rect x="250" y="424" width="3" height="34" fill="#222222"/><rect x="256" y="424" width="4" height="34" fill="#222222"/><rect x="262" y="424" width="3" height="34" fill="#222222"/><rect x="267" y="424" width="4" height="34" fill="#222222"/><rect x="272" y="424" width="2" height="34" fill="#222222"/><rect x="276" y="424" width="1" height="34" fill="#222222"/><rect x="278" y="424" width="3" height="34" fill="#222222"/><rect x="284" y="424" width="3" height="34" fill="#222222"/><rect x="288" y="424" width="1" height="34" fill="#222222"/><rect x="292" y="424" width="4" height="34" fill="#222222"/><rect x="297" y="424" width="4" height="34" fill="#222222"/><rect x="303" y="424" width="2" height="34" fill="#222222"/><rect x="307" y="424" width="4" height="34" fill="#222222"/><rect x="312" y="424" width="1" height="34" fill="#222222"/><rect x="315" y="424" width="1" height="34" fill="#222222"/><rect x="317" y="424" width="2" height="34" fill="#222222"/><rect x="320" y="424" width="3" height="34" fill="#222222"/>
+<text x="225" y="476" text-anchor="middle" font-size="11" letter-spacing="2" fill="#222222">PLEASE COME AGAIN</text>
+</svg>"
+`;
+
+exports[`sunset rich post > stays a valid, self-contained SVG 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" width="450" height="484" viewBox="0 0 450 484" role="img" aria-label="Post by @jack on X" font-family="'Trebuchet MS','Segoe UI',Helvetica,Arial,sans-serif">
+<title>Post by @jack on X</title>
+<defs>
+<clipPath id="card"><rect width="450" height="484" rx="16"/></clipPath>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#140a2e"/><stop offset="1" stop-color="#4b1260"/></linearGradient>
+<linearGradient id="sun" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd36e"/><stop offset="1" stop-color="#ff4f8b"/></linearGradient>
+<mask id="stripes"><rect width="450" height="484" fill="#ffffff"/><rect x="0" y="408.7" width="450" height="1.5" fill="#000000"/><rect x="0" y="414.5" width="450" height="2.6" fill="#000000"/><rect x="0" y="422.7" width="450" height="3.7" fill="#000000"/><rect x="0" y="433.3" width="450" height="4.8" fill="#000000"/><rect x="0" y="446.3" width="450" height="5.9" fill="#000000"/><rect x="0" y="461.7" width="450" height="7.0" fill="#000000"/></mask>
+</defs>
+<g clip-path="url(#card)">
+<rect width="450" height="484" fill="url(#sky)"/>
+<circle cx="392" cy="434" r="46" fill="url(#sun)" mask="url(#stripes)"/>
+<rect y="434" width="450" height="50" fill="#12061f"/>
+<g stroke="#ff4f8b" stroke-opacity=".4" stroke-width="1"><line x1="0" x2="450" y1="438.0" y2="438.0"/><line x1="0" x2="450" y1="447.0" y2="447.0"/><line x1="0" x2="450" y1="459.9" y2="459.9"/><line x1="0" x2="450" y1="476.2" y2="476.2"/><line x1="27" y1="434" x2="-765" y2="484"/><line x1="49" y1="434" x2="-655" y2="484"/><line x1="71" y1="434" x2="-545" y2="484"/><line x1="93" y1="434" x2="-435" y2="484"/><line x1="115" y1="434" x2="-325" y2="484"/><line x1="137" y1="434" x2="-215" y2="484"/><line x1="159" y1="434" x2="-105" y2="484"/><line x1="181" y1="434" x2="5" y2="484"/><line x1="203" y1="434" x2="115" y2="484"/><line x1="225" y1="434" x2="225" y2="484"/><line x1="247" y1="434" x2="335" y2="484"/><line x1="269" y1="434" x2="445" y2="484"/><line x1="291" y1="434" x2="555" y2="484"/><line x1="313" y1="434" x2="665" y2="484"/><line x1="335" y1="434" x2="775" y2="484"/><line x1="357" y1="434" x2="885" y2="484"/><line x1="379" y1="434" x2="995" y2="484"/><line x1="401" y1="434" x2="1105" y2="484"/><line x1="423" y1="434" x2="1215" y2="484"/></g>
+<line x1="0" x2="450" y1="434" y2="434" stroke="#ff8fb8" stroke-width="1.5"/>
+</g>
+<circle cx="44" cy="44" r="21" fill="none" stroke="#5ef2ff" stroke-width="2"/>
+<clipPath id="avatar"><circle cx="44" cy="44" r="18"/></clipPath>
+<image href="data:image/jpeg;base64,AQID" x="26" y="26" width="36" height="36" clip-path="url(#avatar)"/>
+<text x="74" y="40" font-size="15" font-weight="700" font-style="italic" fill="#ffffff">jack</text>
+<g transform="translate(119 35)"><circle r="8" fill="#5ef2ff"/><path d="M-3.5 0.2 L-1 2.7 L3.8 -2.4" fill="none" stroke="#140a2e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
+<text x="74" y="59" font-size="13" fill="#ffb3d1">@jack · Mar 21, 2006</text>
+<text x="24" y="92" font-size="13" fill="#ffb3d1">Replying to <tspan fill="#5ef2ff">@someone</tspan></text>
+<text class="body" x="24" y="122" font-size="16" fill="#ffffff">Shipping with <tspan fill="#5ef2ff">@vercel</tspan> today</text>
+<text class="body" x="24" y="145" font-size="16" fill="#ffffff"><tspan fill="#5ef2ff">#buildinpublic</tspan> <tspan fill="#5ef2ff">vercel.com/docs</tspan></text>
+
+<clipPath id="preview"><rect x="24" y="161" width="320" height="180" rx="10"/></clipPath>
+<image href="data:image/jpeg;base64,BBBB" x="24" y="161" width="320" height="180" preserveAspectRatio="xMidYMid slice" clip-path="url(#preview)"/>
+<rect x="24" y="161" width="320" height="180" rx="10" fill="none" stroke="#5ef2ff" stroke-opacity=".6"/>
+<circle cx="184" cy="251" r="22" fill="#000000" fill-opacity=".6"/><path d="M177 240 L195 251 L177 262 Z" fill="#ffffff"/>
+<rect x="24" y="349" width="320" height="59" rx="10" fill="#140a2e" fill-opacity=".6" stroke="#ffb3d1" stroke-opacity=".5"/>
+<text x="38" y="379" font-size="13" font-weight="700" fill="#ffffff">TJ &lt;Holo&gt; <tspan font-weight="400" fill="#ffb3d1">@tj</tspan></text>
+<text class="quote" x="38" y="397" font-size="13" fill="#ffffff">quoted &amp; &quot;escaped&quot; <tspan fill="#5ef2ff">@mention</tspan></text>
+<text x="24" y="466" font-size="10" letter-spacing="1" fill="#ffb3d1"><tspan font-size="14" font-weight="700" letter-spacing="0" fill="#5ef2ff">18.1K</tspan> REPLIES</text>
+<text x="136" y="466" font-size="10" letter-spacing="1" fill="#ffb3d1"><tspan font-size="14" font-weight="700" letter-spacing="0" fill="#5ef2ff">124.7K</tspan> REPOSTS</text>
+<text x="256" y="466" font-size="10" letter-spacing="1" fill="#ffb3d1"><tspan font-size="14" font-weight="700" letter-spacing="0" fill="#5ef2ff">309.4K</tspan> LIKES</text>
+<text x="360" y="466" font-size="10" letter-spacing="1" fill="#ffb3d1"><tspan font-size="14" font-weight="700" letter-spacing="0" fill="#5ef2ff">1.2M</tspan> VIEWS</text>
+</svg>"
+`;
+
+exports[`terminal rich post > stays a valid, self-contained SVG 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" width="450" height="514" viewBox="0 0 450 514" role="img" aria-label="Post by @jack on X" font-family="'JetBrains Mono','SF Mono',Consolas,Menlo,monospace">
+<title>Post by @jack on X</title>
+<rect x="0.5" y="0.5" width="449" height="513" rx="10" fill="#0d1117" stroke="#30363d"/>
+<path d="M0.5 30.5 V10.5 a10 10 0 0 1 10 -10 H439.5 a10 10 0 0 1 10 10 V30.5 Z" fill="#161b22"/>
+<line x1="0.5" y1="30.5" x2="449.5" y2="30.5" stroke="#30363d"/>
+<circle cx="18" cy="16" r="5" fill="#ff5f57"/><circle cx="34" cy="16" r="5" fill="#febc2e"/><circle cx="50" cy="16" r="5" fill="#28c840"/>
+<text x="225" y="20" font-size="11" fill="#8b949e" text-anchor="middle">post/20</text>
+<clipPath id="avatar"><rect x="24" y="48" width="32" height="32" rx="6"/></clipPath>
+<image href="data:image/jpeg;base64,AQID" x="24" y="48" width="32" height="32" clip-path="url(#avatar)"/>
+<text x="68" y="61" font-size="13" font-weight="700" fill="#e6edf3">jack<tspan fill="#3fb950"> ✓</tspan> <tspan font-weight="400" fill="#79c0ff">@jack</tspan></text>
+<text x="68" y="78" font-size="11" fill="#8b949e">// 2006-03-21</text>
+<text x="24" y="108" font-size="12" fill="#8b949e">// reply to <tspan fill="#d2a8ff">@someone</tspan></text>
+<text class="body" x="24" y="134" font-size="14" fill="#a5d6ff">&quot;Shipping with <tspan fill="#d2a8ff">@vercel</tspan> today <tspan fill="#d2a8ff">#buildinpublic</tspan></text>
+<text class="body" x="24" y="154" font-size="14" fill="#a5d6ff"><tspan fill="#d2a8ff">vercel.com/docs&quot;</tspan></text>
+
+<clipPath id="preview"><rect x="24" y="170" width="402" height="220" rx="6"/></clipPath>
+<image href="data:image/jpeg;base64,BBBB" x="24" y="170" width="402" height="220" preserveAspectRatio="xMidYMid slice" clip-path="url(#preview)"/>
+<rect x="24" y="170" width="402" height="220" rx="6" fill="none" stroke="#30363d"/>
+<circle cx="225" cy="280" r="22" fill="#000000" fill-opacity=".6"/><path d="M218 269 L236 280 L218 291 Z" fill="#ffffff"/>
+<rect x="24" y="404" width="402" height="56" rx="6" fill="#161b22" stroke="#30363d"/>
+<text x="38" y="433" font-size="12" font-weight="700" fill="#c9d1d9">TJ &lt;Holo&gt; <tspan font-weight="400" fill="#8b949e">@tj</tspan></text>
+<text class="quote" x="38" y="450" font-size="12" fill="#c9d1d9">quoted &amp; &quot;escaped&quot; <tspan fill="#d2a8ff">@mention</tspan></text>
+<text x="24" y="488" font-size="12" fill="#8b949e" xml:space="preserve">replies <tspan fill="#ffa657">18.1K</tspan>  reposts <tspan fill="#ffa657">124.7K</tspan>  likes <tspan fill="#ffa657">309.4K</tspan>  views <tspan fill="#ffa657">1.2M</tspan></text>
+</svg>"
+`;

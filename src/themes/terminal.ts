@@ -1,10 +1,11 @@
 import type { Post, Profile } from '../model.js';
 import { escapeXml, formatCount, wrapText } from '../render/text.js';
-import { initialOf, mediaSummary, metricItems } from './shared.js';
+import { initialOf, mediaLine, mediaSummary, metricItems, previewHeight, previewImage, quoteBox, replyLine, richText } from './shared.js';
 import type { RenderOptions, Theme } from './types.js';
 
 const W = 450;
 const MONO = "'JetBrains Mono','SF Mono',Consolas,Menlo,monospace";
+const LINK = '#d2a8ff';
 
 function frame(height: number, title: string, label: string, body: string, opts: RenderOptions = {}): string {
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${height}" viewBox="0 0 ${W} ${height}" role="img" aria-label="${escapeXml(label)}" font-family="${MONO}">
@@ -52,18 +53,40 @@ function renderProfile(p: Profile, avatarUri: string | null, opts: RenderOptions
   return frame(height, `~/x/${p.username}`, `${p.name} (@${p.username}) on X`, body, opts);
 }
 
-function renderPost(post: Post, avatarUri: string | null, opts: RenderOptions = {}): string {
+function renderPost(post: Post, avatarUri: string | null, opts: RenderOptions = {}, thumbnailUri: string | null = null): string {
   const name = oneLine(post.author.name, 200, 13);
   // Media-only posts have no text: skip the quoted line instead of rendering "".
   const lines = post.text.trim()
     ? wrapText(`"${post.text}"`, { maxWidth: W - 48, fontSize: 14, maxLines: 4, mono: true })
     : [];
-  const media = mediaSummary(post.media);
+  const preview = thumbnailUri ? post.thumbnail : undefined;
+  const media = mediaLine(post, Boolean(preview));
   const day = post.createdAt.slice(0, 10);
 
-  let y = lines.length ? 112 + (lines.length - 1) * 20 : 88;
+  const textY = post.replyTo ? 134 : 112;
+  let y = lines.length ? textY + (lines.length - 1) * 20 : textY - 24;
   const mediaY = media ? (y += 22) : 0;
-  const statsY = y + 34;
+  const blocks: string[] = [];
+  if (preview) {
+    const box = { x: 24, y: y + 16, width: W - 48, height: previewHeight(preview, W - 48), rx: 6 };
+    blocks.push(previewImage(thumbnailUri!, preview, box, 'stroke="#30363d"'));
+    y = box.y + box.height;
+  }
+  if (post.quote) {
+    const quote = quoteBox(post.quote, y + 14, {
+      x: 24,
+      width: W - 48,
+      fontSize: 12,
+      mono: true,
+      ink: '#c9d1d9',
+      muted: '#8b949e',
+      link: LINK,
+      box: 'rx="6" fill="#161b22" stroke="#30363d"',
+    });
+    blocks.push(quote.svg);
+    y = quote.bottom;
+  }
+  const statsY = y + (blocks.length ? 28 : 34);
   const height = statsY + 26;
 
   const stats = metricItems(post)
@@ -74,11 +97,13 @@ function renderPost(post: Post, avatarUri: string | null, opts: RenderOptions = 
     avatar(avatarUri, post.author.name, 24, 48, 32, 6),
     `<text x="68" y="61" font-size="13" font-weight="700" fill="#e6edf3">${escapeXml(name)}${post.author.verified ? '<tspan fill="#3fb950"> ✓</tspan>' : ''} <tspan font-weight="400" fill="#79c0ff">@${escapeXml(post.author.username)}</tspan></text>`,
     day ? `<text x="68" y="78" font-size="11" fill="#8b949e">// ${escapeXml(day)}</text>` : '',
+    ...(post.replyTo ? [replyLine(post.replyTo, 24, 108, 12, '#8b949e', LINK, '// reply to')] : []),
     ...lines.map(
       (line, i) =>
-        `<text class="body" x="24" y="${112 + i * 20}" font-size="14" fill="#a5d6ff">${escapeXml(line)}</text>`,
+        `<text class="body" x="24" y="${textY + i * 20}" font-size="14" fill="#a5d6ff">${richText(line, LINK)}</text>`,
     ),
     media ? `<text x="24" y="${mediaY}" font-size="12" fill="#8b949e">[${media}]</text>` : '',
+    ...blocks,
     `<text x="24" y="${statsY}" font-size="12" fill="#8b949e" xml:space="preserve">${stats}</text>`,
   ].join('\n');
 
@@ -105,7 +130,7 @@ function renderFeed(posts: Post[], avatarUri: string | null, opts: RenderOptions
     const lines = post.text.trim() ? wrapText(post.text, { maxWidth: W - 48, fontSize: 13, maxLines: 3, mono: true }) : [];
     lines.forEach((line) => {
       y += 19;
-      parts.push(`<text class="body" x="24" y="${y}" font-size="13" fill="#a5d6ff">${escapeXml(line)}</text>`);
+      parts.push(`<text class="body" x="24" y="${y}" font-size="13" fill="#a5d6ff">${richText(line, LINK)}</text>`);
     });
     const media = mediaSummary(post.media);
     if (media) {

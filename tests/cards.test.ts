@@ -154,6 +154,41 @@ describe('display options', () => {
   });
 });
 
+describe('post previews', () => {
+  const withPhoto = {
+    ...synPost,
+    mediaDetails: [{ type: 'photo', media_url_https: 'https://pbs.twimg.com/media/Abc.jpg', original_info: { width: 800, height: 600 } }],
+  };
+  const routes = (url: string) =>
+    url.startsWith('https://pbs.twimg.com/media/')
+      ? imageResponse([9, 9, 9])
+      : url.startsWith('https://cdn.syndication.twimg.com/')
+        ? jsonResponse(withPhoto)
+        : happyRoutes(url);
+
+  it('embeds the small preview image', async () => {
+    const fetchMock = mockFetch(routes);
+    const card = await postCard(q('id=20&theme=paper'));
+    expect(card.svg).toContain('data:image/jpeg;base64,CQkJ');
+    expect(fetchMock.mock.calls.map(([url]) => String(url))).toContain('https://pbs.twimg.com/media/Abc?format=jpg&name=small');
+  });
+
+  it('neither downloads nor draws the preview with hide=media', async () => {
+    const fetchMock = mockFetch(routes);
+    const card = await postCard(q('id=20&theme=paper&hide=media'));
+    expect(card.svg).not.toContain('CQkJ');
+    expect(fetchMock.mock.calls.some(([url]) => String(url).includes('/media/'))).toBe(false);
+  });
+
+  it('still renders when the preview download fails', async () => {
+    mockFetch((url) => (url.startsWith('https://pbs.twimg.com/media/') ? new Response('', { status: 500 }) : routes(url)));
+    const card = await postCard(q('id=20&theme=paper'));
+    expect(card.svg).toContain('just setting up my twttr');
+    expect(card.svg).toContain('1 photo attached');
+    expect(card.cacheControl).toBe(CACHE.postById);
+  });
+});
+
 describe('feedCard', () => {
   const own = fxStatuses.results[0];
   const timeline = {

@@ -30,6 +30,8 @@ interface ProfileSnapshot {
 interface PostSnapshot {
   post: Post;
   avatar: string | null;
+  /** The preview image as a data URI; absent in snapshots saved before previews existed. */
+  thumbnail?: string | null;
 }
 
 interface FeedSnapshot {
@@ -56,7 +58,10 @@ function shownPost(post: Post, { hide }: Display): Post {
     shown.replies = shown.reposts = shown.likes = shown.views = undefined;
   }
   if (hide.includes('views')) shown.views = undefined;
-  if (hide.includes('media')) shown.media = { photos: 0, videos: 0 };
+  if (hide.includes('media')) {
+    shown.media = { photos: 0, videos: 0 };
+    shown.thumbnail = undefined;
+  }
   if (hide.includes('date')) shown.createdAt = '';
   return shown;
 }
@@ -107,15 +112,23 @@ export async function postCard(params: URLSearchParams): Promise<CardResponse> {
   const opts = renderOptions(query);
   try {
     const post = query.kind === 'id' ? await getPostById(query.id) : await getLatestPost(query.username, query.index);
-    const avatar = await toDataUri(post.author.avatarUrl);
-    await remember(postKey(query), { post, avatar } satisfies PostSnapshot);
+    // Skip the preview download when it would be hidden anyway.
+    const wantThumbnail = post.thumbnail && !query.hide.includes('media');
+    const [avatar, thumbnail] = await Promise.all([
+      toDataUri(post.author.avatarUrl),
+      wantThumbnail ? toDataUri(post.thumbnail!.url) : null,
+    ]);
+    await remember(postKey(query), { post, avatar, thumbnail } satisfies PostSnapshot);
     return {
-      svg: theme.renderPost(shownPost(post, query), avatar, opts),
+      svg: theme.renderPost(shownPost(post, query), avatar, opts, thumbnail),
       cacheControl: query.kind === 'id' ? CACHE.postById : CACHE.latestPost,
     };
   } catch (err) {
     const last = await recall<PostSnapshot>(postKey(query));
-    if (last) return { svg: theme.renderPost(shownPost(last.post, query), last.avatar, opts), cacheControl: CACHE.lastGood };
+    if (last) {
+      const svg = theme.renderPost(shownPost(last.post, query), last.avatar, opts, last.thumbnail ?? null);
+      return { svg, cacheControl: CACHE.lastGood };
+    }
     return errorCard(err, query.theme);
   }
 }

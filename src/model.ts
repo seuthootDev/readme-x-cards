@@ -16,10 +16,28 @@ export interface PostAuthor {
   verified: boolean;
 }
 
+/** A photo, or a video's poster frame, shown as the post's preview image. */
+export interface Thumbnail {
+  url: string;
+  width: number;
+  height: number;
+  video: boolean;
+}
+
+export interface QuotedPost {
+  author: PostAuthor;
+  text: string;
+}
+
 export interface Post {
   id: string;
   url: string;
+  /** Display text: t.co links replaced by their shortened display form, trailing media links removed. */
   text: string;
+  /** The account this post replies to, when it is not the author's own thread. */
+  replyTo?: string;
+  quote?: QuotedPost;
+  thumbnail?: Thumbnail;
   /** ISO 8601 */
   createdAt: string;
   author: PostAuthor;

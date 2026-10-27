@@ -80,6 +80,14 @@ The [landing page](https://readme-x-cards.vercel.app/) builds this snippet for y
 
 `hide=border` applies to the themes with an outline (aurora, terminal, paper). The terminal theme always prints ISO dates, so `locale` does not change it.
 
+## What a post card shows
+
+- **Text** with @mentions, #hashtags and links highlighted; `t.co` links appear as their real destination (`vercel.com/blog/…`).
+- **A preview** of the first photo, or a video's poster frame with a play button, embedded in the SVG (about 15–70 KB). `hide=media` leaves it out. The receipt theme prints no images.
+- **Context**: "Replying to @name" for replies to other accounts, and a box with the quoted post.
+
+Multi-post cards keep to text, with the same highlighting.
+
 ## How fresh is the data?
 
 Cards are cached: profiles for 6 hours, latest posts (and feeds) for 1 hour, specific posts for 24 hours. GitHub also caches README images, so changes can take a little longer to show up.
@@ -98,7 +106,7 @@ Optional: connect an [Upstash Redis](https://vercel.com/marketplace/upstash) dat
 2. Register it in `src/themes/index.ts`.
 3. Add it to the `describe.each` lists in `tests/theme-contract.test.ts` and `tests/theme-feed.test.ts` (plus any theme-specific checks) and run `npm test`, then `npm run smoke` to render previews.
 
-Rules: card width 450px, escape every external string with `escapeXml`, never reference external URLs (GitHub blocks them inside SVG images — avatars arrive as data URIs).
+Rules: card width 450px, escape every external string with `escapeXml`, never reference external URLs (GitHub blocks them inside SVG images — avatars and previews arrive as data URIs). Post text goes through `richText` from `src/themes/shared.ts` for highlighting.
 
 ## Development
 

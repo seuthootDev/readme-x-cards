@@ -166,3 +166,60 @@ describe('fetchLatestPosts', () => {
     await expect(fetchLatestPosts('Seuthoot')).resolves.toEqual([]);
   });
 });
+
+describe('rich post details', () => {
+  const author = fxPost.tweet.author;
+  const rich = {
+    ...fxPost.tweet,
+    text: 'Save your #GitHubUniverse seat ⬇️\nhttps://githubuniverse.com/pricing?utm_source=Twitter',
+    raw_text: {
+      text: 'Save your #GitHubUniverse seat ⬇️\nhttps://t.co/ppLyZeK2b8 https://t.co/Y5IVxc2m4O',
+      facets: [
+        { type: 'hashtag', original: 'GitHubUniverse' },
+        { type: 'url', original: 'https://t.co/ppLyZeK2b8', display: 'githubuniverse.com/pricing?utm_so…' },
+        { type: 'media', original: 'https://t.co/Y5IVxc2m4O', display: 'pic.x.com/Y5IVxc2m4O' },
+      ],
+    },
+    media: {
+      all: [
+        { type: 'video', url: 'https://video.twimg.com/v.mp4', thumbnail_url: 'https://pbs.twimg.com/media/HVlz.jpg', width: 1920, height: 3414 },
+        { type: 'photo', url: 'https://pbs.twimg.com/media/Other.png?name=orig', width: 10, height: 10 },
+      ],
+    },
+    quote: { ...fxPost.tweet, id: '1', author: { ...author, screen_name: 'shanvasion', name: 'shann wells' }, text: 'quoted words' },
+    replying_to: { screen_name: 'someone' },
+  };
+
+  it('shows links in their display form, drops media links and keeps the first preview', async () => {
+    mockFetch(() => jsonResponse({ ...fxPost, tweet: rich }));
+    const post = await fetchPost('20');
+    expect(post.text).toBe('Save your #GitHubUniverse seat ⬇️\ngithubuniverse.com/pricing?utm_so…');
+    expect(post.thumbnail).toEqual({
+      url: 'https://pbs.twimg.com/media/HVlz?format=jpg&name=small',
+      width: 1920,
+      height: 3414,
+      video: true,
+    });
+    expect(post.media).toEqual({ photos: 1, videos: 1 });
+  });
+
+  it('maps quotes and replies to other accounts', async () => {
+    mockFetch(() => jsonResponse({ ...fxPost, tweet: rich }));
+    const post = await fetchPost('20');
+    expect(post.replyTo).toBe('someone');
+    expect(post.quote).toMatchObject({ author: { username: 'shanvasion', name: 'shann wells' }, text: 'quoted words' });
+  });
+
+  it('treats a reply to oneself as a thread, not a reply', async () => {
+    mockFetch(() => jsonResponse({ ...fxPost, tweet: { ...rich, replying_to: { screen_name: author.screen_name.toUpperCase() } } }));
+    expect((await fetchPost('20')).replyTo).toBeUndefined();
+  });
+
+  it('falls back to the plain text without raw_text', async () => {
+    mockFetch(() => jsonResponse(fxPost));
+    const post = await fetchPost('20');
+    expect(post.text).toBe('just setting up my twttr');
+    expect(post.thumbnail).toBeUndefined();
+    expect(post.quote).toBeUndefined();
+  });
+});

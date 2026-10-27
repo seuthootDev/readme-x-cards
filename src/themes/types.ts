@@ -16,7 +16,8 @@ export interface RenderOptions {
 export interface Theme {
   name: string;
   renderProfile(profile: Profile, avatar: string | null, opts?: RenderOptions): string;
-  renderPost(post: Post, avatar: string | null, opts?: RenderOptions): string;
+  /** `thumbnail` is the data URI of `post.thumbnail`, or null when it is missing or could not be fetched. */
+  renderPost(post: Post, avatar: string | null, opts?: RenderOptions, thumbnail?: string | null): string;
   /** One author's latest posts stacked in one card; `posts` is non-empty and `avatar` is the author's. */
   renderFeed(posts: Post[], avatar: string | null, opts?: RenderOptions): string;
   renderError(message: string): string;

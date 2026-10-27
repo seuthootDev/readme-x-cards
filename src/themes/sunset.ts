@@ -1,6 +1,17 @@
 import type { Post, Profile } from '../model.js';
 import { escapeXml, formatCount, formatDate, measure, wrapText } from '../render/text.js';
-import { checkBadge, initialOf, mediaSummary, metricItems } from './shared.js';
+import {
+  checkBadge,
+  initialOf,
+  mediaLine,
+  mediaSummary,
+  metricItems,
+  previewHeight,
+  previewImage,
+  quoteBox,
+  replyLine,
+  richText,
+} from './shared.js';
 import type { RenderOptions, Theme } from './types.js';
 
 const W = 450;
@@ -113,16 +124,38 @@ function renderProfile(p: Profile, avatarUri: string | null): string {
   return frame(height, horizon, 358, 66, `${p.name} (@${p.username}) on X`, body);
 }
 
-function renderPost(post: Post, avatarUri: string | null, opts: RenderOptions = {}): string {
+function renderPost(post: Post, avatarUri: string | null, opts: RenderOptions = {}, thumbnailUri: string | null = null): string {
   const name = oneLine(post.author.name, 220, 15);
   // Lines stop at x≈344 so the last one clears the sun at the right edge.
   const lines = wrapText(post.text, { maxWidth: 320, fontSize: 16, maxLines: 4 });
   const date = formatDate(post.createdAt, opts.locale);
-  const media = mediaSummary(post.media);
+  const preview = thumbnailUri ? post.thumbnail : undefined;
+  const media = mediaLine(post, Boolean(preview));
   const metrics = metricItems(post);
 
-  let y = lines.length ? 100 + (lines.length - 1) * 23 : 59;
+  const textY = post.replyTo ? 122 : 100;
+  let y = lines.length ? textY + (lines.length - 1) * 23 : textY - 41;
   const mediaY = media ? (y += 22) : 0;
+  // Blocks stay 320px wide, like the text, so they end left of the sun.
+  const blocks: string[] = [];
+  if (preview) {
+    const box = { x: 24, y: y + 16, width: 320, height: previewHeight(preview, 320), rx: 10 };
+    blocks.push(previewImage(thumbnailUri!, preview, box, `stroke="${CYAN}" stroke-opacity=".6"`));
+    y = box.y + box.height - 6;
+  }
+  if (post.quote) {
+    const quote = quoteBox(post.quote, y + 14, {
+      x: 24,
+      width: 320,
+      fontSize: 13,
+      ink: '#ffffff',
+      muted: PINK,
+      link: CYAN,
+      box: `rx="10" fill="${NIGHT}" fill-opacity=".6" stroke="${PINK}" stroke-opacity=".5"`,
+    });
+    blocks.push(quote.svg);
+    y = quote.bottom - 6;
+  }
   const horizon = y + 32;
   const metricsY = horizon + 32;
   const height = metrics.length ? metricsY + 18 : horizon + 30;
@@ -132,10 +165,12 @@ function renderPost(post: Post, avatarUri: string | null, opts: RenderOptions = 
     `<text x="74" y="40" font-size="15" font-weight="700" font-style="italic" fill="#ffffff">${escapeXml(name)}</text>`,
     post.author.verified ? checkBadge(74 + measure(name, 15) + 11, 35, CYAN, NIGHT) : '',
     `<text x="74" y="59" font-size="13" fill="${PINK}">@${escapeXml(post.author.username)}${date ? ` · ${date}` : ''}</text>`,
+    ...(post.replyTo ? [replyLine(post.replyTo, 24, 92, 13, PINK, CYAN)] : []),
     ...lines.map(
-      (line, i) => `<text class="body" x="24" y="${100 + i * 23}" font-size="16" fill="#ffffff">${escapeXml(line)}</text>`,
+      (line, i) => `<text class="body" x="24" y="${textY + i * 23}" font-size="16" fill="#ffffff">${richText(line, CYAN)}</text>`,
     ),
     media ? `<text x="24" y="${mediaY}" font-size="12" fill="${PINK}">+ ${media}</text>` : '',
+    ...blocks,
     statRow(
       metrics.map(({ key, value }) => ({ value, label: key.toUpperCase() })),
       metricsY,
@@ -163,7 +198,7 @@ function renderFeed(posts: Post[], avatarUri: string | null, opts: RenderOptions
     const lines = wrapText(post.text, { maxWidth: 320, fontSize: 15, maxLines: 3 });
     lines.forEach((line, j) => {
       y += j === 0 ? 24 : 21;
-      parts.push(`<text class="body" x="24" y="${y}" font-size="15" fill="#ffffff">${escapeXml(line)}</text>`);
+      parts.push(`<text class="body" x="24" y="${y}" font-size="15" fill="#ffffff">${richText(line, CYAN)}</text>`);
     });
     const media = mediaSummary(post.media);
     if (media) {

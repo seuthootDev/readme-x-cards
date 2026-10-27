@@ -1,6 +1,6 @@
 import type { Post, Profile } from '../model.js';
 import { escapeXml, formatCount, formatDate, measure, wrapText } from '../render/text.js';
-import { mediaSummary, metricItems } from './shared.js';
+import { mediaSummary, metricItems, quoteBox, richText } from './shared.js';
 import type { RenderOptions, Theme } from './types.js';
 
 const W = 450;
@@ -99,6 +99,7 @@ function renderProfile(p: Profile, _avatar: string | null): string {
 
 const METRIC_LABELS = { replies: 'REPLIES', reposts: 'REPOSTS', likes: 'LIKES', views: 'VIEWS' } as const;
 
+// Receipts print no photos, so the preview image is ignored like the avatar.
 function renderPost(post: Post, _avatar: string | null, opts: RenderOptions = {}): string {
   const date = formatDate(post.createdAt, opts.locale);
   const lines = wrapText(post.text, { maxWidth: RIGHT - LEFT, fontSize: 13, maxLines: 4, mono: true });
@@ -112,13 +113,31 @@ function renderPost(post: Post, _avatar: string | null, opts: RenderOptions = {}
     row(104, 'AUTHOR', `@${post.author.username}${post.author.verified ? ' [✓]' : ''}`),
   ];
   let y = 104;
+  if (post.replyTo) {
+    y += 20;
+    parts.push(row(y, 'REPLY TO', `@${post.replyTo}`));
+  }
   lines.forEach((line, i) => {
     y += i === 0 ? 30 : 20;
-    parts.push(`<text class="body" x="${LEFT}" y="${y}" font-size="13" fill="${INK}">${escapeXml(line)}</text>`);
+    parts.push(`<text class="body" x="${LEFT}" y="${y}" font-size="13" fill="${INK}">${richText(line, INK, ' text-decoration="underline"')}</text>`);
   });
   if (media) {
     y += 22;
     parts.push(`<text x="${LEFT}" y="${y}" font-size="12" fill="${FADED}">+ ${media}</text>`);
+  }
+  if (post.quote) {
+    const quote = quoteBox(post.quote, y + 14, {
+      x: LEFT - 4,
+      width: RIGHT - LEFT + 8,
+      fontSize: 12,
+      mono: true,
+      ink: INK,
+      muted: FADED,
+      link: INK,
+      box: `fill="none" stroke="${INK}" stroke-dasharray="4 4"`,
+    });
+    parts.push(quote.svg);
+    y = quote.bottom - 4;
   }
   y += 20;
 
@@ -157,7 +176,7 @@ function renderFeed(posts: Post[], _avatar: string | null, opts: RenderOptions =
     const lines = wrapText(post.text, { maxWidth: RIGHT - LEFT, fontSize: 13, maxLines: 3, mono: true });
     lines.forEach((line) => {
       y += 20;
-      parts.push(`<text class="body" x="${LEFT}" y="${y}" font-size="13" fill="${INK}">${escapeXml(line)}</text>`);
+      parts.push(`<text class="body" x="${LEFT}" y="${y}" font-size="13" fill="${INK}">${richText(line, INK, ' text-decoration="underline"')}</text>`);
     });
     const media = mediaSummary(post.media);
     if (media) {

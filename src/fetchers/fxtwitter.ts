@@ -1,5 +1,5 @@
-import { CardError, type Post, type Profile } from '../model.js';
-import { getJson, largeAvatar } from './shared.js';
+import { CardError, type Post, type PostAuthor, type Profile, type Thumbnail } from '../model.js';
+import { displayText, getJson, largeAvatar, smallImage } from './shared.js';
 
 const BASE = 'https://api.fxtwitter.com';
 
@@ -16,10 +16,27 @@ interface FxUser {
   verification?: { verified?: boolean } | null;
 }
 
+interface FxFacet {
+  type?: string;
+  original?: string;
+  display?: string;
+}
+
+interface FxMedia {
+  type?: string;
+  url?: string;
+  thumbnail_url?: string;
+  width?: number;
+  height?: number;
+}
+
 interface FxStatus {
   id: string;
   url: string;
   text: string;
+  raw_text?: { text?: string; facets?: FxFacet[] } | null;
+  replying_to?: { screen_name?: string } | null;
+  quote?: FxStatus | null;
   created_timestamp: number;
   author: FxUser;
   replies?: number;
@@ -27,7 +44,7 @@ interface FxStatus {
   reposts?: number;
   likes?: number;
   views?: number | null;
-  media?: { all?: { type?: string }[] } | null;
+  media?: { all?: FxMedia[] } | null;
   reposted_by?: unknown;
 }
 
@@ -44,19 +61,47 @@ function toProfile(user: FxUser): Profile {
   };
 }
 
+function toAuthor(user: FxUser): PostAuthor {
+  return {
+    username: user.screen_name,
+    name: user.name,
+    avatarUrl: largeAvatar(user.avatar_url),
+    verified: Boolean(user.verification?.verified),
+  };
+}
+
+// `text` spells links out in full; raw_text keeps the t.co links plus facets saying how X displays them.
+function statusText(status: FxStatus): string {
+  const raw = status.raw_text;
+  if (typeof raw?.text !== 'string') return status.text;
+  const facets = raw.facets ?? [];
+  const links = facets.flatMap((f) => (f.type === 'url' && f.original && f.display ? [{ from: f.original, to: f.display }] : []));
+  const media = facets.flatMap((f) => (f.type === 'media' && f.original ? [f.original] : []));
+  return displayText(raw.text, links, media);
+}
+
+function thumbnailOf(media: FxMedia[]): Thumbnail | undefined {
+  for (const m of media) {
+    const video = m.type === 'video' || m.type === 'gif';
+    const url = video ? m.thumbnail_url : m.type === 'photo' ? m.url : undefined;
+    if (url && m.width && m.height) return { url: smallImage(url), width: m.width, height: m.height, video };
+  }
+  return undefined;
+}
+
 function toPost(status: FxStatus): Post {
   const media = status.media?.all ?? [];
+  const replyTo = status.replying_to?.screen_name;
   return {
     id: status.id,
     url: status.url,
-    text: status.text,
+    text: statusText(status),
+    // A reply to oneself continues a thread; only replies to others get the "Replying to" line.
+    replyTo: replyTo && replyTo.toLowerCase() !== status.author.screen_name.toLowerCase() ? replyTo : undefined,
+    quote: status.quote?.author ? { author: toAuthor(status.quote.author), text: statusText(status.quote) } : undefined,
+    thumbnail: thumbnailOf(media),
     createdAt: new Date(status.created_timestamp * 1000).toISOString(),
-    author: {
-      username: status.author.screen_name,
-      name: status.author.name,
-      avatarUrl: largeAvatar(status.author.avatar_url),
-      verified: Boolean(status.author.verification?.verified),
-    },
+    author: toAuthor(status.author),
     replies: status.replies,
     // v1 endpoints call it "retweets", v2 endpoints "reposts".
     reposts: status.reposts ?? status.retweets,
