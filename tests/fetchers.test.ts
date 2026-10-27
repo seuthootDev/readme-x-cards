@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { getLatestPost, getPostById, getProfile } from '../src/fetchers/index.js';
+import { getLatestPost, getLatestPosts, getPostById, getProfile } from '../src/fetchers/index.js';
 import synPost from './fixtures/syn-post.json' with { type: 'json' };
 import fxPost from './fixtures/fx-post.json' with { type: 'json' };
 import fxProfile from './fixtures/fx-profile.json' with { type: 'json' };
@@ -78,5 +78,28 @@ describe('getLatestPost', () => {
     const fetchMock = mockFetch(() => (calls++ === 0 ? jsonResponse({ code: 404 }, 404) : jsonResponse(fxStatuses)));
     await expect(getLatestPost('Seuthoot', 1)).resolves.toMatchObject({ id: '2094701798535885304' });
     expect(fetchMock).toHaveBeenCalledTimes(2);
+  });
+});
+
+describe('getLatestPosts', () => {
+  const own = fxStatuses.results[0];
+  const many = { ...fxStatuses, results: ['5', '4', '3', '2'].map((id) => ({ ...own, id })) };
+
+  it('fetches the timeline once and keeps the first count posts', async () => {
+    const fetchMock = mockFetch(() => jsonResponse(many));
+    const posts = await getLatestPosts('Seuthoot', 3);
+    expect(posts.map((p) => p.id)).toEqual(['5', '4', '3']);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
+  it('returns fewer posts when the account has fewer', async () => {
+    mockFetch(() => jsonResponse(fxStatuses));
+    await expect(getLatestPosts('Seuthoot', 5)).resolves.toHaveLength(1);
+  });
+
+  it('reports an account without posts as not found, without retrying', async () => {
+    const fetchMock = mockFetch(() => jsonResponse({ ...fxStatuses, results: [] }));
+    await expect(getLatestPosts('Seuthoot', 3)).rejects.toMatchObject({ kind: 'NOT_FOUND', message: 'No posts yet' });
+    expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 });

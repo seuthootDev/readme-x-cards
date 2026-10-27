@@ -1,7 +1,7 @@
 import type { Post, Profile } from '../model.js';
 import { escapeXml, formatCount, formatDate, measure, wrapText } from '../render/text.js';
 import { checkBadge, initialOf, mediaSummary, metricItems } from './shared.js';
-import type { Theme } from './types.js';
+import type { RenderOptions, Theme } from './types.js';
 
 const W = 450;
 const FONT = "'Trebuchet MS','Segoe UI',Helvetica,Arial,sans-serif";
@@ -113,11 +113,11 @@ function renderProfile(p: Profile, avatarUri: string | null): string {
   return frame(height, horizon, 358, 66, `${p.name} (@${p.username}) on X`, body);
 }
 
-function renderPost(post: Post, avatarUri: string | null): string {
+function renderPost(post: Post, avatarUri: string | null, opts: RenderOptions = {}): string {
   const name = oneLine(post.author.name, 220, 15);
   // Lines stop at x≈344 so the last one clears the sun at the right edge.
   const lines = wrapText(post.text, { maxWidth: 320, fontSize: 16, maxLines: 4 });
-  const date = formatDate(post.createdAt);
+  const date = formatDate(post.createdAt, opts.locale);
   const media = mediaSummary(post.media);
   const metrics = metricItems(post);
 
@@ -146,6 +146,46 @@ function renderPost(post: Post, avatarUri: string | null): string {
   return frame(height, horizon, 392, 46, `Post by @${post.author.username} on X`, body);
 }
 
+/** Posts stacked in the sky, then a strip of grid floor; every line stays left of the sun on the right. */
+function renderFeed(posts: Post[], avatarUri: string | null, opts: RenderOptions = {}): string {
+  const author = posts[0].author;
+  const name = oneLine(author.name, 220, 15);
+  const parts = [
+    avatar(avatarUri, author.name, 44, 44, 18),
+    `<text x="74" y="40" font-size="15" font-weight="700" font-style="italic" fill="#ffffff">${escapeXml(name)}</text>`,
+    author.verified ? checkBadge(74 + measure(name, 15) + 11, 35, CYAN, NIGHT) : '',
+    `<text x="74" y="59" font-size="13" fill="${PINK}">@${escapeXml(author.username)} · LATEST POSTS</text>`,
+  ];
+
+  let y = 76;
+  posts.forEach((post, i) => {
+    if (i > 0) parts.push(`<line x1="24" x2="330" y1="${y + 0.5}" y2="${y + 0.5}" stroke="${PINK}" stroke-opacity=".3"/>`);
+    const lines = wrapText(post.text, { maxWidth: 320, fontSize: 15, maxLines: 3 });
+    lines.forEach((line, j) => {
+      y += j === 0 ? 24 : 21;
+      parts.push(`<text class="body" x="24" y="${y}" font-size="15" fill="#ffffff">${escapeXml(line)}</text>`);
+    });
+    const media = mediaSummary(post.media);
+    if (media) {
+      y += lines.length ? 20 : 24;
+      parts.push(`<text x="24" y="${y}" font-size="12" fill="${PINK}">+ ${media}</text>`);
+    }
+    const date = formatDate(post.createdAt, opts.locale);
+    const metrics = metricItems(post)
+      .map(({ key, value }) => `<tspan fill="${CYAN}" font-weight="700">${formatCount(value)}</tspan> ${key.toUpperCase()}`)
+      .join('  ');
+    const meta = [date ? escapeXml(date) : '', metrics].filter(Boolean).join('   ');
+    if (meta) {
+      y += lines.length || media ? 21 : 24;
+      parts.push(`<text x="24" y="${y}" font-size="11" letter-spacing=".5" fill="${PINK}" xml:space="preserve">${meta}</text>`);
+    }
+    y += 16;
+  });
+
+  const horizon = y + 10;
+  return frame(horizon + 44, horizon, 392, 40, `Latest posts by @${author.username} on X`, parts.join('\n'));
+}
+
 function renderError(message: string): string {
   const text = oneLine(message, 300, 15);
   const body = `<text x="24" y="42" font-size="15" font-weight="700" font-style="italic" fill="#ffffff">${escapeXml(text)}</text>
@@ -153,4 +193,4 @@ function renderError(message: string): string {
   return frame(120, 86, 380, 40, message, body);
 }
 
-export const sunset: Theme = { name: 'sunset', renderProfile, renderPost, renderError };
+export const sunset: Theme = { name: 'sunset', renderProfile, renderPost, renderFeed, renderError };

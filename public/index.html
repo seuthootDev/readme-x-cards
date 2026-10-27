@@ -34,6 +34,18 @@
     .snippet pre { margin: 0; padding: 14px 84px 14px 14px; border-radius: 10px; background: rgba(0,0,0,.45); border: 1px solid var(--line); overflow-x: auto; font-size: 13px; white-space: pre-wrap; word-break: break-all; }
     .snippet button { position: absolute; top: 8px; right: 8px; padding: 6px 12px; border-radius: 8px; border: 1px solid var(--line); background: rgba(255,255,255,.1); color: var(--text); cursor: pointer; }
     .hidden { display: none; }
+    details.options { margin-top: 16px; border-top: 1px solid var(--line); padding-top: 14px; }
+    details.options summary { cursor: pointer; font-size: 14px; color: var(--muted); }
+    details.options summary:hover { color: var(--text); }
+    .checks { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 14px; }
+    .checks label, label.check { display: inline-flex; gap: 6px; align-items: center; cursor: pointer; font-size: 14px; }
+    .opt-label { font-size: 13px; color: var(--muted); min-width: 52px; }
+    .hint { font-size: 12px; color: var(--muted); margin: 8px 0 0; }
+    .preview.pair { gap: 12px; flex-wrap: wrap; }
+    .preview figure { margin: 0; padding: 12px; border-radius: 12px; border: 1px solid var(--line); text-align: center; flex: 1 1 300px; }
+    .preview figure.light { background: #ffffff; }
+    .preview figure.dark { background: #0d1117; }
+    .preview figcaption { font-size: 12px; color: #8b949e; margin-top: 6px; }
     footer { margin-top: 40px; font-size: 13px; color: var(--muted); }
     footer a { color: var(--text); }
   </style>
@@ -51,12 +63,20 @@
     <div class="row" id="kind-row">
       <div class="seg" role="radiogroup" aria-label="Card type">
         <input type="radio" name="kind" id="kind-profile" value="profile" checked><label for="kind-profile">Profile</label>
-        <input type="radio" name="kind" id="kind-latest" value="latest"><label for="kind-latest">Latest post</label>
+        <input type="radio" name="kind" id="kind-latest" value="latest"><label for="kind-latest">Single post</label>
+        <input type="radio" name="kind" id="kind-feed" value="feed"><label for="kind-feed">Multiple posts</label>
       </div>
       <label id="index-wrap" class="hidden">#
         <select id="index">
           <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
         </select>
+      </label>
+      <label id="count-wrap" class="hidden">Show
+        <select id="count">
+          <option>1</option><option>2</option><option selected>3</option><option>4</option><option>5</option>
+        </select>
+        posts
       </label>
     </div>
 
@@ -70,6 +90,46 @@
         <input type="radio" name="theme" id="theme-sunset" value="sunset"><label for="theme-sunset">Sunset</label>
       </div>
     </div>
+
+    <details class="options" id="options">
+      <summary>Options</summary>
+      <div class="row">
+        <span class="opt-label">Hide</span>
+        <div class="checks">
+          <label data-for="profile"><input type="checkbox" name="hide" value="bio">Bio</label>
+          <label data-for="post"><input type="checkbox" name="hide" value="metrics">Metrics</label>
+          <label data-for="post"><input type="checkbox" name="hide" value="views">Views</label>
+          <label data-for="post"><input type="checkbox" name="hide" value="media">Media</label>
+          <label data-for="post"><input type="checkbox" name="hide" value="date">Date</label>
+          <label><input type="checkbox" name="hide" value="border">Border</label>
+        </div>
+      </div>
+      <div class="row">
+        <label class="opt-label" for="locale">Dates</label>
+        <select id="locale">
+          <option value="en-US">English</option>
+          <option value="ko">한국어</option>
+          <option value="ja">日本語</option>
+          <option value="zh-CN">中文</option>
+          <option value="de">Deutsch</option>
+          <option value="fr">Français</option>
+          <option value="es">Español</option>
+          <option value="pt-BR">Português</option>
+        </select>
+      </div>
+      <div class="row">
+        <label class="check"><input type="checkbox" id="auto-mode">Use a different theme in GitHub light mode</label>
+        <select id="light-theme" class="hidden" aria-label="Light mode theme">
+          <option value="paper" selected>Paper</option>
+          <option value="brutal">Brutal</option>
+          <option value="receipt">Receipt</option>
+          <option value="aurora">Aurora</option>
+          <option value="terminal">Terminal</option>
+          <option value="sunset">Sunset</option>
+        </select>
+      </div>
+      <p class="hint hidden" id="auto-hint">The theme picked above shows in dark mode. Each viewer sees the card for their GitHub theme.</p>
+    </details>
   </section>
 
   <div class="preview" id="preview"></div>
@@ -95,19 +155,47 @@
     const parsed = parseInput(input.value);
     if (!parsed) return null;
     const theme = document.querySelector('input[name=theme]:checked').value;
-    if (parsed.type === 'post') return { kind: 'post', id: parsed.id, username: parsed.username, theme };
-    const kind = document.querySelector('input[name=kind]:checked').value;
-    return kind === 'latest'
-      ? { kind, username: parsed.username, index: Number($('index').value), theme }
-      : { kind: 'profile', username: parsed.username, theme };
+    const kind = parsed.type === 'post' ? 'post' : document.querySelector('input[name=kind]:checked').value;
+    // Only send the hide options shown for this card type.
+    const group = kind === 'profile' ? 'profile' : 'post';
+    const hide = [...document.querySelectorAll('input[name=hide]:checked')]
+      .filter((el) => (el.closest('label').dataset.for ?? group) === group)
+      .map((el) => el.value);
+    const common = { theme, hide, locale: $('locale').value };
+    if (kind === 'post') return { kind, id: parsed.id, username: parsed.username, ...common };
+    if (kind === 'latest') return { kind, username: parsed.username, index: Number($('index').value), ...common };
+    if (kind === 'feed') return { kind, username: parsed.username, count: Number($('count').value), ...common };
+    return { kind: 'profile', username: parsed.username, ...common };
+  }
+
+  function cardImage(url, alt) {
+    const img = new Image();
+    img.src = url;
+    img.alt = alt;
+    img.width = 450;
+    return img;
+  }
+
+  function framed(url, alt, mode) {
+    const figure = document.createElement('figure');
+    figure.className = mode;
+    const caption = document.createElement('figcaption');
+    caption.textContent = `GitHub ${mode} mode`;
+    figure.append(cardImage(url, alt), caption);
+    return figure;
   }
 
   function render() {
     const raw = input.value.trim();
     const sel = selection();
-    const isPost = sel?.kind === 'post';
-    $('kind-row').classList.toggle('hidden', isPost);
+    const auto = $('auto-mode').checked;
+    $('kind-row').classList.toggle('hidden', sel?.kind === 'post');
     $('index-wrap').classList.toggle('hidden', sel?.kind !== 'latest');
+    $('count-wrap').classList.toggle('hidden', sel?.kind !== 'feed');
+    $('light-theme').classList.toggle('hidden', !auto);
+    $('auto-hint').classList.toggle('hidden', !auto);
+    const group = sel?.kind === 'profile' ? 'profile' : 'post';
+    document.querySelectorAll('.checks label[data-for]').forEach((el) => el.classList.toggle('hidden', el.dataset.for !== group));
     $('error').textContent = raw && !sel ? 'Enter a valid X username or x.com link.' : '';
 
     if (!sel) {
@@ -117,15 +205,14 @@
     }
 
     const cardUrl = buildCardUrl(location.origin, sel);
-    const alt = sel.kind === 'profile' ? 'X profile' : 'X post';
-    const img = new Image();
-    img.src = cardUrl;
-    img.alt = alt;
-    img.width = 450;
-    $('preview').replaceChildren(img);
+    const lightUrl = auto ? buildCardUrl(location.origin, { ...sel, theme: $('light-theme').value }) : undefined;
+    const alt = { profile: 'X profile', feed: 'Latest X posts' }[sel.kind] ?? 'X post';
+    $('preview').classList.toggle('pair', auto);
+    $('preview').replaceChildren(...(auto ? [framed(lightUrl, alt, 'light'), framed(cardUrl, alt, 'dark')] : [cardImage(cardUrl, alt)]));
 
-    const { markdown, html } = buildSnippets(cardUrl, linkFor(sel), alt);
-    $('markdown').textContent = markdown;
+    const { markdown, html } = buildSnippets(cardUrl, linkFor(sel), alt, lightUrl);
+    $('markdown').textContent = markdown ?? '';
+    $('markdown').parentElement.classList.toggle('hidden', markdown === null);
     $('html').textContent = html;
     $('output').classList.remove('hidden');
   }
@@ -134,7 +221,7 @@
     clearTimeout(timer);
     timer = setTimeout(render, 400);
   });
-  document.querySelectorAll('input[type=radio], select').forEach((el) => el.addEventListener('change', render));
+  document.querySelectorAll('input[type=radio], input[type=checkbox], select').forEach((el) => el.addEventListener('change', render));
   document.querySelectorAll('[data-copy]').forEach((button) => {
     button.addEventListener('click', async () => {
       try {

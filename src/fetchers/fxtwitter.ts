@@ -85,15 +85,19 @@ export async function fetchPost(id: string, timeoutMs?: number): Promise<Post> {
   return toPost(data.tweet);
 }
 
-export async function fetchLatestPost(username: string, index: number, timeoutMs?: number): Promise<Post> {
+/** The user's own posts, newest first (reposts left out). */
+export async function fetchLatestPosts(username: string, timeoutMs?: number): Promise<Post[]> {
   const url = `${BASE}/2/profile/${encodeURIComponent(username)}/statuses`;
   const data = (await getJson(url, 'Post not found', timeoutMs)) as {
     code?: number;
     results?: (FxStatus & { type?: string })[];
   };
   if (data?.code !== 200 || !Array.isArray(data.results)) throw new CardError('NOT_FOUND', 'Post not found');
-  const own = data.results.filter((s) => s.type === 'status' && !s.reposted_by);
-  const status = own[index - 1];
-  if (!status) throw new CardError('NOT_FOUND', 'Post not found');
-  return toPost(status);
+  return data.results.filter((s) => s.type === 'status' && !s.reposted_by).map(toPost);
+}
+
+export async function fetchLatestPost(username: string, index: number, timeoutMs?: number): Promise<Post> {
+  const post = (await fetchLatestPosts(username, timeoutMs))[index - 1];
+  if (!post) throw new CardError('NOT_FOUND', 'Post not found');
+  return post;
 }

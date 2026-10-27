@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { fetchLatestPost, fetchPost, fetchProfile } from '../src/fetchers/fxtwitter.js';
+import { fetchLatestPost, fetchLatestPosts, fetchPost, fetchProfile } from '../src/fetchers/fxtwitter.js';
 import { largeAvatar } from '../src/fetchers/shared.js';
 import fxProfile from './fixtures/fx-profile.json' with { type: 'json' };
 import fxStatuses from './fixtures/fx-statuses.json' with { type: 'json' };
@@ -143,5 +143,26 @@ describe('fetchLatestPost', () => {
   it('is NOT_FOUND for an unknown user (404 JSON)', async () => {
     mockFetch(() => jsonResponse({ code: 404, results: [] }, 404));
     await expect(fetchLatestPost('nobody_here', 1)).rejects.toMatchObject({ kind: 'NOT_FOUND' });
+  });
+});
+
+describe('fetchLatestPosts', () => {
+  it('returns own posts newest first, skipping reposts and non-status entries', async () => {
+    const own = fxStatuses.results[0];
+    const results = [
+      { ...own, id: '3', text: 'third' },
+      { ...own, id: '9', reposted_by: { screen_name: 'someone' } },
+      { ...own, id: '2', text: 'second', type: 'thread' },
+      { ...own, id: '1', text: 'first' },
+    ];
+    mockFetch(() => jsonResponse({ ...fxStatuses, results }));
+    const posts = await fetchLatestPosts('Seuthoot');
+    expect(posts.map((p) => p.id)).toEqual(['3', '1']);
+    expect(posts[0].text).toBe('third');
+  });
+
+  it('returns an empty list for an account without posts', async () => {
+    mockFetch(() => jsonResponse({ ...fxStatuses, results: [] }));
+    await expect(fetchLatestPosts('Seuthoot')).resolves.toEqual([]);
   });
 });

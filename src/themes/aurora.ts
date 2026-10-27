@@ -1,13 +1,13 @@
 import type { Post, Profile } from '../model.js';
 import { escapeXml, formatCount, formatDate, measure, wrapText } from '../render/text.js';
 import { initialOf, mediaSummary, metricItems, type MetricKey } from './shared.js';
-import type { Theme } from './types.js';
+import type { RenderOptions, Theme } from './types.js';
 
 const W = 450;
 const FONT = "-apple-system,'Segoe UI',Helvetica,Arial,sans-serif";
 const ICONS: Record<MetricKey, string> = { replies: '💬', reposts: '🔁', likes: '♡', views: '👁' };
 
-function frame(height: number, label: string, body: string): string {
+function frame(height: number, label: string, body: string, opts: RenderOptions = {}): string {
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${height}" viewBox="0 0 ${W} ${height}" role="img" aria-label="${escapeXml(label)}" font-family="${FONT}">
 <title>${escapeXml(label)}</title>
 <defs>
@@ -21,7 +21,7 @@ function frame(height: number, label: string, body: string): string {
 <rect width="${W}" height="${height}" fill="url(#g1)"/>
 <rect width="${W}" height="${height}" fill="url(#g2)"/>
 <rect width="${W}" height="${height}" fill="url(#g3)"/>
-<rect x="12" y="12" width="${W - 24}" height="${height - 24}" rx="14" fill="#ffffff" fill-opacity=".08" stroke="#ffffff" stroke-opacity=".18"/>
+<rect x="12" y="12" width="${W - 24}" height="${height - 24}" rx="14" fill="#ffffff" fill-opacity=".08"${opts.hideBorder ? '' : ' stroke="#ffffff" stroke-opacity=".18"'}/>
 </g>
 ${body}
 </svg>`;
@@ -42,7 +42,7 @@ function badge(x: number, y: number): string {
 
 const oneLine = (text: string, maxWidth: number, fontSize: number) => wrapText(text, { maxWidth, fontSize, maxLines: 1 })[0] ?? '';
 
-function renderProfile(p: Profile, avatarUri: string | null): string {
+function renderProfile(p: Profile, avatarUri: string | null, opts: RenderOptions = {}): string {
   const name = oneLine(p.name, 280, 20);
   const bio = p.bio ? wrapText(p.bio, { maxWidth: W - 56, fontSize: 13, maxLines: 2 }) : [];
   const pillsY = bio.length ? 116 + (bio.length - 1) * 18 + 16 : 114;
@@ -76,13 +76,13 @@ function renderProfile(p: Profile, avatarUri: string | null): string {
     pillSvg,
   ].join('\n');
 
-  return frame(height, `${p.name} (@${p.username}) on X`, body);
+  return frame(height, `${p.name} (@${p.username}) on X`, body, opts);
 }
 
-function renderPost(post: Post, avatarUri: string | null): string {
+function renderPost(post: Post, avatarUri: string | null, opts: RenderOptions = {}): string {
   const name = oneLine(post.author.name, 220, 15);
   const lines = wrapText(post.text, { maxWidth: W - 56, fontSize: 17, maxLines: 4 });
-  const date = formatDate(post.createdAt);
+  const date = formatDate(post.createdAt, opts.locale);
   const media = mediaSummary(post.media);
 
   let y = lines.length ? 102 + (lines.length - 1) * 24 : 78;
@@ -113,7 +113,46 @@ function renderPost(post: Post, avatarUri: string | null): string {
     metrics,
   ].join('\n');
 
-  return frame(height, `Post by @${post.author.username} on X`, body);
+  return frame(height, `Post by @${post.author.username} on X`, body, opts);
+}
+
+/** Header once for the author, then each post's text, media and a "date · metrics" line, split by rules. */
+function renderFeed(posts: Post[], avatarUri: string | null, opts: RenderOptions = {}): string {
+  const author = posts[0].author;
+  const name = oneLine(author.name, 220, 15);
+  const parts = [
+    avatar(avatarUri, author.name, 46, 46, 20),
+    `<text x="78" y="42" font-size="15" font-weight="700" fill="#ffffff">${escapeXml(name)}</text>`,
+    author.verified ? badge(78 + measure(name, 15) + 12, 37) : '',
+    `<text x="78" y="61" font-size="13" fill="#ffffff" fill-opacity=".6">@${escapeXml(author.username)} · Latest posts</text>`,
+  ];
+
+  let y = 78;
+  posts.forEach((post, i) => {
+    if (i > 0) parts.push(`<line x1="28" x2="${W - 28}" y1="${y + 0.5}" y2="${y + 0.5}" stroke="#ffffff" stroke-opacity=".16"/>`);
+    const lines = wrapText(post.text, { maxWidth: W - 56, fontSize: 15, maxLines: 3 });
+    lines.forEach((line, j) => {
+      y += j === 0 ? 24 : 21;
+      parts.push(`<text class="body" x="28" y="${y}" font-size="15" fill="#ffffff">${escapeXml(line)}</text>`);
+    });
+    const media = mediaSummary(post.media);
+    if (media) {
+      y += lines.length ? 20 : 24;
+      parts.push(`<text x="28" y="${y}" font-size="12" fill="#ffffff" fill-opacity=".6">📎 ${media}</text>`);
+    }
+    const date = formatDate(post.createdAt, opts.locale);
+    const metrics = metricItems(post).map(({ key, value }) => `${ICONS[key]} ${formatCount(value)}`);
+    const meta = [date, ...metrics].filter(Boolean);
+    if (meta.length) {
+      y += lines.length || media ? 22 : 24;
+      parts.push(
+        `<text x="28" y="${y}" font-size="12" fill="#ffffff" fill-opacity=".65" xml:space="preserve">${meta.map(escapeXml).join('   ')}</text>`,
+      );
+    }
+    y += 16;
+  });
+
+  return frame(y + 14, `Latest posts by @${author.username} on X`, parts.join('\n'), opts);
 }
 
 function renderError(message: string): string {
@@ -122,4 +161,4 @@ function renderError(message: string): string {
   return frame(110, message, body);
 }
 
-export const aurora: Theme = { name: 'aurora', renderProfile, renderPost, renderError };
+export const aurora: Theme = { name: 'aurora', renderProfile, renderPost, renderFeed, renderError };

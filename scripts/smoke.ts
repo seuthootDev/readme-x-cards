@@ -1,7 +1,7 @@
 // Calls the real (unofficial) sources. Not part of CI: run manually to check the sources still work
 // and to refresh the README preview images.
 import { mkdir, writeFile } from 'node:fs/promises';
-import { CACHE, postCard, profileCard } from '../src/cards.js';
+import { CACHE, feedCard, postCard, profileCard } from '../src/cards.js';
 import { themeNames } from '../src/themes/index.js';
 
 const USER = process.argv[2] ?? 'Seuthoot';
@@ -15,6 +15,7 @@ for (const theme of themeNames) {
     profile: await profileCard(new URLSearchParams({ user: USER, theme })),
     post: await postCard(new URLSearchParams({ user: USER, index: '1', theme })),
     famous: await postCard(new URLSearchParams({ id: '20', theme })),
+    feed: await feedCard(new URLSearchParams({ user: USER, count: '3', theme })),
   };
   for (const [kind, card] of Object.entries(cards)) {
     const file = `${OUT}/${theme}-${kind}.svg`;

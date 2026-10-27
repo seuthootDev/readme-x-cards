@@ -33,13 +33,34 @@ X (Twitter) profile and post cards for your GitHub README. Free, no sign-up, no 
 [![X post](https://readme-x-cards.vercel.app/api/post?user=Seuthoot)](https://x.com/Seuthoot)
 ```
 
-Want your three latest posts? Add three lines with `index=1`, `index=2`, `index=3`.
+### Latest posts in one card
+
+```md
+[![Latest X posts](https://readme-x-cards.vercel.app/api/feed?user=Seuthoot&count=3)](https://x.com/Seuthoot)
+```
+
+One image with your `count` latest posts (1–5). For separate cards instead, use `/api/post` with `index=1`, `index=2`, …
 
 ### A specific post
 
 ```md
 [![X post](https://readme-x-cards.vercel.app/api/post?id=20)](https://x.com/jack/status/20)
 ```
+
+### Match GitHub light and dark mode
+
+GitHub picks the `<source>` that matches each viewer's theme. Here Aurora shows in dark mode and Paper in light mode:
+
+```html
+<a href="https://x.com/Seuthoot">
+  <picture>
+    <source media="(prefers-color-scheme: light)" srcset="https://readme-x-cards.vercel.app/api/profile?user=Seuthoot&theme=paper">
+    <img src="https://readme-x-cards.vercel.app/api/profile?user=Seuthoot&theme=aurora" alt="X profile" width="450">
+  </picture>
+</a>
+```
+
+The [landing page](https://readme-x-cards.vercel.app/) builds this snippet for you.
 
 ## Options
 
@@ -49,13 +70,19 @@ Want your three latest posts? Add three lines with `index=1`, `index=2`, `index=
 | `/api/post` | `id` | Post ID (the number in the post URL) | — |
 | `/api/post` | `user` | X username — shows their latest post | — |
 | `/api/post` | `index` | `1`–`10`, n-th latest post (with `user`) | `1` |
-| both | `theme` | `aurora`, `terminal`, `paper`, `brutal`, `receipt`, `sunset` | `aurora` |
+| `/api/feed` | `user` | X username | required |
+| `/api/feed` | `count` | `1`–`5`, how many latest posts | `3` |
+| all | `theme` | `aurora`, `terminal`, `paper`, `brutal`, `receipt`, `sunset` | `aurora` |
+| all | `hide` | comma-separated: `bio`, `metrics`, `views`, `media`, `date`, `border` | — |
+| all | `locale` | date language, e.g. `ko`, `ja`, `de`, `pt-BR` | `en-US` |
 
 `/api/post` needs either `id` or `user`; `id` wins if both are given.
 
+`hide=border` applies to the themes with an outline (aurora, terminal, paper). The terminal theme always prints ISO dates, so `locale` does not change it.
+
 ## How fresh is the data?
 
-Cards are cached: profiles for 6 hours, latest posts for 1 hour, specific posts for 24 hours. GitHub also caches README images, so changes can take a little longer to show up.
+Cards are cached: profiles for 6 hours, latest posts (and feeds) for 1 hour, specific posts for 24 hours. GitHub also caches README images, so changes can take a little longer to show up.
 
 ## Deploy your own
 
@@ -67,9 +94,9 @@ Optional: connect an [Upstash Redis](https://vercel.com/marketplace/upstash) dat
 
 ## Adding a theme
 
-1. Create `src/themes/<name>.ts` exporting an object that implements `Theme` (`src/themes/types.ts`): `renderProfile`, `renderPost`, `renderError`, each returning a complete SVG string.
+1. Create `src/themes/<name>.ts` exporting an object that implements `Theme` (`src/themes/types.ts`): `renderProfile`, `renderPost`, `renderFeed`, `renderError`, each returning a complete SVG string.
 2. Register it in `src/themes/index.ts`.
-3. Add it to the `describe.each` list in `tests/theme-contract.test.ts` (plus any theme-specific checks) and run `npm test`, then `npm run smoke` to render previews.
+3. Add it to the `describe.each` lists in `tests/theme-contract.test.ts` and `tests/theme-feed.test.ts` (plus any theme-specific checks) and run `npm test`, then `npm run smoke` to render previews.
 
 Rules: card width 450px, escape every external string with `escapeXml`, never reference external URLs (GitHub blocks them inside SVG images — avatars arrive as data URIs).
 

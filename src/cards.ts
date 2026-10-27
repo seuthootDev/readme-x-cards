@@ -1,9 +1,9 @@
-import { getLatestPost, getPostById, getProfile } from './fetchers/index.js';
+import { getLatestPost, getLatestPosts, getPostById, getProfile } from './fetchers/index.js';
 import { recall, remember } from './last-good.js';
 import { CardError, type Post, type Profile } from './model.js';
-import { parsePostQuery, parseProfileQuery, type PostQuery } from './params.js';
+import { parseFeedQuery, parsePostQuery, parseProfileQuery, type Display, type PostQuery } from './params.js';
 import { toDataUri } from './render/avatar.js';
-import { getTheme } from './themes/index.js';
+import { getTheme, type RenderOptions } from './themes/index.js';
 
 export const CACHE = {
   profile: 'public, max-age=3600, s-maxage=21600, stale-while-revalidate=86400',
@@ -32,10 +32,36 @@ interface PostSnapshot {
   avatar: string | null;
 }
 
+interface FeedSnapshot {
+  posts: Post[];
+  avatar: string | null;
+}
+
 const profileKey = (username: string) => `profile:${username.toLowerCase()}`;
 
 const postKey = (query: PostQuery) =>
   query.kind === 'id' ? `post:${query.id}` : `latest:${query.username.toLowerCase()}:${query.index}`;
+
+const feedKey = (username: string, count: number) => `feed:${username.toLowerCase()}:${count}`;
+
+// Hidden fields are removed from the data, so every theme leaves them out the same way it handles
+// data a source did not provide. Snapshots keep the full data; hiding happens at render time.
+function shownProfile(profile: Profile, { hide }: Display): Profile {
+  return hide.includes('bio') ? { ...profile, bio: '' } : profile;
+}
+
+function shownPost(post: Post, { hide }: Display): Post {
+  const shown = { ...post };
+  if (hide.includes('metrics')) {
+    shown.replies = shown.reposts = shown.likes = shown.views = undefined;
+  }
+  if (hide.includes('views')) shown.views = undefined;
+  if (hide.includes('media')) shown.media = { photos: 0, videos: 0 };
+  if (hide.includes('date')) shown.createdAt = '';
+  return shown;
+}
+
+const renderOptions = ({ hide, locale }: Display): RenderOptions => ({ locale, hideBorder: hide.includes('border') });
 
 function errorCard(err: unknown, themeName: string | null): CardResponse {
   const theme = getTheme(themeName);
@@ -55,14 +81,17 @@ export async function profileCard(params: URLSearchParams): Promise<CardResponse
     return errorCard(err, params.get('theme'));
   }
   const theme = getTheme(query.theme);
+  const opts = renderOptions(query);
   try {
     const profile = await getProfile(query.username);
     const avatar = await toDataUri(profile.avatarUrl);
     await remember(profileKey(query.username), { profile, avatar } satisfies ProfileSnapshot);
-    return { svg: theme.renderProfile(profile, avatar), cacheControl: CACHE.profile };
+    return { svg: theme.renderProfile(shownProfile(profile, query), avatar, opts), cacheControl: CACHE.profile };
   } catch (err) {
     const last = await recall<ProfileSnapshot>(profileKey(query.username));
-    if (last) return { svg: theme.renderProfile(last.profile, last.avatar), cacheControl: CACHE.lastGood };
+    if (last) {
+      return { svg: theme.renderProfile(shownProfile(last.profile, query), last.avatar, opts), cacheControl: CACHE.lastGood };
+    }
     return errorCard(err, query.theme);
   }
 }
@@ -75,17 +104,46 @@ export async function postCard(params: URLSearchParams): Promise<CardResponse> {
     return errorCard(err, params.get('theme'));
   }
   const theme = getTheme(query.theme);
+  const opts = renderOptions(query);
   try {
     const post = query.kind === 'id' ? await getPostById(query.id) : await getLatestPost(query.username, query.index);
     const avatar = await toDataUri(post.author.avatarUrl);
     await remember(postKey(query), { post, avatar } satisfies PostSnapshot);
     return {
-      svg: theme.renderPost(post, avatar),
+      svg: theme.renderPost(shownPost(post, query), avatar, opts),
       cacheControl: query.kind === 'id' ? CACHE.postById : CACHE.latestPost,
     };
   } catch (err) {
     const last = await recall<PostSnapshot>(postKey(query));
-    if (last) return { svg: theme.renderPost(last.post, last.avatar), cacheControl: CACHE.lastGood };
+    if (last) return { svg: theme.renderPost(shownPost(last.post, query), last.avatar, opts), cacheControl: CACHE.lastGood };
+    return errorCard(err, query.theme);
+  }
+}
+
+export async function feedCard(params: URLSearchParams): Promise<CardResponse> {
+  let query;
+  try {
+    query = parseFeedQuery(params);
+  } catch (err) {
+    return errorCard(err, params.get('theme'));
+  }
+  const theme = getTheme(query.theme);
+  const opts = renderOptions(query);
+  const render = ({ posts, avatar }: FeedSnapshot) =>
+    theme.renderFeed(
+      posts.map((post) => shownPost(post, query)),
+      avatar,
+      opts,
+    );
+  const key = feedKey(query.username, query.count);
+  try {
+    const posts = await getLatestPosts(query.username, query.count);
+    const avatar = await toDataUri(posts[0].author.avatarUrl);
+    await remember(key, { posts, avatar } satisfies FeedSnapshot);
+    return { svg: render({ posts, avatar }), cacheControl: CACHE.latestPost };
+  } catch (err) {
+    const last = await recall<FeedSnapshot>(key);
+    if (last) return { svg: render(last), cacheControl: CACHE.lastGood };
     return errorCard(err, query.theme);
   }
 }

@@ -43,3 +43,9 @@ export async function getPostById(id: string): Promise<Post> {
 export function getLatestPost(username: string, index: number): Promise<Post> {
   return retryNotFound((timeoutMs) => fxtwitter.fetchLatestPost(username, index, timeoutMs));
 }
+
+export async function getLatestPosts(username: string, count: number): Promise<Post[]> {
+  const posts = await retryNotFound((timeoutMs) => fxtwitter.fetchLatestPosts(username, timeoutMs));
+  if (posts.length === 0) throw new CardError('NOT_FOUND', 'No posts yet');
+  return posts.slice(0, count);
+}

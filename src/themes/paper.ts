@@ -1,17 +1,17 @@
 import type { Post, Profile } from '../model.js';
 import { escapeXml, formatCount, formatDate, measure, wrapText } from '../render/text.js';
 import { checkBadge, initialOf, mediaSummary, metricItems } from './shared.js';
-import type { Theme } from './types.js';
+import type { RenderOptions, Theme } from './types.js';
 
 const W = 450;
 const FONT = "-apple-system,'Segoe UI',Helvetica,Arial,sans-serif";
 const INK = '#1f2328';
 const MUTED = '#59636e';
 
-function frame(height: number, label: string, body: string): string {
+function frame(height: number, label: string, body: string, opts: RenderOptions = {}): string {
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${height}" viewBox="0 0 ${W} ${height}" role="img" aria-label="${escapeXml(label)}" font-family="${FONT}">
 <title>${escapeXml(label)}</title>
-<rect x="0.5" y="0.5" width="${W - 1}" height="${height - 1}" rx="12" fill="#ffffff" stroke="#d0d7de"/>
+<rect x="0.5" y="0.5" width="${W - 1}" height="${height - 1}" rx="12" fill="#ffffff"${opts.hideBorder ? '' : ' stroke="#d0d7de"'}/>
 ${body}
 </svg>`;
 }
@@ -46,7 +46,7 @@ function statRow(items: [number, string][], y: number): string {
     .join('\n');
 }
 
-function renderProfile(p: Profile, avatarUri: string | null): string {
+function renderProfile(p: Profile, avatarUri: string | null, opts: RenderOptions = {}): string {
   const name = oneLine(p.name, p.verified ? 280 : 310, 18);
   const bio = p.bio ? wrapText(p.bio, { maxWidth: W - 48, fontSize: 14, maxLines: 2 }) : [];
   const dividerY = bio.length ? 114 + (bio.length - 1) * 19 + 22 : 100;
@@ -70,13 +70,13 @@ function renderProfile(p: Profile, avatarUri: string | null): string {
     ),
   ].join('\n');
 
-  return frame(height, `${p.name} (@${p.username}) on X`, body);
+  return frame(height, `${p.name} (@${p.username}) on X`, body, opts);
 }
 
-function renderPost(post: Post, avatarUri: string | null): string {
+function renderPost(post: Post, avatarUri: string | null, opts: RenderOptions = {}): string {
   const name = oneLine(post.author.name, 240, 15);
   const lines = wrapText(post.text, { maxWidth: W - 48, fontSize: 16, maxLines: 4 });
-  const date = formatDate(post.createdAt);
+  const date = formatDate(post.createdAt, opts.locale);
   const media = mediaSummary(post.media);
   const metrics = metricItems(post);
 
@@ -104,7 +104,52 @@ function renderPost(post: Post, avatarUri: string | null): string {
       : '',
   ].join('\n');
 
-  return frame(height, `Post by @${post.author.username} on X`, body);
+  return frame(height, `Post by @${post.author.username} on X`, body, opts);
+}
+
+/** The author once, then each post as date, text, media and its stat row, separated by hairlines. */
+function renderFeed(posts: Post[], avatarUri: string | null, opts: RenderOptions = {}): string {
+  const author = posts[0].author;
+  const name = oneLine(author.name, 240, 15);
+  const parts = [
+    avatar(avatarUri, author.name, 44, 44, 20),
+    `<text x="74" y="40" font-size="15" font-weight="600" fill="${INK}">${escapeXml(name)}</text>`,
+    author.verified ? checkBadge(74 + measure(name, 15) + 11, 35, '#1d9bf0', '#ffffff') : '',
+    `<text x="74" y="59" font-size="13" fill="${MUTED}">@${escapeXml(author.username)} · Latest posts</text>`,
+  ];
+
+  let y = 78;
+  posts.forEach((post) => {
+    parts.push(`<line x1="24" x2="${W - 24}" y1="${y + 0.5}" y2="${y + 0.5}" stroke="#d8dee4"/>`);
+    const date = formatDate(post.createdAt, opts.locale);
+    if (date) {
+      y += 24;
+      parts.push(`<text x="24" y="${y}" font-size="12" fill="${MUTED}">${escapeXml(date)}</text>`);
+    }
+    const lines = wrapText(post.text, { maxWidth: W - 48, fontSize: 15, maxLines: 3 });
+    lines.forEach((line, i) => {
+      y += i === 0 && !date ? 26 : 22;
+      parts.push(`<text class="body" x="24" y="${y}" font-size="15" fill="${INK}">${escapeXml(line)}</text>`);
+    });
+    const media = mediaSummary(post.media);
+    if (media) {
+      y += 21;
+      parts.push(`<text x="24" y="${y}" font-size="13" fill="${MUTED}">${media} attached</text>`);
+    }
+    const metrics = metricItems(post);
+    if (metrics.length) {
+      y += 24;
+      parts.push(
+        statRow(
+          metrics.map(({ key, value }) => [value, key]),
+          y,
+        ),
+      );
+    }
+    y += 18;
+  });
+
+  return frame(y + 6, `Latest posts by @${author.username} on X`, parts.join('\n'), opts);
 }
 
 function renderError(message: string): string {
@@ -113,4 +158,4 @@ function renderError(message: string): string {
   return frame(110, message, body);
 }
 
-export const paper: Theme = { name: 'paper', renderProfile, renderPost, renderError };
+export const paper: Theme = { name: 'paper', renderProfile, renderPost, renderFeed, renderError };

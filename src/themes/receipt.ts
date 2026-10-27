@@ -1,7 +1,7 @@
 import type { Post, Profile } from '../model.js';
-import { escapeXml, formatDate, measure, wrapText } from '../render/text.js';
+import { escapeXml, formatCount, formatDate, measure, wrapText } from '../render/text.js';
 import { mediaSummary, metricItems } from './shared.js';
-import type { Theme } from './types.js';
+import type { RenderOptions, Theme } from './types.js';
 
 const W = 450;
 const MONO = "ui-monospace,SFMono-Regular,Consolas,'Liberation Mono','Courier New',monospace";
@@ -99,8 +99,8 @@ function renderProfile(p: Profile, _avatar: string | null): string {
 
 const METRIC_LABELS = { replies: 'REPLIES', reposts: 'REPOSTS', likes: 'LIKES', views: 'VIEWS' } as const;
 
-function renderPost(post: Post, _avatar: string | null): string {
-  const date = formatDate(post.createdAt);
+function renderPost(post: Post, _avatar: string | null, opts: RenderOptions = {}): string {
+  const date = formatDate(post.createdAt, opts.locale);
   const lines = wrapText(post.text, { maxWidth: RIGHT - LEFT, fontSize: 13, maxLines: 4, mono: true });
   const media = mediaSummary(post.media);
   const metrics = metricItems(post);
@@ -144,10 +144,64 @@ function renderPost(post: Post, _avatar: string | null): string {
   return frame(end.height, `Post by @${post.author.username} on X`, parts.join('\n'));
 }
 
+/** One line item per post (number, date, text, short metrics), then totals summed over the posts. */
+function renderFeed(posts: Post[], _avatar: string | null, opts: RenderOptions = {}): string {
+  const author = posts[0].author;
+  const parts = [header('X FEED RECEIPT', `@${author.username} · LATEST ${posts.length}`)];
+
+  let y = 78;
+  posts.forEach((post, i) => {
+    if (i > 0) parts.push(rule(y));
+    y += 26;
+    parts.push(row(y, `ITEM ${i + 1}`, formatDate(post.createdAt, opts.locale)));
+    const lines = wrapText(post.text, { maxWidth: RIGHT - LEFT, fontSize: 13, maxLines: 3, mono: true });
+    lines.forEach((line) => {
+      y += 20;
+      parts.push(`<text class="body" x="${LEFT}" y="${y}" font-size="13" fill="${INK}">${escapeXml(line)}</text>`);
+    });
+    const media = mediaSummary(post.media);
+    if (media) {
+      y += 20;
+      parts.push(`<text x="${LEFT}" y="${y}" font-size="12" fill="${FADED}">+ ${media}</text>`);
+    }
+    const metrics = metricItems(post)
+      .filter((m) => m.key !== 'views')
+      .map(({ key, value }) => `${formatCount(value)} ${METRIC_LABELS[key]}`)
+      .join('  ');
+    if (metrics) {
+      y += 20;
+      parts.push(`<text x="${LEFT}" y="${y}" font-size="11" fill="${FADED}" xml:space="preserve">${metrics}</text>`);
+    }
+    y += 14;
+  });
+
+  const total = (key: 'likes' | 'views') => {
+    const values = posts.map((p) => p[key]).filter((v): v is number => v !== undefined);
+    return values.length ? values.reduce((a, b) => a + b, 0) : undefined;
+  };
+  const totals = [
+    ['TOTAL LIKES', total('likes')],
+    ['TOTAL VIEWS', total('views')],
+  ].filter((t): t is [string, number] => t[1] !== undefined);
+  if (totals.length) {
+    parts.push(rule(y, true));
+    y += 8;
+    for (const [label, value] of totals) {
+      y += 26;
+      parts.push(row(y, label, exact(value), true));
+    }
+    y += 16;
+  }
+
+  const end = footer(y, author.username, 'PLEASE COME AGAIN');
+  parts.push(end.svg);
+  return frame(end.height, `Latest posts by @${author.username} on X`, parts.join('\n'));
+}
+
 function renderError(message: string): string {
   const body = `${header('TRANSACTION DECLINED', 'readme-x-cards')}
 <text x="${W / 2}" y="106" text-anchor="middle" font-size="13" fill="${INK}">${escapeXml(fit(message.toUpperCase(), W - 64, 13))}</text>`;
   return frame(132, message, body);
 }
 
-export const receipt: Theme = { name: 'receipt', renderProfile, renderPost, renderError };
+export const receipt: Theme = { name: 'receipt', renderProfile, renderPost, renderFeed, renderError };

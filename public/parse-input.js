@@ -23,19 +23,28 @@ export function parseInput(raw) {
   return USERNAME.test(handle) ? { type: 'user', username: handle } : null;
 }
 
+export const DEFAULT_LOCALE = 'en-US';
+
+/**
+ * @param {string} origin
+ * @param {{kind:'profile'|'latest'|'feed'|'post', username?:string, id?:string, index?:number, count?:number,
+ *          theme:string, hide?:string[], locale?:string}} sel
+ */
 export function buildCardUrl(origin, sel) {
   const params = new URLSearchParams();
-  if (sel.kind === 'profile') {
-    params.set('user', sel.username);
-  } else if (sel.kind === 'latest') {
-    params.set('user', sel.username);
-    params.set('index', String(sel.index));
-  } else {
+  if (sel.kind === 'post') {
     params.set('id', sel.id);
+  } else {
+    params.set('user', sel.username);
+    if (sel.kind === 'latest') params.set('index', String(sel.index));
+    if (sel.kind === 'feed') params.set('count', String(sel.count));
   }
   params.set('theme', sel.theme);
-  const path = sel.kind === 'profile' ? 'profile' : 'post';
-  return `${origin}/api/${path}?${params}`;
+  if (sel.hide?.length) params.set('hide', sel.hide.join(','));
+  if (sel.locale && sel.locale !== DEFAULT_LOCALE) params.set('locale', sel.locale);
+  const path = { profile: 'profile', feed: 'feed' }[sel.kind] ?? 'post';
+  // Commas in "hide" read better unescaped and are valid in a query string.
+  return `${origin}/api/${path}?${params.toString().replace(/%2C/g, ',')}`;
 }
 
 export function linkFor(sel) {
@@ -45,9 +54,25 @@ export function linkFor(sel) {
 
 const escapeAttr = (s) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
 
-export function buildSnippets(cardUrl, linkUrl, alt) {
+/**
+ * Markdown and HTML snippets. With `lightUrl`, the HTML switches to that card when the viewer's GitHub
+ * theme is light; Markdown cannot express that, so `markdown` is null.
+ */
+export function buildSnippets(cardUrl, linkUrl, alt, lightUrl) {
+  const img = `<img src="${escapeAttr(cardUrl)}" alt="${escapeAttr(alt)}" width="450">`;
+  if (lightUrl) {
+    return {
+      markdown: null,
+      html: `<a href="${escapeAttr(linkUrl)}">
+  <picture>
+    <source media="(prefers-color-scheme: light)" srcset="${escapeAttr(lightUrl)}">
+    ${img}
+  </picture>
+</a>`,
+    };
+  }
   return {
     markdown: `[![${alt}](${cardUrl})](${linkUrl})`,
-    html: `<a href="${escapeAttr(linkUrl)}"><img src="${escapeAttr(cardUrl)}" alt="${escapeAttr(alt)}" width="450"></a>`,
+    html: `<a href="${escapeAttr(linkUrl)}">${img}</a>`,
   };
 }

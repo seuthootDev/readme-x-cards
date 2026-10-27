@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { CACHE, postCard, profileCard } from '../src/cards.js';
+import { CACHE, feedCard, postCard, profileCard } from '../src/cards.js';
 import fxProfile from './fixtures/fx-profile.json' with { type: 'json' };
 import fxStatuses from './fixtures/fx-statuses.json' with { type: 'json' };
 import { htmlResponse, imageResponse, jsonResponse, mockFetch } from './helpers.js';
@@ -80,6 +80,18 @@ describe('last good card', () => {
     env.setUpstream(outage);
     const card = await postCard(q('user=Seuthoot&index=1'));
     expect(card.svg).toContain('Hello! Starting today.');
+    expect(card.cacheControl).toBe(CACHE.lastGood);
+  });
+
+  it('serves the remembered feed with the current display options', async () => {
+    const env = withStore(happyRoutes);
+    await feedCard(q('user=Seuthoot&count=2'));
+    expect(env.store.data.has('feed:seuthoot:2')).toBe(true);
+
+    env.setUpstream(outage);
+    const card = await feedCard(q('user=Seuthoot&count=2&theme=terminal&hide=metrics'));
+    expect(card.svg).toContain('Hello! Starting today.');
+    expect(card.svg).not.toMatch(/likes/);
     expect(card.cacheControl).toBe(CACHE.lastGood);
   });
 

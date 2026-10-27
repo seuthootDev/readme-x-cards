@@ -34,10 +34,10 @@ export function formatCount(n: number): string {
   return String(n);
 }
 
-export function formatDate(iso: string): string {
+export function formatDate(iso: string, locale = 'en-US'): string {
   const date = new Date(iso);
   if (Number.isNaN(date.getTime())) return '';
-  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+  return date.toLocaleDateString(locale, { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
 }
 
 function isWide(cp: number): boolean {

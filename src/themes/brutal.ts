@@ -1,7 +1,7 @@
 import type { Post, Profile } from '../model.js';
 import { escapeXml, formatCount, formatDate, measure, wrapText } from '../render/text.js';
 import { checkBadge, initialOf, mediaSummary, metricItems } from './shared.js';
-import type { Theme } from './types.js';
+import type { RenderOptions, Theme } from './types.js';
 
 const W = 450;
 const FONT = "'Helvetica Neue',Helvetica,Arial,sans-serif";
@@ -81,9 +81,24 @@ function renderProfile(p: Profile, avatarUri: string | null): string {
   return frame(height, `${p.name} (@${p.username}) on X`, body);
 }
 
-function renderPost(post: Post, avatarUri: string | null): string {
-  const date = formatDate(post.createdAt).toUpperCase();
-  const name = heavyLine(post.author.name, date ? 220 : 320, 18);
+/** Room for an 18px heavy name starting at x=80 that must end, badge included, before a tag at `tagX`. */
+const nameRoom = (tagX: number, verified: boolean) => Math.min(220, tagX - 80 - (verified ? 36 : 12));
+
+/** A black tag ending at x=420, at least 102px wide and wider for long localized dates. */
+function tag(text: string, y: number): { svg: string; x: number } {
+  const width = Math.max(102, Math.ceil(measure(text, 11) + text.length + 9));
+  const x = 420 - width;
+  return {
+    x,
+    svg: `<rect x="${x}" y="${y}" width="${width}" height="24" fill="${INK}"/>
+<text x="${x + width / 2}" y="${y + 16}" text-anchor="middle" font-size="11" font-weight="700" letter-spacing="1" fill="${YELLOW}">${escapeXml(text)}</text>`,
+  };
+}
+
+function renderPost(post: Post, avatarUri: string | null, opts: RenderOptions = {}): string {
+  const date = formatDate(post.createdAt, opts.locale).toUpperCase();
+  const dateTag = date ? tag(date, 24) : null;
+  const name = heavyLine(post.author.name, dateTag ? nameRoom(dateTag.x, post.author.verified) : 320, 18);
   const lines = wrapText(post.text, { maxWidth: 396, fontSize: 16, maxLines: 4 });
   const media = mediaSummary(post.media);
   const metrics = metricItems(post);
@@ -98,10 +113,7 @@ function renderPost(post: Post, avatarUri: string | null): string {
     `<text x="80" y="42" font-family="${HEAVY}" font-size="18" font-weight="900" fill="${INK}">${escapeXml(name)}</text>`,
     post.author.verified ? checkBadge(80 + measure(name, 18) * HEAVY_SCALE + 13, 36, INK, YELLOW, true) : '',
     `<text x="80" y="62" font-size="13" font-weight="700" fill="${INK}">@${escapeXml(post.author.username)}</text>`,
-    date
-      ? `<rect x="318" y="24" width="102" height="24" fill="${INK}"/>
-<text x="369" y="40" text-anchor="middle" font-size="11" font-weight="700" letter-spacing="1" fill="${YELLOW}">${escapeXml(date)}</text>`
-      : '',
+    dateTag?.svg ?? '',
     ...lines.map(
       (line, i) =>
         `<text class="body" x="22" y="${102 + i * 23}" font-size="16" font-weight="600" fill="${INK}">${escapeXml(line)}</text>`,
@@ -119,6 +131,57 @@ function renderPost(post: Post, avatarUri: string | null): string {
   return frame(height, `Post by @${post.author.username} on X`, body);
 }
 
+/** The author once, then each post in its own white slab with a hard shadow. */
+function renderFeed(posts: Post[], avatarUri: string | null, opts: RenderOptions = {}): string {
+  const author = posts[0].author;
+  const latest = tag('LATEST', 24);
+  const name = heavyLine(author.name, nameRoom(latest.x, author.verified), 18);
+  const parts = [
+    avatar(avatarUri, author.name, 22, 22, 44),
+    `<text x="80" y="42" font-family="${HEAVY}" font-size="18" font-weight="900" fill="${INK}">${escapeXml(name)}</text>`,
+    author.verified ? checkBadge(80 + measure(name, 18) * HEAVY_SCALE + 13, 36, INK, YELLOW, true) : '',
+    `<text x="80" y="62" font-size="13" font-weight="700" fill="${INK}">@${escapeXml(author.username)}</text>`,
+    latest.svg,
+  ];
+
+  let y = 84;
+  for (const post of posts) {
+    const top = y;
+    const content: string[] = [];
+    const date = formatDate(post.createdAt, opts.locale).toUpperCase();
+    if (date) {
+      y += 22;
+      content.push(`<text x="36" y="${y}" font-size="10" font-weight="700" letter-spacing="1" fill="${INK}">${escapeXml(date)}</text>`);
+    }
+    const lines = wrapText(post.text, { maxWidth: 368, fontSize: 15, maxLines: 3 });
+    lines.forEach((line, i) => {
+      y += i === 0 ? (date ? 22 : 26) : 21;
+      content.push(`<text class="body" x="36" y="${y}" font-size="15" font-weight="600" fill="${INK}">${escapeXml(line)}</text>`);
+    });
+    const media = mediaSummary(post.media);
+    if (media) {
+      y += 20;
+      content.push(`<text x="36" y="${y}" font-size="11" font-weight="700" letter-spacing="1" fill="${INK}">+ ${media.toUpperCase()}</text>`);
+    }
+    const metrics = metricItems(post)
+      .map(({ key, value }) => `${formatCount(value)} ${key.toUpperCase()}`)
+      .join('   ');
+    if (metrics) {
+      y += 22;
+      content.push(`<text x="36" y="${y}" font-size="10" font-weight="700" letter-spacing=".5" fill="${INK}" xml:space="preserve">${metrics}</text>`);
+    }
+    y = Math.max(y + 14, top + 30);
+    parts.push(
+      `<rect x="25" y="${top + 3}" width="396" height="${y - top}" fill="${INK}"/>
+<rect x="22" y="${top}" width="396" height="${y - top}" fill="#ffffff" stroke="${INK}" stroke-width="2.5"/>`,
+      ...content,
+    );
+    y += 14;
+  }
+
+  return frame(y + 16, `Latest posts by @${author.username} on X`, parts.join('\n'));
+}
+
 function renderError(message: string): string {
   const body = `<rect x="22" y="22" width="64" height="22" fill="${INK}"/>
 <text x="54" y="37" text-anchor="middle" font-size="11" font-weight="700" letter-spacing="1" fill="${YELLOW}">ERROR</text>
@@ -127,4 +190,4 @@ function renderError(message: string): string {
   return frame(124, message, body);
 }
 
-export const brutal: Theme = { name: 'brutal', renderProfile, renderPost, renderError };
+export const brutal: Theme = { name: 'brutal', renderProfile, renderPost, renderFeed, renderError };

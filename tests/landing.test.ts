@@ -65,3 +65,40 @@ describe('buildSnippets', () => {
     );
   });
 });
+
+describe('buildCardUrl options', () => {
+  const origin = 'https://cards.example.com';
+  it('builds feed URLs', () => {
+    expect(buildCardUrl(origin, { kind: 'feed', username: 'Seuthoot', count: 3, theme: 'paper' })).toBe(
+      'https://cards.example.com/api/feed?user=Seuthoot&count=3&theme=paper',
+    );
+  });
+  it('adds hide with readable commas and a non-default locale', () => {
+    expect(
+      buildCardUrl(origin, { kind: 'post', id: '20', theme: 'aurora', hide: ['views', 'border'], locale: 'ko' }),
+    ).toBe('https://cards.example.com/api/post?id=20&theme=aurora&hide=views,border&locale=ko');
+  });
+  it('leaves out empty hide lists and the default locale', () => {
+    expect(buildCardUrl(origin, { kind: 'profile', username: 'jack', theme: 'aurora', hide: [], locale: 'en-US' })).toBe(
+      'https://cards.example.com/api/profile?user=jack&theme=aurora',
+    );
+  });
+});
+
+describe('buildSnippets for light and dark', () => {
+  it('wraps the card in a picture that swaps to the light card, with no markdown form', () => {
+    const s = buildSnippets(
+      'https://c.example/api/profile?user=jack&theme=aurora',
+      'https://x.com/jack',
+      'X profile',
+      'https://c.example/api/profile?user=jack&theme=paper',
+    );
+    expect(s.markdown).toBeNull();
+    expect(s.html).toBe(`<a href="https://x.com/jack">
+  <picture>
+    <source media="(prefers-color-scheme: light)" srcset="https://c.example/api/profile?user=jack&amp;theme=paper">
+    <img src="https://c.example/api/profile?user=jack&amp;theme=aurora" alt="X profile" width="450">
+  </picture>
+</a>`);
+  });
+});

@@ -6,7 +6,7 @@ import { sunset } from './sunset.js';
 import { terminal } from './terminal.js';
 import type { Theme } from './types.js';
 
-export type { Theme } from './types.js';
+export type { RenderOptions, Theme } from './types.js';
 
 // Register new themes here. A Map (not an object literal) so names like "constructor" never resolve.
 const THEMES = new Map<string, Theme>([
